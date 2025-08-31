@@ -262,6 +262,12 @@
             align-items: center;
             justify-content: center;
             font-weight: 500;
+            cursor: pointer;
+        }
+        
+        .word-slot.empty {
+            background-color: var(--bege-claro);
+            border: 1px dashed #AAA;
         }
         
         .check-button {
@@ -313,35 +319,6 @@
             font-style: italic;
         }
         
-        .navigation {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 15px;
-        }
-        
-        .nav-button {
-            padding: 8px 20px;
-            border-radius: 50px;
-            border: none;
-            font-family: 'Franklin Gothic Demi', sans-serif;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        
-        .nav-button:hover {
-            transform: scale(1.05);
-        }
-        
-        .prev-button {
-            background-color: var(--amarelo);
-        }
-        
-        .next-button {
-            background-color: var(--verde);
-            color: white;
-        }
-        
         .progress-container {
             width: 90%;
             max-width: 600px;
@@ -357,6 +334,13 @@
             background-color: var(--turquesa);
             width: 0%;
             transition: width 0.5s ease;
+        }
+        
+        .question-counter {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: 500;
+            color: var(--azul-marinho);
         }
         
         /* Página de resultados */
@@ -405,6 +389,24 @@
         .results-mascot {
             width: 150px;
             margin: 0 auto;
+        }
+        
+        .restart-button {
+            background-color: var(--verde);
+            color: white;
+            font-family: 'Franklin Gothic Demi', sans-serif;
+            font-size: 1rem;
+            padding: 10px 25px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto 0;
+            transition: transform 0.2s;
+        }
+        
+        .restart-button:hover {
+            transform: scale(1.05);
         }
         
         /* Responsividade */
@@ -558,9 +560,9 @@
             </div>
             
             <div class="sentence-container" id="sentence-container">
-                <div class="word-slot" id="article-slot"></div>
-                <div class="word-slot" id="clothes-slot-word"></div>
-                <div class="word-slot" id="colors-slot-word"></div>
+                <div class="word-slot empty" id="article-slot" data-type="article"></div>
+                <div class="word-slot empty" id="clothes-slot-word" data-type="clothes"></div>
+                <div class="word-slot empty" id="colors-slot-word" data-type="color"></div>
             </div>
             
             <button class="check-button" id="check-button">Verificar</button>
@@ -569,10 +571,7 @@
             <div class="correct-answer" id="correct-answer"></div>
             <div class="translation" id="translation"></div>
             
-            <div class="navigation">
-                <button class="nav-button prev-button" id="prev-button">VOLTAR</button>
-                <button class="nav-button next-button" id="next-button">AVANÇAR</button>
-            </div>
+            <div class="question-counter" id="question-counter">Questão 1 de 20</div>
         </div>
         
         <div class="progress-container">
@@ -586,6 +585,7 @@
             <div class="results-title" id="results-title"></div>
             <div class="results-text" id="results-text"></div>
             <img src="" alt="Mascote resultado" class="results-mascot" id="results-mascot">
+            <button class="restart-button" id="restart-button">Jogar Novamente</button>
             <audio id="results-audio"></audio>
         </div>
     </div>
@@ -688,7 +688,10 @@
             "rose": "rosa",
             "rouge": "vermelho",
             "vert": "verde",
-            "violet": "violeta"
+            "violet": "violeta",
+            "une": "uma",
+            "un": "um",
+            "des": "uns/umas"
         };
 
         // Variáveis do jogo
@@ -702,6 +705,7 @@
         let correctAnswers = 0;
         let isSpinning = false;
         let usedClothesIndices = [];
+        let isCheckingPhase = false;
 
         // Elementos DOM
         const introPage = document.getElementById('intro-page');
@@ -712,8 +716,7 @@
         const startButton = document.getElementById('start-button');
         const spinButton = document.getElementById('spin-button');
         const checkButton = document.getElementById('check-button');
-        const prevButton = document.getElementById('prev-button');
-        const nextButton = document.getElementById('next-button');
+        const restartButton = document.getElementById('restart-button');
         const clothesSlotInner = document.getElementById('clothes-slot-inner');
         const colorsSlotInner = document.getElementById('colors-slot-inner');
         const optionsContainer = document.getElementById('options-container');
@@ -724,6 +727,7 @@
         const correctAnswer = document.getElementById('correct-answer');
         const translation = document.getElementById('translation');
         const progressBar = document.getElementById('progress-bar');
+        const questionCounter = document.getElementById('question-counter');
         const resultsTitle = document.getElementById('results-title');
         const resultsText = document.getElementById('results-text');
         const resultsMascot = document.getElementById('results-mascot');
@@ -753,38 +757,77 @@
                 playSound(buttonSound);
                 homePage.style.display = 'none';
                 gamePage.style.display = 'flex';
+                resetGame();
                 generateQuestion();
             });
             
             spinButton.addEventListener('click', function() {
-                if (!isSpinning) {
+                if (!isSpinning && !isCheckingPhase) {
                     playSound(buttonSound);
                     spinSlots();
                 }
             });
             
             checkButton.addEventListener('click', function() {
-                playSound(buttonSound);
-                checkAnswer();
-            });
-            
-            prevButton.addEventListener('click', function() {
-                playSound(buttonSound);
-                if (currentQuestion > 0) {
-                    currentQuestion--;
+                if (isCheckingPhase) {
+                    // Se estiver na fase de verificação, transformar em "Girar Roleta Novamente"
+                    playSound(buttonSound);
+                    resetSelection();
+                    spinButton.disabled = false;
+                    spinButton.classList.remove('disabled');
+                    checkButton.textContent = "Verificar";
+                    isCheckingPhase = false;
+                    
+                    // Avançar para a próxima questão
+                    currentQuestion++;
+                    updateQuestionCounter();
                     updateProgressBar();
-                    generateQuestion();
+                    
+                    if (currentQuestion < totalQuestions) {
+                        generateQuestion();
+                    } else {
+                        showResults();
+                    }
+                } else {
+                    // Se estiver na fase normal, verificar a resposta
+                    playSound(buttonSound);
+                    checkAnswer();
                 }
             });
             
-            nextButton.addEventListener('click', function() {
+            restartButton.addEventListener('click', function() {
                 playSound(buttonSound);
-                if (currentQuestion < totalQuestions - 1) {
-                    currentQuestion++;
-                    updateProgressBar();
-                    generateQuestion();
-                } else {
-                    showResults();
+                resultsPage.style.display = 'none';
+                resetGame();
+                gamePage.style.display = 'flex';
+                generateQuestion();
+            });
+            
+            // Configurar cliques nos slots de palavras
+            articleSlot.addEventListener('click', function() {
+                if (articleSlot.textContent && isCheckingPhase) {
+                    returnOptionToSelection(articleSlot.textContent, 'article');
+                    articleSlot.textContent = "";
+                    articleSlot.classList.add('empty');
+                    selectedArticle = "";
+                }
+            });
+            
+            clothesSlotWord.addEventListener('click', function() {
+                if (clothesSlotWord.textContent && isCheckingPhase) {
+                    returnOptionToSelection(clothesSlotWord.textContent, 'clothes');
+                    clothesSlotWord.textContent = "";
+                    clothesSlotWord.classList.add('empty');
+                    selectedClothes = "";
+                }
+            });
+            
+            colorsSlotWord.addEventListener('click', function() {
+                if (colorsSlotWord.textContent && isCheckingPhase) {
+                    returnOptionToSelection(colorsSlotWord.textContent, 'color');
+                    colorsSlotWord.textContent = "";
+                    colorsSlotWord.classList.add('empty');
+                    selectedColor = "";
                 }
             });
         });
@@ -810,9 +853,47 @@
             });
         }
 
+        function resetGame() {
+            currentQuestion = 0;
+            correctAnswers = 0;
+            usedClothesIndices = [];
+            updateQuestionCounter();
+            updateProgressBar();
+            resetSelection();
+        }
+
+        function resetSelection() {
+            selectedArticle = "";
+            selectedClothes = "";
+            selectedColor = "";
+            
+            articleSlot.textContent = "";
+            clothesSlotWord.textContent = "";
+            colorsSlotWord.textContent = "";
+            
+            articleSlot.classList.add('empty');
+            clothesSlotWord.classList.add('empty');
+            colorsSlotWord.classList.add('empty');
+            
+            feedback.textContent = "";
+            correctAnswer.textContent = "";
+            translation.textContent = "";
+            
+            optionsContainer.innerHTML = "";
+            
+            spinButton.disabled = false;
+            spinButton.classList.remove('disabled');
+            checkButton.textContent = "Verificar";
+            isCheckingPhase = false;
+        }
+
         function spinSlots() {
             isSpinning = true;
+            spinButton.disabled = true;
             spinButton.classList.add('disabled');
+            
+            // Limpar seleção anterior
+            resetSelection();
             
             // Gerar índices aleatórios (não repetir roupas já usadas)
             let randomClothesIndex;
@@ -844,25 +925,13 @@
                 currentClothesIndex = randomClothesIndex;
                 currentColorsIndex = randomColorsIndex;
                 isSpinning = false;
-                spinButton.classList.remove('disabled');
                 generateOptions();
             }, 4000);
         }
 
         function generateQuestion() {
             // Limpar seleções anteriores
-            selectedArticle = "";
-            selectedClothes = "";
-            selectedColor = "";
-            
-            articleSlot.textContent = "";
-            clothesSlotWord.textContent = "";
-            colorsSlotWord.textContent = "";
-            feedback.textContent = "";
-            correctAnswer.textContent = "";
-            translation.textContent = "";
-            
-            optionsContainer.innerHTML = "";
+            resetSelection();
             
             // Gerar slots aleatórios se não estiverem girando
             if (!isSpinning) {
@@ -913,7 +982,7 @@
                 correctColorForm = currentColor.variations[variationIndex];
             }
             
-            // Criar opções para artigo
+            // Criar opções para artigo (3 opções)
             const articleOptions = [currentClothes.article];
             
             // Adicionar artigos incorretos para dificultar
@@ -940,13 +1009,13 @@
                 optionsContainer.appendChild(optionElement);
             });
             
-            // Criar opções para roupa
+            // Criar opções para roupa (2 opções)
             const clothesOptions = [currentClothes.name];
             
             // Adicionar outras roupas para dificultar
             const otherClothes = clothes.filter(item => item.name !== currentClothes.name);
             shuffleArray(otherClothes);
-            clothesOptions.push(otherClothes[0].name, otherClothes[1].name);
+            clothesOptions.push(otherClothes[0].name);
             
             // Embaralhar opções
             shuffleArray(clothesOptions);
@@ -963,14 +1032,14 @@
                 optionsContainer.appendChild(optionElement);
             });
             
-            // Criar opções para cor
+            // Criar opções para cor (2 opções)
             const colorOptions = [correctColorForm];
             
             // Adicionar outras formas da mesma cor ou cores diferentes
             const otherColors = [...currentColor.variations.filter(v => v !== correctColorForm)];
             
             // Se não houver variações suficientes, adicionar cores de outras cores
-            if (otherColors.length < 2) {
+            if (otherColors.length < 1) {
                 const otherColorNames = colors.filter(color => color.name !== currentColor.name);
                 shuffleArray(otherColorNames);
                 
@@ -984,23 +1053,8 @@
                     otherColorForm = otherColor.variations[variationIndex];
                 }
                 colorOptions.push(otherColorForm);
-                
-                // Adicionar outra cor se necessário
-                if (otherColors.length === 0) {
-                    const anotherColor = otherColorNames[1];
-                    let anotherColorForm = "";
-                    if (anotherColor.name === "beige" || anotherColor.name === "marron" || anotherColor.name === "orange") {
-                        anotherColorForm = anotherColor.variations[0];
-                    } else {
-                        const variationIndex = (currentClothes.gender === "m" ? 0 : 1) + (currentClothes.number === "s" ? 0 : 2);
-                        anotherColorForm = anotherColor.variations[variationIndex];
-                    }
-                    colorOptions.push(anotherColorForm);
-                } else {
-                    colorOptions.push(otherColors[0]);
-                }
             } else {
-                colorOptions.push(otherColors[0], otherColors[1]);
+                colorOptions.push(otherColors[0]);
             }
             
             // Embaralhar opções
@@ -1022,37 +1076,52 @@
         function selectOption(element, type, value) {
             playSound(buttonSound);
             
-            // Remover seleção anterior do mesmo tipo
-            const previousSelected = optionsContainer.querySelector(`.option.selected[data-type="${type}"]`);
-            if (previousSelected) {
-                previousSelected.classList.remove('selected');
-                
-                // Limpar slot correspondente
-                if (type === 'article') {
-                    articleSlot.textContent = "";
-                    selectedArticle = "";
-                } else if (type === 'clothes') {
-                    clothesSlotWord.textContent = "";
-                    selectedClothes = "";
-                } else if (type === 'color') {
-                    colorsSlotWord.textContent = "";
-                    selectedColor = "";
-                }
+            // Verificar se já existe uma seleção deste tipo
+            if (type === 'article' && selectedArticle) {
+                returnOptionToSelection(selectedArticle, 'article');
+                selectedArticle = "";
+                articleSlot.textContent = "";
+                articleSlot.classList.add('empty');
+            } else if (type === 'clothes' && selectedClothes) {
+                returnOptionToSelection(selectedClothes, 'clothes');
+                selectedClothes = "";
+                clothesSlotWord.textContent = "";
+                clothesSlotWord.classList.add('empty');
+            } else if (type === 'color' && selectedColor) {
+                returnOptionToSelection(selectedColor, 'color');
+                selectedColor = "";
+                colorsSlotWord.textContent = "";
+                colorsSlotWord.classList.add('empty');
             }
             
             // Adicionar seleção atual
             element.classList.add('selected');
+            element.style.visibility = 'hidden';
             
             // Atualizar slot correspondente
             if (type === 'article') {
                 articleSlot.textContent = value;
+                articleSlot.classList.remove('empty');
                 selectedArticle = value;
             } else if (type === 'clothes') {
                 clothesSlotWord.textContent = value;
+                clothesSlotWord.classList.remove('empty');
                 selectedClothes = value;
             } else if (type === 'color') {
                 colorsSlotWord.textContent = value;
+                colorsSlotWord.classList.remove('empty');
                 selectedColor = value;
+            }
+        }
+
+        function returnOptionToSelection(value, type) {
+            const options = optionsContainer.querySelectorAll('.option');
+            for (let option of options) {
+                if (option.textContent === value && option.dataset.type === type) {
+                    option.classList.remove('selected');
+                    option.style.visibility = 'visible';
+                    break;
+                }
             }
         }
 
@@ -1101,8 +1170,18 @@
                 translation.textContent = `Tradução: ${translations[currentClothes.article] || ""} ${clothesTranslation} ${colorTranslation}`;
             }
             
+            // Transformar o botão em "Girar Roleta Novamente"
+            checkButton.textContent = "Girar Roleta Novamente";
+            isCheckingPhase = true;
+            spinButton.disabled = true;
+            spinButton.classList.add('disabled');
+            
             // Salvar progresso
             saveProgress();
+        }
+
+        function updateQuestionCounter() {
+            questionCounter.textContent = `Questão ${currentQuestion + 1} de ${totalQuestions}`;
         }
 
         function updateProgressBar() {
@@ -1157,6 +1236,7 @@
                 correctAnswers = progress.correctAnswers || 0;
                 totalQuestions = progress.totalQuestions || 20;
                 usedClothesIndices = progress.usedClothesIndices || [];
+                updateQuestionCounter();
                 updateProgressBar();
             }
         }
