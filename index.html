@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jeu de Machine à Sous Français</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Franklin+Gothic+Demi&display=swap" rel="stylesheet">
     <style>
         /* Reset e estilos base */
         * {
@@ -12,11 +14,27 @@
             box-sizing: border-box;
         }
         
+        :root {
+            --azul-marinho: #002F6C;
+            --vermelho: #C8102E;
+            --bege-claro: #F4F1EC;
+            --verde: #3B8C59;
+            --amarelo: #F5C84C;
+            --lavanda: #C6B9DD;
+            --ciano: #007BA7;
+            --vinho: #6C002F;
+            --verde-floresta: #2E6C00;
+            --marrom-dourado: #6C4500;
+            --magenta: #A7007B;
+            --turquesa: #10C894;
+        }
+        
         body {
             font-family: 'Poppins', sans-serif;
             overflow: hidden;
             height: 100vh;
             width: 100vw;
+            background-color: var(--bege-claro);
         }
         
         /* Página de introdução */
@@ -50,7 +68,7 @@
             width: 100%;
             height: 100%;
             background-color: #F1E1AC;
-            display: flex;
+            display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -63,7 +81,7 @@
         }
         
         .start-button {
-            background-color: #002F6C;
+            background-color: var(--azul-marinho);
             color: white;
             font-family: 'Franklin Gothic Demi', sans-serif;
             font-size: 1.5rem;
@@ -98,15 +116,16 @@
             position: absolute;
             top: 20px;
             left: 20px;
-            width: 100px;
+            width: 80px;
+            height: auto;
         }
         
         .game-container {
-            background-color: #002F6C;
+            background-color: var(--azul-marinho);
             border-radius: 20px;
-            padding: 30px;
+            padding: 20px;
             width: 90%;
-            max-width: 800px;
+            max-width: 600px;
             position: relative;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
@@ -115,17 +134,18 @@
             position: absolute;
             bottom: -30px;
             left: -30px;
-            width: 100px;
+            width: 80px;
+            height: auto;
         }
         
         .enunciado {
-            background-color: #C8102E;
+            background-color: var(--vermelho);
             border-radius: 50px;
-            padding: 15px 30px;
+            padding: 12px 20px;
             text-align: center;
-            margin: -50px auto 30px;
+            margin: -40px auto 20px;
             width: 90%;
-            max-width: 600px;
+            max-width: 500px;
             position: relative;
             z-index: 10;
         }
@@ -133,23 +153,25 @@
         .enunciado p {
             font-family: 'Rockwell', serif;
             color: white;
-            font-size: 1.2rem;
+            font-size: 1rem;
         }
         
         .slots-container {
             display: flex;
             justify-content: space-around;
-            margin: 30px 0;
+            margin: 20px 0;
+            gap: 15px;
         }
         
         .slot {
             width: 45%;
-            height: 200px;
+            height: 150px;
             background: white;
             border-radius: 10px;
             overflow: hidden;
             position: relative;
             box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+            border: 3px solid var(--amarelo);
         }
         
         .slot-inner {
@@ -159,31 +181,31 @@
         }
         
         .slot-item {
-            height: 200px;
+            height: 150px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: bold;
         }
         
         .slot-item img {
-            max-width: 90%;
-            max-height: 90%;
+            max-width: 85%;
+            max-height: 85%;
             object-fit: contain;
         }
         
         .spin-button {
-            background-color: #3B8C59;
+            background-color: var(--verde);
             color: white;
             font-family: 'Franklin Gothic Demi', sans-serif;
-            font-size: 1.2rem;
-            padding: 12px 30px;
+            font-size: 1rem;
+            padding: 10px 25px;
             border-radius: 50px;
             border: none;
             cursor: pointer;
             display: block;
-            margin: 0 auto 20px;
+            margin: 0 auto 15px;
             transition: transform 0.2s;
         }
         
@@ -195,17 +217,17 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 10px;
-            margin: 20px 0;
+            gap: 8px;
+            margin: 15px 0;
         }
         
         .option {
-            background-color: #C6B9DD;
-            padding: 10px 15px;
-            border-radius: 8px;
+            background-color: var(--lavanda);
+            padding: 8px 12px;
+            border-radius: 6px;
             cursor: pointer;
             transition: all 0.2s;
-            font-size: 1.1rem;
+            font-size: 0.9rem;
         }
         
         .option:hover {
@@ -213,41 +235,46 @@
             transform: translateY(-3px);
         }
         
+        .option.selected {
+            background-color: var(--amarelo);
+        }
+        
         .sentence-container {
-            min-height: 60px;
+            min-height: 50px;
             background: white;
-            border-radius: 10px;
-            padding: 15px;
-            margin: 20px 0;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 15px 0;
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
             align-items: center;
             justify-content: center;
         }
         
         .word-slot {
-            background-color: #F4F1EC;
-            padding: 8px 15px;
+            background-color: var(--bege-claro);
+            padding: 6px 12px;
             border-radius: 5px;
-            min-width: 80px;
-            min-height: 40px;
+            min-width: 70px;
+            min-height: 35px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-weight: 500;
         }
         
         .check-button {
-            background-color: #3B8C59;
+            background-color: var(--verde);
             color: white;
             font-family: 'Franklin Gothic Demi', sans-serif;
-            font-size: 1.2rem;
-            padding: 12px 30px;
+            font-size: 1rem;
+            padding: 10px 25px;
             border-radius: 50px;
             border: none;
             cursor: pointer;
             display: block;
-            margin: 20px auto;
+            margin: 15px auto;
             transition: transform 0.2s;
         }
         
@@ -258,38 +285,46 @@
         .feedback {
             text-align: center;
             font-family: 'Cooper Black', serif;
-            font-size: 1.5rem;
-            margin: 10px 0;
-            min-height: 40px;
+            font-size: 1.3rem;
+            margin: 8px 0;
+            min-height: 35px;
         }
         
         .correct {
-            color: #3B8C59;
+            color: var(--verde);
         }
         
         .incorrect {
-            color: #C8102E;
+            color: var(--vermelho);
         }
         
         .correct-answer {
             text-align: center;
-            font-size: 1.2rem;
-            margin: 10px 0;
-            color: #002F6C;
+            font-size: 1rem;
+            margin: 8px 0;
+            color: var(--azul-marinho);
+        }
+        
+        .translation {
+            text-align: center;
+            font-size: 0.9rem;
+            margin: 5px 0;
+            color: var(--vinho);
+            font-style: italic;
         }
         
         .navigation {
             display: flex;
             justify-content: space-between;
-            margin-top: 20px;
+            margin-top: 15px;
         }
         
         .nav-button {
-            padding: 10px 25px;
+            padding: 8px 20px;
             border-radius: 50px;
             border: none;
             font-family: 'Franklin Gothic Demi', sans-serif;
-            font-size: 1rem;
+            font-size: 0.9rem;
             cursor: pointer;
             transition: transform 0.2s;
         }
@@ -299,27 +334,27 @@
         }
         
         .prev-button {
-            background-color: #F5C84C;
+            background-color: var(--amarelo);
         }
         
         .next-button {
-            background-color: #3B8C59;
+            background-color: var(--verde);
             color: white;
         }
         
         .progress-container {
             width: 90%;
-            max-width: 800px;
-            height: 10px;
-            background-color: #F4F1EC;
-            border-radius: 5px;
-            margin-top: 20px;
+            max-width: 600px;
+            height: 8px;
+            background-color: var(--bege-claro);
+            border-radius: 4px;
+            margin-top: 15px;
             overflow: hidden;
         }
         
         .progress-bar {
             height: 100%;
-            background-color: #10C894;
+            background-color: var(--turquesa);
             width: 0%;
             transition: width 0.5s ease;
         }
@@ -341,33 +376,34 @@
         }
         
         .results-container {
-            background-color: #002F6C;
+            background-color: var(--azul-marinho);
             border-radius: 20px;
-            padding: 40px;
+            padding: 30px;
             width: 90%;
-            max-width: 700px;
+            max-width: 600px;
             text-align: center;
             color: white;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
         
         .results-title {
-            background-color: #C8102E;
+            background-color: var(--vermelho);
             border-radius: 50px;
-            padding: 15px;
+            padding: 12px;
             font-family: 'Franklin Gothic Demi', sans-serif;
-            font-size: 2rem;
-            margin-bottom: 20px;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
         }
         
         .results-text {
             font-family: 'Poppins', sans-serif;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             line-height: 1.6;
+            font-size: 0.95rem;
         }
         
         .results-mascot {
-            width: 200px;
+            width: 150px;
             margin: 0 auto;
         }
         
@@ -380,46 +416,52 @@
             .slots-container {
                 flex-direction: column;
                 align-items: center;
-                gap: 20px;
+                gap: 15px;
             }
             
             .slot {
                 width: 90%;
+                height: 130px;
+            }
+            
+            .slot-item {
+                height: 130px;
             }
             
             .enunciado p {
-                font-size: 1rem;
+                font-size: 0.9rem;
             }
             
             .option {
-                font-size: 0.9rem;
-                padding: 8px 12px;
+                font-size: 0.8rem;
+                padding: 6px 10px;
             }
-        }
-        
-        @media (max-width: 480px) {
+            
             .game-container {
-                padding: 20px 15px;
+                padding: 15px;
             }
             
             .mascot-small {
-                width: 70px;
+                width: 60px;
                 bottom: -20px;
                 left: -20px;
             }
             
             .logo {
-                width: 70px;
-                top: 10px;
-                left: 10px;
+                width: 60px;
+                top: 15px;
+                left: 15px;
             }
-            
+        }
+        
+        @media (max-width: 480px) {
             .slot {
-                height: 150px;
+                height: 110px;
+                width: 95%;
             }
             
             .slot-item {
-                height: 150px;
+                height: 110px;
             }
             
             .results-container {
@@ -429,6 +471,45 @@
             .results-title {
                 font-size: 1.5rem;
             }
+            
+            .start-button {
+                font-size: 1.2rem;
+                padding: 12px 30px;
+            }
+            
+            .mascot {
+                width: 150px;
+            }
+            
+            .word-slot {
+                min-width: 60px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Animações */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .slide-in {
+            animation: slideIn 0.4s ease-out;
+        }
+        
+        /* Estilo para elementos desabilitados */
+        .disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
     </style>
 </head>
@@ -486,6 +567,7 @@
             
             <div class="feedback" id="feedback"></div>
             <div class="correct-answer" id="correct-answer"></div>
+            <div class="translation" id="translation"></div>
             
             <div class="navigation">
                 <button class="nav-button prev-button" id="prev-button">VOLTAR</button>
@@ -518,33 +600,33 @@
     <script>
         // Dados do jogo
         const clothes = [
-            { name: "L'écharpe", article: "une", image: "L'écharpe.png", gender: "f", number: "s" },
-            { name: "la bangue", article: "une", image: "la bangue.png", gender: "f", number: "s" },
-            { name: "la botte", article: "une", image: "la botte.png", gender: "f", number: "s" },
-            { name: "la casquette", article: "une", image: "la casquette.png", gender: "f", number: "s" },
-            { name: "la ceinture", article: "une", image: "la ceinture.png", gender: "f", number: "s" },
-            { name: "la chaussure", article: "une", image: "la chaussure.png", gender: "f", number: "s" },
-            { name: "la cravate", article: "une", image: "la cravate.png", gender: "f", number: "s" },
-            { name: "la jupe", article: "une", image: "la jupe.png", gender: "f", number: "s" },
-            { name: "la montre", article: "une", image: "la montre.png", gender: "f", number: "s" },
-            { name: "la robe", article: "une", image: "la robe.png", gender: "f", number: "s" },
-            { name: "la sandale", article: "une", image: "la sandale.png", gender: "f", number: "s" },
-            { name: "le blouson", article: "un", image: "le blouson.png", gender: "m", number: "s" },
-            { name: "le bracelet", article: "un", image: "le bracelet.png", gender: "m", number: "s" },
-            { name: "le chapeau", article: "un", image: "le chapeau.png", gender: "m", number: "s" },
-            { name: "le collier", article: "un", image: "le collier.png", gender: "m", number: "s" },
-            { name: "le haut", article: "un", image: "le haut.png", gender: "m", number: "s" },
-            { name: "le manteau", article: "un", image: "le manteau.png", gender: "m", number: "s" },
-            { name: "le pantalon", article: "un", image: "le pantalon.png", gender: "m", number: "s" },
-            { name: "le parapluie", article: "un", image: "le parapluie.png", gender: "m", number: "s" },
-            { name: "le sac", article: "un", image: "le sac.png", gender: "m", number: "s" },
-            { name: "le short", article: "un", image: "le short.png", gender: "m", number: "s" },
-            { name: "le t-shirt", article: "un", image: "le t-shirt.png", gender: "m", number: "s" },
-            { name: "le tong", article: "un", image: "le tong.png", gender: "m", number: "s" },
-            { name: "les boucles d'oreille", article: "des", image: "les boucles d'oreille.png", gender: "f", number: "p" },
-            { name: "les chaussettes", article: "des", image: "les chaussettes.png", gender: "f", number: "p" },
-            { name: "les gants", article: "des", image: "les gants.png", gender: "m", number: "p" },
-            { name: "les lunettes", article: "des", image: "les lunettes.png", gender: "f", number: "p" }
+            { name: "écharpe", article: "une", image: "L'écharpe.png", gender: "f", number: "s" },
+            { name: "bangue", article: "une", image: "la bangue.png", gender: "f", number: "s" },
+            { name: "botte", article: "une", image: "la botte.png", gender: "f", number: "s" },
+            { name: "casquette", article: "une", image: "la casquette.png", gender: "f", number: "s" },
+            { name: "ceinture", article: "une", image: "la ceinture.png", gender: "f", number: "s" },
+            { name: "chaussure", article: "une", image: "la chaussure.png", gender: "f", number: "s" },
+            { name: "cravate", article: "une", image: "la cravate.png", gender: "f", number: "s" },
+            { name: "jupe", article: "une", image: "la jupe.png", gender: "f", number: "s" },
+            { name: "montre", article: "une", image: "la montre.png", gender: "f", number: "s" },
+            { name: "robe", article: "une", image: "la robe.png", gender: "f", number: "s" },
+            { name: "sandale", article: "une", image: "la sandale.png", gender: "f", number: "s" },
+            { name: "blouson", article: "un", image: "le blouson.png", gender: "m", number: "s" },
+            { name: "bracelet", article: "un", image: "le bracelet.png", gender: "m", number: "s" },
+            { name: "chapeau", article: "un", image: "le chapeau.png", gender: "m", number: "s" },
+            { name: "collier", article: "un", image: "le collier.png", gender: "m", number: "s" },
+            { name: "haut", article: "un", image: "le haut.png", gender: "m", number: "s" },
+            { name: "manteau", article: "un", image: "le manteau.png", gender: "m", number: "s" },
+            { name: "pantalon", article: "un", image: "le pantalon.png", gender: "m", number: "s" },
+            { name: "parapluie", article: "un", image: "le parapluie.png", gender: "m", number: "s" },
+            { name: "sac", article: "un", image: "le sac.png", gender: "m", number: "s" },
+            { name: "short", article: "un", image: "le short.png", gender: "m", number: "s" },
+            { name: "t-shirt", article: "un", image: "le t-shirt.png", gender: "m", number: "s" },
+            { name: "tong", article: "un", image: "le tong.png", gender: "m", number: "s" },
+            { name: "boucles d'oreille", article: "des", image: "les boucles d'oreille.png", gender: "f", number: "p" },
+            { name: "chaussettes", article: "des", image: "les chaussettes.png", gender: "f", number: "p" },
+            { name: "gants", article: "des", image: "les gants.png", gender: "m", number: "p" },
+            { name: "lunettes", article: "des", image: "les lunettes.png", gender: "f", number: "p" }
         ];
 
         const colors = [
@@ -564,6 +646,51 @@
             { name: "violet", variations: ["violet", "violette", "violets", "violettes"] }
         ];
 
+        // Traduções para português
+        const translations = {
+            "écharpe": "cachecol",
+            "bangue": "pulseira",
+            "botte": "bota",
+            "casquette": "boné",
+            "ceinture": "cinto",
+            "chaussure": "sapato",
+            "cravate": "gravata",
+            "jupe": "saia",
+            "montre": "relógio",
+            "robe": "vestido",
+            "sandale": "sandália",
+            "blouson": "jaqueta",
+            "bracelet": "pulseira",
+            "chapeau": "chapéu",
+            "collier": "colar",
+            "haut": "blusa",
+            "manteau": "casaco",
+            "pantalon": "calça",
+            "parapluie": "guarda-chuva",
+            "sac": "bolsa",
+            "short": "short",
+            "t-shirt": "camiseta",
+            "tong": "chinelo",
+            "boucles d'oreille": "brincos",
+            "chaussettes": "meias",
+            "gants": "luvas",
+            "lunettes": "óculos",
+            "beige": "bege",
+            "blanc": "branco",
+            "bleu clair": "azul claro",
+            "bleu marine": "azul marinho",
+            "bleu": "azul",
+            "gris": "cinza",
+            "jaune": "amarelo",
+            "marron": "marrom",
+            "noir": "preto",
+            "orange": "laranja",
+            "rose": "rosa",
+            "rouge": "vermelho",
+            "vert": "verde",
+            "violet": "violeta"
+        };
+
         // Variáveis do jogo
         let currentClothesIndex = 0;
         let currentColorsIndex = 0;
@@ -571,9 +698,10 @@
         let selectedClothes = "";
         let selectedColor = "";
         let currentQuestion = 0;
-        let totalQuestions = 10;
+        let totalQuestions = 20;
         let correctAnswers = 0;
         let isSpinning = false;
+        let usedClothesIndices = [];
 
         // Elementos DOM
         const introPage = document.getElementById('intro-page');
@@ -594,6 +722,7 @@
         const colorsSlotWord = document.getElementById('colors-slot-word');
         const feedback = document.getElementById('feedback');
         const correctAnswer = document.getElementById('correct-answer');
+        const translation = document.getElementById('translation');
         const progressBar = document.getElementById('progress-bar');
         const resultsTitle = document.getElementById('results-title');
         const resultsText = document.getElementById('results-text');
@@ -683,14 +812,25 @@
 
         function spinSlots() {
             isSpinning = true;
+            spinButton.classList.add('disabled');
             
-            // Gerar índices aleatórios
-            const randomClothesIndex = Math.floor(Math.random() * clothes.length);
+            // Gerar índices aleatórios (não repetir roupas já usadas)
+            let randomClothesIndex;
+            do {
+                randomClothesIndex = Math.floor(Math.random() * clothes.length);
+            } while (usedClothesIndices.includes(randomClothesIndex) && usedClothesIndices.length < clothes.length);
+            
+            // Se já usamos todas as roupas, resetar
+            if (usedClothesIndices.length >= clothes.length) {
+                usedClothesIndices = [];
+            }
+            
+            usedClothesIndices.push(randomClothesIndex);
             const randomColorsIndex = Math.floor(Math.random() * colors.length);
             
             // Calcular posições para os slots
-            const clothesPosition = -randomClothesIndex * 200;
-            const colorsPosition = -randomColorsIndex * 200;
+            const clothesPosition = -randomClothesIndex * 150;
+            const colorsPosition = -randomColorsIndex * 150;
             
             // Aplicar animação aos slots
             clothesSlotInner.style.transition = 'top 4s cubic-bezier(0.17, 0.67, 0.83, 0.67)';
@@ -704,6 +844,7 @@
                 currentClothesIndex = randomClothesIndex;
                 currentColorsIndex = randomColorsIndex;
                 isSpinning = false;
+                spinButton.classList.remove('disabled');
                 generateOptions();
             }, 4000);
         }
@@ -719,19 +860,31 @@
             colorsSlotWord.textContent = "";
             feedback.textContent = "";
             correctAnswer.textContent = "";
+            translation.textContent = "";
             
             optionsContainer.innerHTML = "";
             
             // Gerar slots aleatórios se não estiverem girando
             if (!isSpinning) {
-                const randomClothesIndex = Math.floor(Math.random() * clothes.length);
+                // Não repetir roupas já usadas
+                let randomClothesIndex;
+                do {
+                    randomClothesIndex = Math.floor(Math.random() * clothes.length);
+                } while (usedClothesIndices.includes(randomClothesIndex) && usedClothesIndices.length < clothes.length);
+                
+                // Se já usamos todas as roupas, resetar
+                if (usedClothesIndices.length >= clothes.length) {
+                    usedClothesIndices = [];
+                }
+                
+                usedClothesIndices.push(randomClothesIndex);
                 const randomColorsIndex = Math.floor(Math.random() * colors.length);
                 
                 clothesSlotInner.style.transition = 'none';
                 colorsSlotInner.style.transition = 'none';
                 
-                clothesSlotInner.style.top = (-randomClothesIndex * 200) + 'px';
-                colorsSlotInner.style.top = (-randomColorsIndex * 200) + 'px';
+                clothesSlotInner.style.top = (-randomClothesIndex * 150) + 'px';
+                colorsSlotInner.style.top = (-randomColorsIndex * 150) + 'px';
                 
                 currentClothesIndex = randomClothesIndex;
                 currentColorsIndex = randomColorsIndex;
@@ -941,6 +1094,11 @@
                 // Mostrar resposta correta
                 const correctAnswerText = `${currentClothes.article} ${currentClothes.name} ${correctColorForm}`;
                 correctAnswer.textContent = `Resposta correta: ${correctAnswerText}`;
+                
+                // Mostrar tradução
+                const colorTranslation = translations[currentColor.name] || currentColor.name;
+                const clothesTranslation = translations[currentClothes.name] || currentClothes.name;
+                translation.textContent = `Tradução: ${translations[currentClothes.article] || ""} ${clothesTranslation} ${colorTranslation}`;
             }
             
             // Salvar progresso
@@ -985,7 +1143,8 @@
             const progress = {
                 currentQuestion: currentQuestion,
                 correctAnswers: correctAnswers,
-                totalQuestions: totalQuestions
+                totalQuestions: totalQuestions,
+                usedClothesIndices: usedClothesIndices
             };
             localStorage.setItem('quizProgress', JSON.stringify(progress));
         }
@@ -996,7 +1155,8 @@
                 const progress = JSON.parse(savedProgress);
                 currentQuestion = progress.currentQuestion || 0;
                 correctAnswers = progress.correctAnswers || 0;
-                totalQuestions = progress.totalQuestions || 10;
+                totalQuestions = progress.totalQuestions || 20;
+                usedClothesIndices = progress.usedClothesIndices || [];
                 updateProgressBar();
             }
         }
