@@ -263,11 +263,16 @@
             justify-content: center;
             font-weight: 500;
             cursor: pointer;
+            transition: all 0.2s;
         }
         
         .word-slot.empty {
             background-color: var(--bege-claro);
             border: 1px dashed #AAA;
+        }
+        
+        .word-slot.filled {
+            background-color: var(--lavanda);
         }
         
         .check-button {
@@ -513,6 +518,10 @@
             opacity: 0.6;
             cursor: not-allowed;
         }
+        
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -706,6 +715,11 @@
         let isSpinning = false;
         let usedClothesIndices = [];
         let isCheckingPhase = false;
+        let selectedOptions = {
+            article: null,
+            clothes: null,
+            color: null
+        };
 
         // Elementos DOM
         const introPage = document.getElementById('intro-page');
@@ -774,7 +788,6 @@
                     playSound(buttonSound);
                     resetSelection();
                     spinButton.disabled = false;
-                    spinButton.classList.remove('disabled');
                     checkButton.textContent = "Verificar";
                     isCheckingPhase = false;
                     
@@ -784,7 +797,7 @@
                     updateProgressBar();
                     
                     if (currentQuestion < totalQuestions) {
-                        generateQuestion();
+                        spinSlots(); // Girar a roleta para a próxima questão
                     } else {
                         showResults();
                     }
@@ -803,31 +816,37 @@
                 generateQuestion();
             });
             
-            // Configurar cliques nos slots de palavras
+            // Configurar cliques nos slots de palavras para remover seleção
             articleSlot.addEventListener('click', function() {
-                if (articleSlot.textContent && isCheckingPhase) {
+                if (articleSlot.textContent && !isCheckingPhase) {
                     returnOptionToSelection(articleSlot.textContent, 'article');
                     articleSlot.textContent = "";
                     articleSlot.classList.add('empty');
+                    articleSlot.classList.remove('filled');
                     selectedArticle = "";
+                    selectedOptions.article = null;
                 }
             });
             
             clothesSlotWord.addEventListener('click', function() {
-                if (clothesSlotWord.textContent && isCheckingPhase) {
+                if (clothesSlotWord.textContent && !isCheckingPhase) {
                     returnOptionToSelection(clothesSlotWord.textContent, 'clothes');
                     clothesSlotWord.textContent = "";
                     clothesSlotWord.classList.add('empty');
+                    clothesSlotWord.classList.remove('filled');
                     selectedClothes = "";
+                    selectedOptions.clothes = null;
                 }
             });
             
             colorsSlotWord.addEventListener('click', function() {
-                if (colorsSlotWord.textContent && isCheckingPhase) {
+                if (colorsSlotWord.textContent && !isCheckingPhase) {
                     returnOptionToSelection(colorsSlotWord.textContent, 'color');
                     colorsSlotWord.textContent = "";
                     colorsSlotWord.classList.add('empty');
+                    colorsSlotWord.classList.remove('filled');
                     selectedColor = "";
+                    selectedOptions.color = null;
                 }
             });
         });
@@ -860,12 +879,22 @@
             updateQuestionCounter();
             updateProgressBar();
             resetSelection();
+            
+            // Mostrar o botão de girar roleta apenas na primeira questão
+            if (currentQuestion === 0) {
+                spinButton.classList.remove('hidden');
+            }
         }
 
         function resetSelection() {
             selectedArticle = "";
             selectedClothes = "";
             selectedColor = "";
+            selectedOptions = {
+                article: null,
+                clothes: null,
+                color: null
+            };
             
             articleSlot.textContent = "";
             clothesSlotWord.textContent = "";
@@ -875,16 +904,20 @@
             clothesSlotWord.classList.add('empty');
             colorsSlotWord.classList.add('empty');
             
+            articleSlot.classList.remove('filled');
+            clothesSlotWord.classList.remove('filled');
+            colorsSlotWord.classList.remove('filled');
+            
             feedback.textContent = "";
             correctAnswer.textContent = "";
             translation.textContent = "";
             
-            optionsContainer.innerHTML = "";
-            
-            spinButton.disabled = false;
-            spinButton.classList.remove('disabled');
-            checkButton.textContent = "Verificar";
-            isCheckingPhase = false;
+            // Restaurar todas as opções visíveis
+            const options = optionsContainer.querySelectorAll('.option');
+            options.forEach(option => {
+                option.classList.remove('selected');
+                option.style.visibility = 'visible';
+            });
         }
 
         function spinSlots() {
@@ -925,6 +958,14 @@
                 currentClothesIndex = randomClothesIndex;
                 currentColorsIndex = randomColorsIndex;
                 isSpinning = false;
+                spinButton.disabled = false;
+                spinButton.classList.remove('disabled');
+                
+                // Esconder o botão de girar roleta após a primeira questão
+                if (currentQuestion > 0) {
+                    spinButton.classList.add('hidden');
+                }
+                
                 generateOptions();
             }, 4000);
         }
@@ -932,6 +973,11 @@
         function generateQuestion() {
             // Limpar seleções anteriores
             resetSelection();
+            
+            // Esconder o botão de girar roleta após a primeira questão
+            if (currentQuestion > 0) {
+                spinButton.classList.add('hidden');
+            }
             
             // Gerar slots aleatórios se não estiverem girando
             if (!isSpinning) {
@@ -1077,21 +1123,27 @@
             playSound(buttonSound);
             
             // Verificar se já existe uma seleção deste tipo
-            if (type === 'article' && selectedArticle) {
+            if (type === 'article' && selectedOptions.article) {
                 returnOptionToSelection(selectedArticle, 'article');
                 selectedArticle = "";
                 articleSlot.textContent = "";
                 articleSlot.classList.add('empty');
-            } else if (type === 'clothes' && selectedClothes) {
+                articleSlot.classList.remove('filled');
+                selectedOptions.article = null;
+            } else if (type === 'clothes' && selectedOptions.clothes) {
                 returnOptionToSelection(selectedClothes, 'clothes');
                 selectedClothes = "";
                 clothesSlotWord.textContent = "";
                 clothesSlotWord.classList.add('empty');
-            } else if (type === 'color' && selectedColor) {
+                clothesSlotWord.classList.remove('filled');
+                selectedOptions.clothes = null;
+            } else if (type === 'color' && selectedOptions.color) {
                 returnOptionToSelection(selectedColor, 'color');
                 selectedColor = "";
                 colorsSlotWord.textContent = "";
                 colorsSlotWord.classList.add('empty');
+                colorsSlotWord.classList.remove('filled');
+                selectedOptions.color = null;
             }
             
             // Adicionar seleção atual
@@ -1102,15 +1154,21 @@
             if (type === 'article') {
                 articleSlot.textContent = value;
                 articleSlot.classList.remove('empty');
+                articleSlot.classList.add('filled');
                 selectedArticle = value;
+                selectedOptions.article = element;
             } else if (type === 'clothes') {
                 clothesSlotWord.textContent = value;
                 clothesSlotWord.classList.remove('empty');
+                clothesSlotWord.classList.add('filled');
                 selectedClothes = value;
+                selectedOptions.clothes = element;
             } else if (type === 'color') {
                 colorsSlotWord.textContent = value;
                 colorsSlotWord.classList.remove('empty');
+                colorsSlotWord.classList.add('filled');
                 selectedColor = value;
+                selectedOptions.color = element;
             }
         }
 
@@ -1173,8 +1231,6 @@
             // Transformar o botão em "Girar Roleta Novamente"
             checkButton.textContent = "Girar Roleta Novamente";
             isCheckingPhase = true;
-            spinButton.disabled = true;
-            spinButton.classList.add('disabled');
             
             // Salvar progresso
             saveProgress();
@@ -1197,22 +1253,22 @@
             
             if (percentage >= 95) {
                 resultsTitle.textContent = "EXCELENTE";
-                resultsText.textContent = `Parabéns pelo seu desempenho excepcional! Você alcançou um resultado EXCELENTE, acertando ${correctAnswers} das ${totalQuestions} palavras no quiz de escrita em francês! Isso demonstra um domínio impressionante das expressões e da ortografia francesa. Continue assim, pois seu esforço e dedicação são inspiradores! Este resultado reflete não apenas sua habilidade linguística, mas também sua atenção aos detalhes e compromisso em aprender. Que tal continuar explorando o idioma com o mesmo entusiasmo? A prática constante vai te levar ainda mais longe.`;
+                resultsText.innerHTML = `Parabéns pelo seu desempenho excepcional! Você alcançou um resultado EXCELENTE, acertando ${correctAnswers} das ${totalQuestions} palavras no quiz de escrita em francês! Isso demonstra um domínio impressionante das expressões e da ortografia francesa. Continue assim, pois seu esforço e dedicação são inspiradores! Este resultado reflete não apenas sua habilidade linguística, mas também sua atenção aos detalhes e compromisso em aprender. Que tal continuar explorando o idioma com o mesmo entusiasmo? A prática constante vai te levar ainda mais longe.`;
                 resultsMascot.src = "MASCOTEFELIZ.png";
                 playSound(positiveSound);
             } else if (percentage >= 75) {
                 resultsTitle.textContent = "PARABÉNS";
-                resultsText.textContent = `Parabéns pelo seu desempenho! Você obteve um BOM resultado, acertando ${correctAnswers} das ${totalQuestions} palavras no quiz de escrita em francês! Isso mostra que você está no caminho certo, com uma sólida compreensão do idioma. Sua dedicação está valendo a pena, e cada palavra certa é um passo rumo à fluência. Continue assim, brilhando no aprendizado do francês!`;
+                resultsText.innerHTML = `Parabéns pelo seu desempenho! Você obteve um BOM resultado, acertando ${correctAnswers} das ${totalQuestions} palavras no quiz de escrita em francês! Isso mostra que você está no caminho certo, com uma sólida compreensão do idioma. Sua dedicação está valendo a pena, e cada palavra certa é um passo rumo à fluência. Continue assim, brilhando no aprendizado do francês!`;
                 resultsMascot.src = "MASCOTEALEGRE.png";
                 playSound(positiveSound);
             } else if (percentage >= 60) {
                 resultsTitle.textContent = "QUASE LÁ";
-                resultsText.textContent = `Você alcançou o nível SUFICIENTE, acertando ${correctAnswers} das ${totalQuestions} palavras no quiz de escrita em francês! Isso indica um progresso notável, com uma boa base no idioma. Sua dedicação está clara, e você está muito próximo de resultados ainda melhores. Cada palavra escrita é um avanço no aprendizado do francês. Continue se empenhando, e logo verá seu desempenho crescer! Siga firme na jornada para dominar o idioma!`;
+                resultsText.innerHTML = `Você alcançou o nível SUFICIENTE, acertando ${correctAnswers} das ${totalQuestions} palavras no quiz de escrita em francês! Isso indica um progresso notável, com uma boa base no idioma. Sua dedicação está clara, e você está muito próximo de resultados ainda melhores. Cada palavra escrita é um avanço no aprendizado do francês. Continue se empenhando, e logo verá seu desempenho crescer! Siga firme na jornada para dominar o idioma!`;
                 resultsMascot.src = "MASCOTEDUVIDA.png";
                 playSound(negativeSound);
             } else {
                 resultsTitle.textContent = "NÃO FOI DESSA VEZ";
-                resultsText.textContent = `Você obteve o nível INSUFICIENTE, acertando ${correctAnswers} das ${totalQuestions} palavras no quiz de escrita em francês. Não desanime! Cada tentativa é uma oportunidade de aprendizado, e você já deu o primeiro passo ao participar. O francês pode ser desafiador, mas com prática, você vai melhorar. Reforce as palavras e continue se dedicando. Sua persistência vai te levar mais longe na jornada do idioma!`;
+                resultsText.innerHTML = `Você obteve o nível INSUFICIENTE, acertando ${correctAnswers} das ${totalQuestions} palavras no quiz de escrita em francês. Não desanime! Cada tentativa é uma oportunidade de aprendizado, e você já deu o primeiro passo ao participar. O francês pode ser desafiador, mas com prática, você vai melhorar. Reforce as palavras e continue se dedicando. Sua persistência vai te levar mais longe na jornada do idioma!`;
                 resultsMascot.src = "MASCOTEDUVIDA.png";
                 playSound(negativeSound);
             }
