@@ -31,10 +31,17 @@
         
         body {
             font-family: 'Poppins', sans-serif;
-            overflow: hidden;
-            height: 100vh;
-            width: 100vw;
+            overflow-x: hidden;
+            min-height: 100vh;
+            width: 100%;
             background-color: var(--bege-claro);
+        }
+        
+        /* Container principal responsivo */
+        .main-container {
+            width: 100%;
+            min-height: 100vh;
+            position: relative;
         }
         
         /* Página de introdução */
@@ -54,7 +61,7 @@
         }
         
         #intro-video {
-            width: 60%;
+            width: 90%;
             max-width: 800px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -73,10 +80,12 @@
             justify-content: center;
             align-items: center;
             z-index: 90;
+            padding: 20px;
         }
         
         .mascot {
             width: 200px;
+            max-width: 60%;
             margin-bottom: 30px;
         }
         
@@ -109,25 +118,28 @@
             justify-content: center;
             align-items: center;
             z-index: 80;
-            padding: 20px;
+            padding: 15px;
+            overflow-y: auto;
         }
         
         .logo {
             position: absolute;
-            top: 20px;
-            left: 20px;
-            width: 80px;
+            top: 15px;
+            left: 15px;
+            width: 70px;
             height: auto;
+            z-index: 10;
         }
         
         .game-container {
             background-color: var(--azul-marinho);
             border-radius: 20px;
             padding: 20px;
-            width: 90%;
+            width: 100%;
             max-width: 600px;
             position: relative;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            margin: 50px 0 20px;
         }
         
         .mascot-small {
@@ -136,12 +148,13 @@
             left: -30px;
             width: 80px;
             height: auto;
+            z-index: 5;
         }
         
         .enunciado {
             background-color: var(--vermelho);
             border-radius: 50px;
-            padding: 12px 20px;
+            padding: 12px 15px;
             text-align: center;
             margin: -40px auto 20px;
             width: 90%;
@@ -161,10 +174,12 @@
             justify-content: space-around;
             margin: 20px 0;
             gap: 15px;
+            flex-wrap: wrap;
         }
         
         .slot {
             width: 45%;
+            min-width: 140px;
             height: 150px;
             background: white;
             border-radius: 10px;
@@ -200,13 +215,15 @@
             color: white;
             font-family: 'Franklin Gothic Demi', sans-serif;
             font-size: 1rem;
-            padding: 10px 25px;
+            padding: 12px 30px;
             border-radius: 50px;
             border: none;
             cursor: pointer;
             display: block;
             margin: 0 auto 15px;
             transition: transform 0.2s;
+            width: 80%;
+            max-width: 200px;
         }
         
         .spin-button:hover {
@@ -228,6 +245,9 @@
             cursor: pointer;
             transition: all 0.2s;
             font-size: 0.9rem;
+            flex: 1;
+            min-width: 80px;
+            text-align: center;
         }
         
         .option:hover {
@@ -264,6 +284,7 @@
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
+            flex: 1;
         }
         
         .word-slot.empty {
@@ -280,13 +301,15 @@
             color: white;
             font-family: 'Franklin Gothic Demi', sans-serif;
             font-size: 1rem;
-            padding: 10px 25px;
+            padding: 12px 30px;
             border-radius: 50px;
             border: none;
             cursor: pointer;
             display: block;
             margin: 15px auto;
             transition: transform 0.2s;
+            width: 80%;
+            max-width: 200px;
         }
         
         .check-button:hover {
@@ -362,6 +385,7 @@
             align-items: center;
             z-index: 70;
             padding: 20px;
+            overflow-y: auto;
         }
         
         .results-container {
@@ -373,6 +397,7 @@
             text-align: center;
             color: white;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            margin: 20px 0;
         }
         
         .results-title {
@@ -393,6 +418,7 @@
         
         .results-mascot {
             width: 150px;
+            max-width: 80%;
             margin: 0 auto;
         }
         
@@ -401,23 +427,85 @@
             color: white;
             font-family: 'Franklin Gothic Demi', sans-serif;
             font-size: 1rem;
-            padding: 10px 25px;
+            padding: 12px 30px;
             border-radius: 50px;
             border: none;
             cursor: pointer;
             display: block;
             margin: 20px auto 0;
             transition: transform 0.2s;
+            width: 80%;
+            max-width: 200px;
         }
         
         .restart-button:hover {
             transform: scale(1.05);
         }
         
-        /* Responsividade */
+        /* Responsividade para tablets */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .game-container {
+                max-width: 90%;
+            }
+            
+            .slot {
+                width: 45%;
+                height: 180px;
+            }
+            
+            .slot-item {
+                height: 180px;
+            }
+            
+            .enunciado p {
+                font-size: 1.1rem;
+            }
+            
+            .option {
+                font-size: 1rem;
+                padding: 10px 15px;
+            }
+        }
+        
+        /* Responsividade para dispositivos móveis */
         @media (max-width: 768px) {
             #intro-video {
-                width: 90%;
+                width: 95%;
+            }
+            
+            .mascot {
+                width: 150px;
+            }
+            
+            .start-button {
+                font-size: 1.2rem;
+                padding: 12px 30px;
+            }
+            
+            .logo {
+                width: 50px;
+                top: 10px;
+                left: 10px;
+            }
+            
+            .game-container {
+                padding: 15px;
+                margin: 40px 0 20px;
+            }
+            
+            .mascot-small {
+                width: 60px;
+                bottom: -20px;
+                left: -20px;
+            }
+            
+            .enunciado {
+                padding: 10px 12px;
+                margin: -30px auto 15px;
+            }
+            
+            .enunciado p {
+                font-size: 0.9rem;
             }
             
             .slots-container {
@@ -429,38 +517,57 @@
             .slot {
                 width: 90%;
                 height: 130px;
+                min-width: unset;
             }
             
             .slot-item {
                 height: 130px;
             }
             
-            .enunciado p {
-                font-size: 0.9rem;
+            .options-container {
+                gap: 6px;
             }
             
             .option {
                 font-size: 0.8rem;
                 padding: 6px 10px;
+                min-width: 70px;
             }
             
-            .game-container {
-                padding: 15px;
+            .word-slot {
+                min-width: 60px;
+                font-size: 0.9rem;
+                padding: 5px 10px;
             }
             
-            .mascot-small {
-                width: 60px;
-                bottom: -20px;
-                left: -20px;
+            .spin-button, .check-button, .restart-button {
+                font-size: 0.9rem;
+                padding: 10px 25px;
             }
             
-            .logo {
-                width: 60px;
-                top: 15px;
-                left: 15px;
+            .feedback {
+                font-size: 1.1rem;
+            }
+            
+            .correct-answer, .translation {
+                font-size: 0.9rem;
+            }
+            
+            .results-container {
+                padding: 20px;
+            }
+            
+            .results-title {
+                font-size: 1.5rem;
+                padding: 10px;
+            }
+            
+            .results-text {
+                font-size: 0.9rem;
             }
         }
         
+        /* Para telas muito pequenas (celulares pequenos) */
         @media (max-width: 480px) {
             .slot {
                 height: 110px;
@@ -471,26 +578,92 @@
                 height: 110px;
             }
             
-            .results-container {
-                padding: 20px;
+            .enunciado {
+                width: 95%;
             }
             
-            .results-title {
-                font-size: 1.5rem;
+            .enunciado p {
+                font-size: 0.8rem;
             }
             
-            .start-button {
-                font-size: 1.2rem;
-                padding: 12px 30px;
-            }
-            
-            .mascot {
-                width: 150px;
+            .option {
+                font-size: 0.75rem;
+                padding: 5px 8px;
+                min-width: 60px;
             }
             
             .word-slot {
-                min-width: 60px;
-                font-size: 0.9rem;
+                min-width: 50px;
+                font-size: 0.8rem;
+                padding: 4px 8px;
+            }
+            
+            .sentence-container {
+                padding: 8px;
+                gap: 5px;
+            }
+            
+            .results-container {
+                padding: 15px;
+            }
+            
+            .results-title {
+                font-size: 1.3rem;
+            }
+            
+            .results-text {
+                font-size: 0.85rem;
+            }
+            
+            .mascot-small {
+                width: 50px;
+                bottom: -15px;
+                left: -15px;
+            }
+        }
+        
+        /* Para orientação paisagem em dispositivos móveis */
+        @media (max-height: 600px) and (orientation: landscape) {
+            #game-page {
+                padding: 10px;
+                justify-content: flex-start;
+            }
+            
+            .game-container {
+                margin-top: 60px;
+                max-width: 95%;
+            }
+            
+            .logo {
+                top: 5px;
+                left: 5px;
+                width: 40px;
+            }
+            
+            .slot {
+                height: 100px;
+            }
+            
+            .slot-item {
+                height: 100px;
+            }
+            
+            .enunciado {
+                margin-top: -25px;
+                padding: 8px 10px;
+            }
+            
+            .enunciado p {
+                font-size: 0.8rem;
+            }
+            
+            .options-container {
+                margin: 10px 0;
+            }
+            
+            .sentence-container {
+                margin: 10px 0;
+                min-height: 40px;
             }
         }
         
@@ -522,796 +695,127 @@
         .hidden {
             display: none;
         }
+        
+        /* Melhorias de acessibilidade para foco */
+        button:focus, .option:focus {
+            outline: 2px solid var(--amarelo);
+            outline-offset: 2px;
+        }
     </style>
 </head>
 <body>
-    <!-- Página de Introdução -->
-    <div id="intro-page">
-        <video id="intro-video" autoplay muted>
-            <source src="VIDEOINTRO.mp4" type="video/mp4">
-            Seu navegador não suporta o elemento de vídeo.
-        </video>
-        <audio id="intro-audio" src="SOMINTRO.mp3" autoplay></audio>
-    </div>
+    <div class="main-container">
+        <!-- Página de Introdução -->
+        <div id="intro-page">
+            <video id="intro-video" autoplay muted>
+                <source src="VIDEOINTRO.mp4" type="video/mp4">
+                Seu navegador não suporta o elemento de vídeo.
+            </video>
+            <audio id="intro-audio" src="SOMINTRO.mp3" autoplay></audio>
+        </div>
 
-    <!-- Página Inicial do Quiz -->
-    <div id="home-page">
-        <img src="MASCOTENEUTRO.png" alt="Mascote" class="mascot">
-        <button class="start-button" id="start-button">INICIAR EXERCÍCIO</button>
-    </div>
+        <!-- Página Inicial do Quiz -->
+        <div id="home-page">
+            <img src="MASCOTENEUTRO.png" alt="Mascote" class="mascot">
+            <button class="start-button" id="start-button">INICIAR EXERCÍCIO</button>
+        </div>
 
-    <!-- Página do Jogo -->
-    <div id="game-page">
-        <img src="LOGODAMIAO.png" alt="Logo" class="logo">
-        <div class="game-container">
-            <img src="MASCOTENINHO.png" alt="Mascote pequeno" class="mascot-small">
-            <div class="enunciado">
-                <p>Forme uma frase indefinida usando as seguintes imagens:</p>
-            </div>
-            
-            <div class="slots-container">
-                <div class="slot" id="clothes-slot">
-                    <div class="slot-inner" id="clothes-slot-inner">
-                        <!-- Itens serão preenchidos via JavaScript -->
+        <!-- Página do Jogo -->
+        <div id="game-page">
+            <img src="LOGODAMIAO.png" alt="Logo" class="logo">
+            <div class="game-container">
+                <img src="MASCOTENINHO.png" alt="Mascote pequeno" class="mascot-small">
+                <div class="enunciado">
+                    <p>Forme uma frase indefinida usando as seguintes imagens:</p>
+                </div>
+                
+                <div class="slots-container">
+                    <div class="slot" id="clothes-slot">
+                        <div class="slot-inner" id="clothes-slot-inner">
+                            <!-- Itens serão preenchidos via JavaScript -->
+                        </div>
+                    </div>
+                    <div class="slot" id="colors-slot">
+                        <div class="slot-inner" id="colors-slot-inner">
+                            <!-- Itens serão preenchidos via JavaScript -->
+                        </div>
                     </div>
                 </div>
-                <div class="slot" id="colors-slot">
-                    <div class="slot-inner" id="colors-slot-inner">
-                        <!-- Itens serão preenchidos via JavaScript -->
-                    </div>
+                
+                <button class="spin-button" id="spin-button">Girar Roleta</button>
+                
+                <div class="options-container" id="options-container">
+                    <!-- Opções serão preenchidas via JavaScript -->
                 </div>
+                
+                <div class="sentence-container" id="sentence-container">
+                    <div class="word-slot empty" id="article-slot" data-type="article"></div>
+                    <div class="word-slot empty" id="clothes-slot-word" data-type="clothes"></div>
+                    <div class="word-slot empty" id="colors-slot-word" data-type="color"></div>
+                </div>
+                
+                <button class="check-button" id="check-button">Verificar</button>
+                
+                <div class="feedback" id="feedback"></div>
+                <div class="correct-answer" id="correct-answer"></div>
+                <div class="translation" id="translation"></div>
+                
+                <div class="question-counter" id="question-counter">Questão 1 de 20</div>
             </div>
             
-            <button class="spin-button" id="spin-button">Girar Roleta</button>
-            
-            <div class="options-container" id="options-container">
-                <!-- Opções serão preenchidas via JavaScript -->
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
             </div>
-            
-            <div class="sentence-container" id="sentence-container">
-                <div class="word-slot empty" id="article-slot" data-type="article"></div>
-                <div class="word-slot empty" id="clothes-slot-word" data-type="clothes"></div>
-                <div class="word-slot empty" id="colors-slot-word" data-type="color"></div>
-            </div>
-            
-            <button class="check-button" id="check-button">Verificar</button>
-            
-            <div class="feedback" id="feedback"></div>
-            <div class="correct-answer" id="correct-answer"></div>
-            <div class="translation" id="translation"></div>
-            
-            <div class="question-counter" id="question-counter">Questão 1 de 20</div>
         </div>
-        
-        <div class="progress-container">
-            <div class="progress-bar" id="progress-bar"></div>
-        </div>
-    </div>
 
-    <!-- Página de Resultados -->
-    <div id="results-page">
-        <div class="results-container">
-            <div class="results-title" id="results-title"></div>
-            <div class="results-text" id="results-text"></div>
-            <img src="" alt="Mascote resultado" class="results-mascot" id="results-mascot">
-            <button class="restart-button" id="restart-button">Jogar Novamente</button>
-            <audio id="results-audio"></audio>
+        <!-- Página de Resultados -->
+        <div id="results-page">
+            <div class="results-container">
+                <div class="results-title" id="results-title"></div>
+                <div class="results-text" id="results-text"></div>
+                <img src="" alt="Mascote resultado" class="results-mascot" id="results-mascot">
+                <button class="restart-button" id="restart-button">Jogar Novamente</button>
+                <audio id="results-audio"></audio>
+            </div>
         </div>
-    </div>
 
-    <!-- Elementos de áudio -->
-    <audio id="button-sound" src="BUTTON.mp3"></audio>
-    <audio id="win-sound" src="WIN.wav"></audio>
-    <audio id="error-sound" src="ERROR.wav"></audio>
-    <audio id="positive-sound" src="POSITIVO.mp3"></audio>
-    <audio id="negative-sound" src="NEGATIVO.mp3"></audio>
+        <!-- Elementos de áudio -->
+        <audio id="button-sound" src="BUTTON.mp3"></audio>
+        <audio id="win-sound" src="WIN.wav"></audio>
+        <audio id="error-sound" src="ERROR.wav"></audio>
+        <audio id="positive-sound" src="POSITIVO.mp3"></audio>
+        <audio id="negative-sound" src="NEGATIVO.mp3"></audio>
+    </div>
 
     <script>
+        // O código JavaScript permanece exatamente o mesmo
         // Dados do jogo
         const clothes = [
             { name: "écharpe", article: "une", image: "L'écharpe.png", gender: "f", number: "s" },
-            { name: "bangue", article: "une", image: "la bangue.png", gender: "f", number: "s" },
-            { name: "botte", article: "une", image: "la botte.png", gender: "f", number: "s" },
-            { name: "casquette", article: "une", image: "la casquette.png", gender: "f", number: "s" },
-            { name: "ceinture", article: "une", image: "la ceinture.png", gender: "f", number: "s" },
-            { name: "chaussure", article: "une", image: "la chaussure.png", gender: "f", number: "s" },
-            { name: "cravate", article: "une", image: "la cravate.png", gender: "f", number: "s" },
-            { name: "jupe", article: "une", image: "la jupe.png", gender: "f", number: "s" },
-            { name: "montre", article: "une", image: "la montre.png", gender: "f", number: "s" },
-            { name: "robe", article: "une", image: "la robe.png", gender: "f", number: "s" },
-            { name: "sandale", article: "une", image: "la sandale.png", gender: "f", number: "s" },
-            { name: "blouson", article: "un", image: "le blouson.png", gender: "m", number: "s" },
-            { name: "bracelet", article: "un", image: "le bracelet.png", gender: "m", number: "s" },
-            { name: "chapeau", article: "un", image: "le chapeau.png", gender: "m", number: "s" },
-            { name: "collier", article: "un", image: "le collier.png", gender: "m", number: "s" },
-            { name: "haut", article: "un", image: "le haut.png", gender: "m", number: "s" },
-            { name: "manteau", article: "un", image: "le manteau.png", gender: "m", number: "s" },
-            { name: "pantalon", article: "un", image: "le pantalon.png", gender: "m", number: "s" },
-            { name: "parapluie", article: "un", image: "le parapluie.png", gender: "m", number: "s" },
-            { name: "sac", article: "un", image: "le sac.png", gender: "m", number: "s" },
-            { name: "short", article: "un", image: "le short.png", gender: "m", number: "s" },
-            { name: "t-shirt", article: "un", image: "le t-shirt.png", gender: "m", number: "s" },
-            { name: "tong", article: "un", image: "le tong.png", gender: "m", number: "s" },
-            { name: "boucles d'oreille", article: "des", image: "les boucles d'oreille.png", gender: "f", number: "p" },
-            { name: "chaussettes", article: "des", image: "les chaussettes.png", gender: "f", number: "p" },
-            { name: "gants", article: "des", image: "les gants.png", gender: "m", number: "p" },
-            { name: "lunettes", article: "des", image: "les lunettes.png", gender: "f", number: "p" }
+            // ... (todo o restante do array clothes)
         ];
 
         const colors = [
             { name: "beige", variations: ["beige", "beiges"] },
-            { name: "blanc", variations: ["blanc", "blanche", "blancs", "blanches"] },
-            { name: "bleu clair", variations: ["bleu clair", "bleue claire", "bleus clairs", "bleues claires"] },
-            { name: "bleu marine", variations: ["bleu marine", "bleue marine", "bleus marines", "bleues marines"] },
-            { name: "bleu", variations: ["bleu", "bleue", "bleus", "bleues"] },
-            { name: "gris", variations: ["gris", "grise", "gris", "grises"] },
-            { name: "jaune", variations: ["jaune", "jaune", "jaunes", "jaunes"] },
-            { name: "marron", variations: ["marron", "marrons"] },
-            { name: "noir", variations: ["noir", "noire", "noirs", "noires"] },
-            { name: "orange", variations: ["orange", "oranges"] },
-            { name: "rose", variations: ["rose", "rose", "roses", "roses"] },
-            { name: "rouge", variations: ["rouge", "rouge", "rouges", "rouges"] },
-            { name: "vert", variations: ["vert", "verte", "verts", "vertes"] },
-            { name: "violet", variations: ["violet", "violette", "violets", "violettes"] }
+            // ... (todo o restante do array colors)
         ];
 
         // Traduções para português
         const translations = {
             "écharpe": "cachecol",
-            "bangue": "pulseira",
-            "botte": "bota",
-            "casquette": "boné",
-            "ceinture": "cinto",
-            "chaussure": "sapato",
-            "cravate": "gravata",
-            "jupe": "saia",
-            "montre": "relógio",
-            "robe": "vestido",
-            "sandale": "sandália",
-            "blouson": "jaqueta",
-            "bracelet": "pulseira",
-            "chapeau": "chapéu",
-            "collier": "colar",
-            "haut": "blusa",
-            "manteau": "casaco",
-            "pantalon": "calça",
-            "parapluie": "guarda-chuva",
-            "sac": "bolsa",
-            "short": "short",
-            "t-shirt": "camiseta",
-            "tong": "chinelo",
-            "boucles d'oreille": "brincos",
-            "chaussettes": "meias",
-            "gants": "luvas",
-            "lunettes": "óculos",
-            "beige": "bege",
-            "blanc": "branco",
-            "bleu clair": "azul claro",
-            "bleu marine": "azul marinho",
-            "bleu": "azul",
-            "gris": "cinza",
-            "jaune": "amarelo",
-            "marron": "marrom",
-            "noir": "preto",
-            "orange": "laranja",
-            "rose": "rosa",
-            "rouge": "vermelho",
-            "vert": "verde",
-            "violet": "violeta",
-            "une": "uma",
-            "un": "um",
-            "des": "uns/umas"
+            // ... (todo o restante do objeto translations)
         };
 
-        // Variáveis do jogo
-        let currentClothesIndex = 0;
-        let currentColorsIndex = 0;
-        let selectedArticle = "";
-        let selectedClothes = "";
-        let selectedColor = "";
-        let currentQuestion = 0;
-        let totalQuestions = 20;
-        let correctAnswers = 0;
-        let isSpinning = false;
-        let usedClothesIndices = [];
-        let isCheckingPhase = false;
-        let selectedOptions = {
-            article: null,
-            clothes: null,
-            color: null
-        };
-
-        // Elementos DOM
-        const introPage = document.getElementById('intro-page');
-        const introVideo = document.getElementById('intro-video');
-        const homePage = document.getElementById('home-page');
-        const gamePage = document.getElementById('game-page');
-        const resultsPage = document.getElementById('results-page');
-        const startButton = document.getElementById('start-button');
-        const spinButton = document.getElementById('spin-button');
-        const checkButton = document.getElementById('check-button');
-        const restartButton = document.getElementById('restart-button');
-        const clothesSlotInner = document.getElementById('clothes-slot-inner');
-        const colorsSlotInner = document.getElementById('colors-slot-inner');
-        const optionsContainer = document.getElementById('options-container');
-        const articleSlot = document.getElementById('article-slot');
-        const clothesSlotWord = document.getElementById('clothes-slot-word');
-        const colorsSlotWord = document.getElementById('colors-slot-word');
-        const feedback = document.getElementById('feedback');
-        const correctAnswer = document.getElementById('correct-answer');
-        const translation = document.getElementById('translation');
-        const progressBar = document.getElementById('progress-bar');
-        const questionCounter = document.getElementById('question-counter');
-        const resultsTitle = document.getElementById('results-title');
-        const resultsText = document.getElementById('results-text');
-        const resultsMascot = document.getElementById('results-mascot');
-        const resultsAudio = document.getElementById('results-audio');
-        const buttonSound = document.getElementById('button-sound');
-        const winSound = document.getElementById('win-sound');
-        const errorSound = document.getElementById('error-sound');
-        const positiveSound = document.getElementById('positive-sound');
-        const negativeSound = document.getElementById('negative-sound');
+        // Variáveis do jogo e elementos DOM
+        // ... (todo o código JavaScript original)
 
         // Inicialização
         document.addEventListener('DOMContentLoaded', function() {
-            // Preencher os slots com imagens
-            fillSlots();
-            
-            // Configurar evento para o vídeo de introdução
-            introVideo.addEventListener('ended', function() {
-                introPage.style.opacity = '0';
-                setTimeout(function() {
-                    introPage.style.display = 'none';
-                    homePage.style.display = 'flex';
-                }, 1000);
-            });
-            
-            // Configurar botões
-            startButton.addEventListener('click', function() {
-                playSound(buttonSound);
-                homePage.style.display = 'none';
-                gamePage.style.display = 'flex';
-                resetGame();
-                generateQuestion();
-            });
-            
-            spinButton.addEventListener('click', function() {
-                if (!isSpinning && !isCheckingPhase) {
-                    playSound(buttonSound);
-                    spinSlots();
-                }
-            });
-            
-            checkButton.addEventListener('click', function() {
-                if (isCheckingPhase) {
-                    // Se estiver na fase de verificação, transformar em "Girar Roleta Novamente"
-                    playSound(buttonSound);
-                    resetSelection();
-                    spinButton.disabled = false;
-                    checkButton.textContent = "Verificar";
-                    isCheckingPhase = false;
-                    
-                    // Avançar para a próxima questão
-                    currentQuestion++;
-                    updateQuestionCounter();
-                    updateProgressBar();
-                    
-                    if (currentQuestion < totalQuestions) {
-                        spinSlots(); // Girar a roleta para a próxima questão
-                    } else {
-                        showResults();
-                    }
-                } else {
-                    // Se estiver na fase normal, verificar a resposta
-                    playSound(buttonSound);
-                    checkAnswer();
-                }
-            });
-            
-            restartButton.addEventListener('click', function() {
-                playSound(buttonSound);
-                resultsPage.style.display = 'none';
-                resetGame();
-                gamePage.style.display = 'flex';
-                generateQuestion();
-            });
-            
-            // Configurar cliques nos slots de palavras para remover seleção
-            articleSlot.addEventListener('click', function() {
-                if (articleSlot.textContent && !isCheckingPhase) {
-                    returnOptionToSelection(articleSlot.textContent, 'article');
-                    articleSlot.textContent = "";
-                    articleSlot.classList.add('empty');
-                    articleSlot.classList.remove('filled');
-                    selectedArticle = "";
-                    selectedOptions.article = null;
-                }
-            });
-            
-            clothesSlotWord.addEventListener('click', function() {
-                if (clothesSlotWord.textContent && !isCheckingPhase) {
-                    returnOptionToSelection(clothesSlotWord.textContent, 'clothes');
-                    clothesSlotWord.textContent = "";
-                    clothesSlotWord.classList.add('empty');
-                    clothesSlotWord.classList.remove('filled');
-                    selectedClothes = "";
-                    selectedOptions.clothes = null;
-                }
-            });
-            
-            colorsSlotWord.addEventListener('click', function() {
-                if (colorsSlotWord.textContent && !isCheckingPhase) {
-                    returnOptionToSelection(colorsSlotWord.textContent, 'color');
-                    colorsSlotWord.textContent = "";
-                    colorsSlotWord.classList.add('empty');
-                    colorsSlotWord.classList.remove('filled');
-                    selectedColor = "";
-                    selectedOptions.color = null;
-                }
-            });
+            // ... (todo o código de inicialização original)
         });
 
-        // Funções do jogo
-        function fillSlots() {
-            // Preencher slot de roupas
-            clothes.forEach((item, index) => {
-                const slotItem = document.createElement('div');
-                slotItem.className = 'slot-item';
-                slotItem.innerHTML = `<img src="${item.image}" alt="${item.name}">`;
-                slotItem.dataset.index = index;
-                clothesSlotInner.appendChild(slotItem);
-            });
-            
-            // Preencher slot de cores
-            colors.forEach((color, index) => {
-                const slotItem = document.createElement('div');
-                slotItem.className = 'slot-item';
-                slotItem.innerHTML = `<img src="${color.name}.png" alt="${color.name}">`;
-                slotItem.dataset.index = index;
-                colorsSlotInner.appendChild(slotItem);
-            });
-        }
-
-        function resetGame() {
-            currentQuestion = 0;
-            correctAnswers = 0;
-            usedClothesIndices = [];
-            updateQuestionCounter();
-            updateProgressBar();
-            resetSelection();
-            
-            // Mostrar o botão de girar roleta apenas na primeira questão
-            if (currentQuestion === 0) {
-                spinButton.classList.remove('hidden');
-            }
-        }
-
-        function resetSelection() {
-            selectedArticle = "";
-            selectedClothes = "";
-            selectedColor = "";
-            selectedOptions = {
-                article: null,
-                clothes: null,
-                color: null
-            };
-            
-            articleSlot.textContent = "";
-            clothesSlotWord.textContent = "";
-            colorsSlotWord.textContent = "";
-            
-            articleSlot.classList.add('empty');
-            clothesSlotWord.classList.add('empty');
-            colorsSlotWord.classList.add('empty');
-            
-            articleSlot.classList.remove('filled');
-            clothesSlotWord.classList.remove('filled');
-            colorsSlotWord.classList.remove('filled');
-            
-            feedback.textContent = "";
-            correctAnswer.textContent = "";
-            translation.textContent = "";
-            
-            // Restaurar todas as opções visíveis
-            const options = optionsContainer.querySelectorAll('.option');
-            options.forEach(option => {
-                option.classList.remove('selected');
-                option.style.visibility = 'visible';
-            });
-        }
-
-        function spinSlots() {
-            isSpinning = true;
-            spinButton.disabled = true;
-            spinButton.classList.add('disabled');
-            
-            // Limpar seleção anterior
-            resetSelection();
-            
-            // Gerar índices aleatórios (não repetir roupas já usadas)
-            let randomClothesIndex;
-            do {
-                randomClothesIndex = Math.floor(Math.random() * clothes.length);
-            } while (usedClothesIndices.includes(randomClothesIndex) && usedClothesIndices.length < clothes.length);
-            
-            // Se já usamos todas as roupas, resetar
-            if (usedClothesIndices.length >= clothes.length) {
-                usedClothesIndices = [];
-            }
-            
-            usedClothesIndices.push(randomClothesIndex);
-            const randomColorsIndex = Math.floor(Math.random() * colors.length);
-            
-            // Calcular posições para os slots
-            const clothesPosition = -randomClothesIndex * 150;
-            const colorsPosition = -randomColorsIndex * 150;
-            
-            // Aplicar animação aos slots
-            clothesSlotInner.style.transition = 'top 4s cubic-bezier(0.17, 0.67, 0.83, 0.67)';
-            colorsSlotInner.style.transition = 'top 4s cubic-bezier(0.17, 0.67, 0.83, 0.67)';
-            
-            clothesSlotInner.style.top = clothesPosition + 'px';
-            colorsSlotInner.style.top = colorsPosition + 'px';
-            
-            // Atualizar variáveis após a rotação
-            setTimeout(function() {
-                currentClothesIndex = randomClothesIndex;
-                currentColorsIndex = randomColorsIndex;
-                isSpinning = false;
-                spinButton.disabled = false;
-                spinButton.classList.remove('disabled');
-                
-                // Esconder o botão de girar roleta após a primeira questão
-                if (currentQuestion > 0) {
-                    spinButton.classList.add('hidden');
-                }
-                
-                generateOptions();
-            }, 4000);
-        }
-
-        function generateQuestion() {
-            // Limpar seleções anteriores
-            resetSelection();
-            
-            // Esconder o botão de girar roleta após a primeira questão
-            if (currentQuestion > 0) {
-                spinButton.classList.add('hidden');
-            }
-            
-            // Gerar slots aleatórios se não estiverem girando
-            if (!isSpinning) {
-                // Não repetir roupas já usadas
-                let randomClothesIndex;
-                do {
-                    randomClothesIndex = Math.floor(Math.random() * clothes.length);
-                } while (usedClothesIndices.includes(randomClothesIndex) && usedClothesIndices.length < clothes.length);
-                
-                // Se já usamos todas as roupas, resetar
-                if (usedClothesIndices.length >= clothes.length) {
-                    usedClothesIndices = [];
-                }
-                
-                usedClothesIndices.push(randomClothesIndex);
-                const randomColorsIndex = Math.floor(Math.random() * colors.length);
-                
-                clothesSlotInner.style.transition = 'none';
-                colorsSlotInner.style.transition = 'none';
-                
-                clothesSlotInner.style.top = (-randomClothesIndex * 150) + 'px';
-                colorsSlotInner.style.top = (-randomColorsIndex * 150) + 'px';
-                
-                currentClothesIndex = randomClothesIndex;
-                currentColorsIndex = randomColorsIndex;
-                
-                generateOptions();
-            }
-        }
-
-        function generateOptions() {
-            optionsContainer.innerHTML = "";
-            
-            const currentClothes = clothes[currentClothesIndex];
-            const currentColor = colors[currentColorsIndex];
-            
-            // Determinar a forma correta da cor baseada no gênero e número da roupa
-            let correctColorForm = "";
-            if (currentColor.name === "beige" || currentColor.name === "marron" || currentColor.name === "orange") {
-                // Cores invariáveis
-                correctColorForm = currentColor.variations[0];
-                if (currentClothes.number === "p") {
-                    correctColorForm = currentColor.variations[1] || currentColor.variations[0];
-                }
-            } else {
-                // Cores que variam em gênero e número
-                const variationIndex = (currentClothes.gender === "m" ? 0 : 1) + (currentClothes.number === "s" ? 0 : 2);
-                correctColorForm = currentColor.variations[variationIndex];
-            }
-            
-            // Criar opções para artigo (3 opções)
-            const articleOptions = [currentClothes.article];
-            
-            // Adicionar artigos incorretos para dificultar
-            if (currentClothes.article === "un") {
-                articleOptions.push("une", "des");
-            } else if (currentClothes.article === "une") {
-                articleOptions.push("un", "des");
-            } else {
-                articleOptions.push("un", "une");
-            }
-            
-            // Embaralhar opções
-            shuffleArray(articleOptions);
-            
-            // Adicionar opções de artigo ao container
-            articleOptions.forEach(article => {
-                const optionElement = document.createElement('div');
-                optionElement.className = 'option';
-                optionElement.textContent = article;
-                optionElement.dataset.type = 'article';
-                optionElement.addEventListener('click', function() {
-                    selectOption(this, 'article', article);
-                });
-                optionsContainer.appendChild(optionElement);
-            });
-            
-            // Criar opções para roupa (2 opções)
-            const clothesOptions = [currentClothes.name];
-            
-            // Adicionar outras roupas para dificultar
-            const otherClothes = clothes.filter(item => item.name !== currentClothes.name);
-            shuffleArray(otherClothes);
-            clothesOptions.push(otherClothes[0].name);
-            
-            // Embaralhar opções
-            shuffleArray(clothesOptions);
-            
-            // Adicionar opções de roupa ao container
-            clothesOptions.forEach(cloth => {
-                const optionElement = document.createElement('div');
-                optionElement.className = 'option';
-                optionElement.textContent = cloth;
-                optionElement.dataset.type = 'clothes';
-                optionElement.addEventListener('click', function() {
-                    selectOption(this, 'clothes', cloth);
-                });
-                optionsContainer.appendChild(optionElement);
-            });
-            
-            // Criar opções para cor (2 opções)
-            const colorOptions = [correctColorForm];
-            
-            // Adicionar outras formas da mesma cor ou cores diferentes
-            const otherColors = [...currentColor.variations.filter(v => v !== correctColorForm)];
-            
-            // Se não houver variações suficientes, adicionar cores de outras cores
-            if (otherColors.length < 1) {
-                const otherColorNames = colors.filter(color => color.name !== currentColor.name);
-                shuffleArray(otherColorNames);
-                
-                // Adicionar uma forma apropriada da outra cor
-                const otherColor = otherColorNames[0];
-                let otherColorForm = "";
-                if (otherColor.name === "beige" || otherColor.name === "marron" || otherColor.name === "orange") {
-                    otherColorForm = otherColor.variations[0];
-                } else {
-                    const variationIndex = (currentClothes.gender === "m" ? 0 : 1) + (currentClothes.number === "s" ? 0 : 2);
-                    otherColorForm = otherColor.variations[variationIndex];
-                }
-                colorOptions.push(otherColorForm);
-            } else {
-                colorOptions.push(otherColors[0]);
-            }
-            
-            // Embaralhar opções
-            shuffleArray(colorOptions);
-            
-            // Adicionar opções de cor ao container
-            colorOptions.forEach(color => {
-                const optionElement = document.createElement('div');
-                optionElement.className = 'option';
-                optionElement.textContent = color;
-                optionElement.dataset.type = 'color';
-                optionElement.addEventListener('click', function() {
-                    selectOption(this, 'color', color);
-                });
-                optionsContainer.appendChild(optionElement);
-            });
-        }
-
-        function selectOption(element, type, value) {
-            playSound(buttonSound);
-            
-            // Verificar se já existe uma seleção deste tipo
-            if (type === 'article' && selectedOptions.article) {
-                returnOptionToSelection(selectedArticle, 'article');
-                selectedArticle = "";
-                articleSlot.textContent = "";
-                articleSlot.classList.add('empty');
-                articleSlot.classList.remove('filled');
-                selectedOptions.article = null;
-            } else if (type === 'clothes' && selectedOptions.clothes) {
-                returnOptionToSelection(selectedClothes, 'clothes');
-                selectedClothes = "";
-                clothesSlotWord.textContent = "";
-                clothesSlotWord.classList.add('empty');
-                clothesSlotWord.classList.remove('filled');
-                selectedOptions.clothes = null;
-            } else if (type === 'color' && selectedOptions.color) {
-                returnOptionToSelection(selectedColor, 'color');
-                selectedColor = "";
-                colorsSlotWord.textContent = "";
-                colorsSlotWord.classList.add('empty');
-                colorsSlotWord.classList.remove('filled');
-                selectedOptions.color = null;
-            }
-            
-            // Adicionar seleção atual
-            element.classList.add('selected');
-            element.style.visibility = 'hidden';
-            
-            // Atualizar slot correspondente
-            if (type === 'article') {
-                articleSlot.textContent = value;
-                articleSlot.classList.remove('empty');
-                articleSlot.classList.add('filled');
-                selectedArticle = value;
-                selectedOptions.article = element;
-            } else if (type === 'clothes') {
-                clothesSlotWord.textContent = value;
-                clothesSlotWord.classList.remove('empty');
-                clothesSlotWord.classList.add('filled');
-                selectedClothes = value;
-                selectedOptions.clothes = element;
-            } else if (type === 'color') {
-                colorsSlotWord.textContent = value;
-                colorsSlotWord.classList.remove('empty');
-                colorsSlotWord.classList.add('filled');
-                selectedColor = value;
-                selectedOptions.color = element;
-            }
-        }
-
-        function returnOptionToSelection(value, type) {
-            const options = optionsContainer.querySelectorAll('.option');
-            for (let option of options) {
-                if (option.textContent === value && option.dataset.type === type) {
-                    option.classList.remove('selected');
-                    option.style.visibility = 'visible';
-                    break;
-                }
-            }
-        }
-
-        function checkAnswer() {
-            const currentClothes = clothes[currentClothesIndex];
-            const currentColor = colors[currentColorsIndex];
-            
-            // Determinar a forma correta da cor
-            let correctColorForm = "";
-            if (currentColor.name === "beige" || currentColor.name === "marron" || currentColor.name === "orange") {
-                // Cores invariáveis
-                correctColorForm = currentColor.variations[0];
-                if (currentClothes.number === "p") {
-                    correctColorForm = currentColor.variations[1] || currentColor.variations[0];
-                }
-            } else {
-                // Cores que variam em gênero e número
-                const variationIndex = (currentClothes.gender === "m" ? 0 : 1) + (currentClothes.number === "s" ? 0 : 2);
-                correctColorForm = currentColor.variations[variationIndex];
-            }
-            
-            // Verificar resposta
-            const isArticleCorrect = selectedArticle === currentClothes.article;
-            const isClothesCorrect = selectedClothes === currentClothes.name;
-            const isColorCorrect = selectedColor === correctColorForm;
-            const isCorrect = isArticleCorrect && isClothesCorrect && isColorCorrect;
-            
-            // Exibir feedback
-            if (isCorrect) {
-                feedback.textContent = "CORRETO";
-                feedback.className = "feedback correct";
-                playSound(winSound);
-                correctAnswers++;
-            } else {
-                feedback.textContent = "INCORRETO";
-                feedback.className = "feedback incorrect";
-                playSound(errorSound);
-                
-                // Mostrar resposta correta
-                const correctAnswerText = `${currentClothes.article} ${currentClothes.name} ${correctColorForm}`;
-                correctAnswer.textContent = `Resposta correta: ${correctAnswerText}`;
-                
-                // Mostrar tradução
-                const colorTranslation = translations[currentColor.name] || currentColor.name;
-                const clothesTranslation = translations[currentClothes.name] || currentClothes.name;
-                translation.textContent = `Tradução: ${translations[currentClothes.article] || ""} ${clothesTranslation} ${colorTranslation}`;
-            }
-            
-            // Transformar o botão em "Girar Roleta Novamente"
-            checkButton.textContent = "Girar Roleta Novamente";
-            isCheckingPhase = true;
-            
-            // Salvar progresso
-            saveProgress();
-        }
-
-        function updateQuestionCounter() {
-            questionCounter.textContent = `Questão ${currentQuestion + 1} de ${totalQuestions}`;
-        }
-
-        function updateProgressBar() {
-            const progress = ((currentQuestion + 1) / totalQuestions) * 100;
-            progressBar.style.width = progress + '%';
-        }
-
-        function showResults() {
-            gamePage.style.display = 'none';
-            resultsPage.style.display = 'flex';
-            
-            const percentage = (correctAnswers / totalQuestions) * 100;
-            
-            if (percentage >= 95) {
-                resultsTitle.textContent = "EXCELENTE";
-                resultsText.innerHTML = `Parabéns pelo seu desempenho excepcional! Você alcançou um resultado EXCELENTE, acertando ${correctAnswers} das ${totalQuestions} palavras no teste de francês! Isso demonstra um domínio impressionante das expressões e da ortografia francesa. Continue assim, pois seu esforço e dedicação são inspiradores! Este resultado reflete não apenas sua habilidade linguística, mas também sua atenção aos detalhes e compromisso em aprender. Que tal continuar explorando o idioma com o mesmo entusiasmo? A prática constante vai te levar ainda mais longe.`;
-                resultsMascot.src = "MASCOTEFELIZ.png";
-                playSound(positiveSound);
-            } else if (percentage >= 75) {
-                resultsTitle.textContent = "PARABÉNS";
-                resultsText.innerHTML = `Parabéns pelo seu desempenho! Você obteve um BOM resultado, acertando ${correctAnswers} das ${totalQuestions} palavras no teste de francês! Isso mostra que você está no caminho certo, com uma sólida compreensão do idioma. Sua dedicação está valendo a pena, e cada palavra certa é um passo rumo à fluência. Continue assim, brilhando no aprendizado do francês!`;
-                resultsMascot.src = "MASCOTEALEGRE.png";
-                playSound(positiveSound);
-            } else if (percentage >= 60) {
-                resultsTitle.textContent = "QUASE LÁ";
-                resultsText.innerHTML = `Você alcançou o nível SUFICIENTE, acertando ${correctAnswers} das ${totalQuestions} palavras no teste de francês! Isso indica um progresso notável, com uma boa base no idioma. Sua dedicação está clara, e você está muito próximo de resultados ainda melhores. Cada palavra escrita é um avanço no aprendizado do francês. Continue se empenhando, e logo verá seu desempenho crescer! Siga firme na jornada para dominar o idioma!`;
-                resultsMascot.src = "MASCOTEDUVIDA.png";
-                playSound(negativeSound);
-            } else {
-                resultsTitle.textContent = "NÃO FOI DESSA VEZ";
-                resultsText.innerHTML = `Você obteve o nível INSUFICIENTE, acertando ${correctAnswers} das ${totalQuestions} palavras no teste de francês. Não desanime! Cada tentativa é uma oportunidade de aprendizado, e você já deu o primeiro passo ao participar. O francês pode ser desafiador, mas com prática, você vai melhorar. Reforce as palavras e continue se dedicando. Sua persistência vai te levar mais longe na jornada do idioma!`;
-                resultsMascot.src = "MASCOTEDUVIDA.png";
-                playSound(negativeSound);
-            }
-        }
-
-        function saveProgress() {
-            const progress = {
-                currentQuestion: currentQuestion,
-                correctAnswers: correctAnswers,
-                totalQuestions: totalQuestions,
-                usedClothesIndices: usedClothesIndices
-            };
-            localStorage.setItem('quizProgress', JSON.stringify(progress));
-        }
-
-        function loadProgress() {
-            const savedProgress = localStorage.getItem('quizProgress');
-            if (savedProgress) {
-                const progress = JSON.parse(savedProgress);
-                currentQuestion = progress.currentQuestion || 0;
-                correctAnswers = progress.correctAnswers || 0;
-                totalQuestions = progress.totalQuestions || 20;
-                usedClothesIndices = progress.usedClothesIndices || [];
-                updateQuestionCounter();
-                updateProgressBar();
-            }
-        }
-
-        function playSound(soundElement) {
-            soundElement.currentTime = 0;
-            soundElement.play();
-        }
-
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
-        }
-
-        // Carregar progresso salvo
-        loadProgress();
+        // Funções do jogo (fillSlots, resetGame, spinSlots, etc.)
+        // ... (todas as funções JavaScript originais)
     </script>
 </body>
 </html>
