@@ -78,16 +78,16 @@
         }
         
         .mascot {
-            width: 40vw;
-            max-width: 200px;
-            margin-bottom: 5vh;
+            width: 20vw;
+            max-width: 250px;
+            margin-bottom: 3vh;
         }
         
         .start-button {
             background-color: var(--azul-marinho);
             color: white;
             font-family: 'Franklin Gothic Demi', sans-serif;
-            font-size: clamp(1.2rem, 5vw, 1.5rem);
+            font-size: clamp(1.2rem, 2.5vw, 1.6rem);
             padding: 15px 40px;
             border-radius: 50px;
             border: none;
@@ -112,25 +112,25 @@
             justify-content: center;
             align-items: center;
             z-index: 80;
-            padding: 4vw;
+            padding: 2vw;
             overflow-x: hidden;
         }
         
         .logo {
             position: absolute;
-            top: 3vw;
-            left: 3vw;
-            width: 15vw;
-            max-width: 80px;
+            top: 2vw;
+            left: 2vw;
+            width: 10vw;
+            max-width: 100px;
             height: auto;
         }
         
         .game-container {
             background-color: var(--azul-marinho);
             border-radius: 20px;
-            padding: 4vw;
-            width: 90%;
-            max-width: 600px;
+            padding: 3vw;
+            width: 80%;
+            max-width: 800px;
             position: relative;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
             overflow-x: hidden;
@@ -138,9 +138,9 @@
         
         .mascot-small {
             position: absolute;
-            bottom: -5vw;
-            left: -5vw;
-            width: 15vw;
+            bottom: -4vw;
+            left: -4vw;
+            width: 10vw;
             max-width: 80px;
             height: auto;
         }
@@ -148,11 +148,11 @@
         .enunciado {
             background-color: var(--vermelho);
             border-radius: 50px;
-            padding: 2.5vw 4vw;
+            padding: 2vw 4vw;
             text-align: center;
-            margin: -8vw auto 4vw;
-            width: 90%;
-            max-width: 500px;
+            margin: -6vw auto 3vw;
+            width: 80%;
+            max-width: 600px;
             position: relative;
             z-index: 10;
         }
@@ -160,19 +160,20 @@
         .enunciado p {
             font-family: 'Rockwell', serif;
             color: white;
-            font-size: clamp(0.9rem, 4vw, 1rem);
+            font-size: clamp(1rem, 2vw, 1.2rem);
         }
         
         .slots-container {
             display: flex;
             justify-content: center;
-            margin: 4vw 0;
-            gap: 3vw;
+            margin: 3vw 0;
+            gap: 2vw;
             flex-wrap: wrap;
         }
         
         .slot {
-            width: 45%;
+            width: 40%;
+            max-width: 200px;
             background: white;
             border-radius: 10px;
             overflow: hidden;
@@ -191,13 +192,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: clamp(1rem, 4vw, 1.2rem);
+            font-size: clamp(1rem, 2vw, 1.2rem);
             font-weight: bold;
         }
         
         .slot-item img {
-            max-width: 80%;
-            max-height: 80%;
+            max-width: 90%;
+            max-height: 90%;
             object-fit: contain;
             width: auto;
             height: auto;
@@ -207,13 +208,13 @@
             background-color: var(--verde);
             color: white;
             font-family: 'Franklin Gothic Demi', sans-serif;
-            font-size: clamp(0.9rem, 4vw, 1rem);
-            padding: 2vw 5vw;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            padding: 1.5vw 4vw;
             border-radius: 50px;
             border: none;
             cursor: pointer;
             display: block;
-            margin: 0 auto 3vw;
+            margin: 2vw auto;
             transition: transform 0.2s;
         }
         
@@ -226,16 +227,16 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 1.5vw;
-            margin: 3vw 0;
+            margin: 2vw 0;
         }
         
         .option {
             background-color: var(--lavanda);
-            padding: 1.5vw 2.5vw;
+            padding: 1vw 2vw;
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.2s;
-            font-size: clamp(0.8rem, 3.5vw, 0.9rem);
+            font-size: clamp(0.9rem, 1.8vw, 1rem);
         }
         
         .option:hover {
@@ -248,31 +249,31 @@
         }
         
         .sentence-container {
-            min-height: 10vw;
+            min-height: 8vw;
             background: white;
             border-radius: 8px;
-            padding: 2.5vw;
-            margin: 3vw 0;
+            padding: 2vw;
+            margin: 2vw 0;
             display: flex;
             flex-wrap: wrap;
-            gap: 1.5vw;
+            gap: 1vw;
             align-items: center;
             justify-content: center;
         }
         
         .word-slot {
             background-color: var(--bege-claro);
-            padding: 1.5vw 2.5vw;
+            padding: 1vw 2vw;
             border-radius: 5px;
-            min-width: 15vw;
-            min-height: 7vw;
+            min-width: 12vw;
+            min-height: 5vw;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
-            font-size: clamp(0.8rem, 3.5vw, 0.9rem);
+            font-size: clamp(0.9rem, 1.8vw, 1rem);
         }
         
         .word-slot.empty {
@@ -288,13 +289,13 @@
             background-color: var(--verde);
             color: white;
             font-family: 'Franklin Gothic Demi', sans-serif;
-            font-size: clamp(0.9rem, 4vw, 1rem);
-            padding: 2vw 5vw;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            padding: 1.5vw 4vw;
             border-radius: 50px;
             border: none;
             cursor: pointer;
             display: block;
-            margin: 3vw auto;
+            margin: 2vw auto;
             transition: transform 0.2s;
         }
         
@@ -305,9 +306,9 @@
         .feedback {
             text-align: center;
             font-family: 'Cooper Black', serif;
-            font-size: clamp(1.1rem, 4.5vw, 1.3rem);
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
             margin: 2vw 0;
-            min-height: 7vw;
+            min-height: 5vw;
         }
         
         .correct {
@@ -320,27 +321,27 @@
         
         .correct-answer {
             text-align: center;
-            font-size: clamp(0.9rem, 4vw, 1rem);
-            margin: 2vw 0;
+            font-size: clamp(0.9rem, 1.8vw, 1rem);
+            margin: 1vw 0;
             color: var(--azul-marinho);
         }
         
         .translation {
             text-align: center;
-            font-size: clamp(0.8rem, 3.5vw, 0.9rem);
+            font-size: clamp(0.8rem, 1.6vw, 0.9rem);
             margin: 1vw 0;
             color: var(--vinho);
             font-style: italic;
         }
         
         .progress-container {
-            width: 90%;
-            max-width: 600px;
-            height: 1.5vw;
-            max-height: 8px;
+            width: 80%;
+            max-width: 800px;
+            height: 1vw;
+            max-height: 10px;
             background-color: var(--bege-claro);
             border-radius: 4px;
-            margin-top: 3vw;
+            margin-top: 2vw;
             overflow: hidden;
         }
         
@@ -353,10 +354,10 @@
         
         .question-counter {
             text-align: center;
-            margin-top: 2vw;
+            margin-top: 1vw;
             font-weight: 500;
             color: var(--azul-marinho);
-            font-size: clamp(0.9rem, 4vw, 1rem);
+            font-size: clamp(0.9rem, 1.8vw, 1rem);
         }
         
         /* Página de resultados */
@@ -372,15 +373,15 @@
             justify-content: center;
             align-items: center;
             z-index: 70;
-            padding: 4vw;
+            padding: 2vw;
         }
         
         .results-container {
             background-color: var(--azul-marinho);
             border-radius: 20px;
-            padding: 6vw;
-            width: 90%;
-            max-width: 600px;
+            padding: 4vw;
+            width: 80%;
+            max-width: 800px;
             text-align: center;
             color: white;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
@@ -389,22 +390,22 @@
         .results-title {
             background-color: var(--vermelho);
             border-radius: 50px;
-            padding: 2.5vw;
+            padding: 2vw;
             font-family: 'Franklin Gothic Demi', sans-serif;
-            font-size: clamp(1.5rem, 5vw, 1.8rem);
-            margin-bottom: 3vw;
+            font-size: clamp(1.6rem, 3vw, 2rem);
+            margin-bottom: 2vw;
         }
         
         .results-text {
             font-family: 'Poppins', sans-serif;
-            margin-bottom: 4vw;
+            margin-bottom: 3vw;
             line-height: 1.6;
-            font-size: clamp(0.85rem, 3.5vw, 0.95rem);
+            font-size: clamp(0.9rem, 1.8vw, 1rem);
         }
         
         .results-mascot {
-            width: 30vw;
-            max-width: 150px;
+            width: 20vw;
+            max-width: 200px;
             margin: 0 auto;
         }
         
@@ -412,13 +413,13 @@
             background-color: var(--verde);
             color: white;
             font-family: 'Franklin Gothic Demi', sans-serif;
-            font-size: clamp(0.9rem, 4vw, 1rem);
-            padding: 2vw 5vw;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            padding: 1.5vw 4vw;
             border-radius: 50px;
             border: none;
             cursor: pointer;
             display: block;
-            margin: 4vw auto 0;
+            margin: 3vw auto 0;
             transition: transform 0.2s;
         }
         
@@ -427,331 +428,305 @@
         }
         
         /* Responsividade aprimorada */
+        /* Para desktops grandes (min-width: 1200px) */
+        @media (min-width: 1200px) {
+            .slot {
+                width: 35%;
+                max-width: 250px;
+            }
+            .slot-item img {
+                max-width: 95%;
+                max-height: 95%;
+            }
+            .game-container {
+                width: 70%;
+                max-width: 900px;
+                padding: 2vw;
+            }
+            .enunciado {
+                width: 70%;
+                max-width: 700px;
+            }
+            .mascot {
+                width: 15vw;
+                max-width: 300px;
+            }
+            .results-mascot {
+                width: 15vw;
+                max-width: 250px;
+            }
+        }
+        
         /* Para tablets e telas menores (max-width: 1024px) */
         @media (max-width: 1024px) {
             #intro-video {
                 width: 85%;
             }
-
             .mascot {
-                width: 35vw;
+                width: 25vw;
+                max-width: 220px;
+            }
+            .start-button {
+                font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+                padding: 2vw 5vw;
+            }
+            .game-container {
+                width: 85%;
+                max-width: 700px;
+                padding: 3vw;
+            }
+            .slot {
+                width: 45%;
                 max-width: 180px;
             }
-
-            .start-button {
-                font-size: clamp(1.1rem, 4.5vw, 1.4rem);
-                padding: 3vw 7vw;
-            }
-
-            .game-container {
-                padding: 3.5vw;
-                max-width: 550px;
-            }
-
-            .slots-container {
-                gap: 2.5vw;
-            }
-
-            .slot {
-                width: 48%;
-            }
-
             .slot-item img {
-                max-width: 75%;
-                max-height: 75%;
+                max-width: 85%;
+                max-height: 85%;
             }
-
             .enunciado p {
-                font-size: clamp(0.85rem, 3.5vw, 0.95rem);
+                font-size: clamp(0.9rem, 2vw, 1.1rem);
             }
-
             .option {
-                font-size: clamp(0.75rem, 3vw, 0.85rem);
-                padding: 1.5vw 2vw;
+                font-size: clamp(0.8rem, 1.8vw, 0.9rem);
+                padding: 1vw 2vw;
             }
-
             .word-slot {
                 min-width: 14vw;
-                min-height: 6.5vw;
-                font-size: clamp(0.75rem, 3vw, 0.85rem);
+                min-height: 5vw;
+                font-size: clamp(0.8rem, 1.8vw, 0.9rem);
             }
-
             .results-container {
-                padding: 5vw;
-                max-width: 550px;
+                width: 85%;
+                max-width: 700px;
+                padding: 4vw;
             }
-
             .results-title {
-                font-size: clamp(1.4rem, 4.5vw, 1.7rem);
+                font-size: clamp(1.4rem, 2.5vw, 1.8rem);
             }
-
             .results-text {
-                font-size: clamp(0.8rem, 3vw, 0.9rem);
+                font-size: clamp(0.85rem, 1.8vw, 0.95rem);
             }
-
             .results-mascot {
-                width: 28vw;
-                max-width: 140px;
+                width: 25vw;
+                max-width: 180px;
             }
         }
-
+        
         /* Para tablets menores e celulares maiores (max-width: 768px) */
         @media (max-width: 768px) {
             #intro-video {
-                width: 95%;
+                width: 90%;
             }
-            
             .slots-container {
                 flex-direction: column;
                 align-items: center;
                 gap: 3vw;
             }
-            
             .slot {
-                width: 90%;
+                width: 80%;
+                max-width: 300px;
             }
-            
             .slot-item img {
-                max-width: 70%;
-                max-height: 70%;
+                max-width: 80%;
+                max-height: 80%;
             }
-            
             .enunciado p {
-                font-size: clamp(0.8rem, 3vw, 0.9rem);
+                font-size: clamp(0.85rem, 2vw, 1rem);
             }
-            
             .option {
-                font-size: clamp(0.7rem, 2.8vw, 0.8rem);
-                padding: 1.2vw 1.8vw;
+                font-size: clamp(0.75rem, 1.8vw, 0.85rem);
+                padding: 1vw 1.8vw;
             }
-            
             .game-container {
-                padding: 3vw;
+                width: 90%;
+                padding: 4vw;
             }
-            
             .mascot-small {
                 width: 12vw;
-                max-width: 60px;
-                bottom: -4vw;
-                left: -4vw;
+                max-width: 70px;
+                bottom: -3vw;
+                left: -3vw;
             }
-            
             .logo {
                 width: 12vw;
-                max-width: 60px;
-                top: 2.5vw;
-                left: 2.5vw;
+                max-width: 70px;
+                top: 2vw;
+                left: 2vw;
             }
-
             .mascot {
-                width: 32vw;
-                max-width: 160px;
+                width: 30vw;
+                max-width: 200px;
             }
-
             .start-button {
-                font-size: clamp(1rem, 4vw, 1.3rem);
-                padding: 2.5vw 6vw;
+                font-size: clamp(1rem, 2.5vw, 1.3rem);
+                padding: 2vw 5vw;
             }
-
             .spin-button,
             .check-button,
             .restart-button {
-                font-size: clamp(0.85rem, 3.5vw, 0.95rem);
-                padding: 2vw 4.5vw;
+                font-size: clamp(0.9rem, 2vw, 1rem);
+                padding: 2vw 4vw;
             }
-
             .feedback {
-                font-size: clamp(1rem, 4vw, 1.2rem);
+                font-size: clamp(1rem, 2.5vw, 1.2rem);
             }
-
             .correct-answer,
             .translation {
-                font-size: clamp(0.8rem, 3vw, 0.95rem);
+                font-size: clamp(0.85rem, 1.8vw, 0.95rem);
             }
-
             .question-counter {
-                font-size: clamp(0.85rem, 3.5vw, 0.95rem);
+                font-size: clamp(0.85rem, 1.8vw, 0.95rem);
             }
-
             .results-title {
-                font-size: clamp(1.3rem, 4vw, 1.6rem);
+                font-size: clamp(1.3rem, 2.5vw, 1.6rem);
             }
-
             .results-text {
-                font-size: clamp(0.75rem, 2.8vw, 0.85rem);
+                font-size: clamp(0.8rem, 1.8vw, 0.9rem);
             }
-
             .results-mascot {
-                width: 26vw;
-                max-width: 130px;
+                width: 30vw;
+                max-width: 160px;
             }
         }
         
         /* Para celulares (max-width: 480px) */
         @media (max-width: 480px) {
             #intro-video {
-                width: 100%;
-            }
-
-            .slot {
                 width: 95%;
             }
-            
+            .slot {
+                width: 90%;
+                max-width: 200px;
+            }
             .slot-item img {
-                max-width: 65%;
-                max-height: 65%;
+                max-width: 70%;
+                max-height: 70%;
             }
-            
             .results-container {
-                padding: 4vw;
+                width: 95%;
+                padding: 5vw;
             }
-            
             .results-title {
-                font-size: clamp(1.2rem, 3.8vw, 1.5rem);
+                font-size: clamp(1.2rem, 2.5vw, 1.5rem);
             }
-            
             .start-button {
-                font-size: clamp(0.9rem, 3.5vw, 1.2rem);
-                padding: 2.5vw 6vw;
+                font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+                padding: 2vw 5vw;
             }
-            
             .mascot {
-                width: 30vw;
-                max-width: 150px;
+                width: 35vw;
+                max-width: 180px;
             }
-            
             .word-slot {
                 min-width: 12vw;
                 min-height: 6vw;
-                font-size: clamp(0.65rem, 2.5vw, 0.9rem);
+                font-size: clamp(0.7rem, 1.8vw, 0.85rem);
             }
-
             .enunciado {
                 margin: -7vw auto 3vw;
                 padding: 2vw 3vw;
             }
-
             .enunciado p {
-                font-size: clamp(0.75rem, 2.8vw, 0.85rem);
+                font-size: clamp(0.8rem, 2vw, 0.9rem);
             }
-
             .option {
-                font-size: clamp(0.65rem, 2.5vw, 0.75rem);
+                font-size: clamp(0.7rem, 1.8vw, 0.8rem);
                 padding: 1vw 1.5vw;
             }
-
             .sentence-container {
                 min-height: 8vw;
                 padding: 2vw;
                 gap: 1vw;
             }
-
             .spin-button,
             .check-button,
             .restart-button {
-                font-size: clamp(0.8rem, 3vw, 0.9rem);
-                padding: 1.8vw 4vw;
+                font-size: clamp(0.8rem, 2vw, 0.9rem);
+                padding: 1.5vw 4vw;
             }
-
             .feedback {
-                font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+                font-size: clamp(0.9rem, 2.5vw, 1.1rem);
             }
-
             .correct-answer,
             .translation {
-                font-size: clamp(0.75rem, 2.8vw, 0.85rem);
+                font-size: clamp(0.75rem, 1.8vw, 0.85rem);
             }
-
             .progress-container {
                 height: 1.2vw;
-                max-height: 6px;
+                max-height: 8px;
             }
-
             .question-counter {
-                font-size: clamp(0.8rem, 3vw, 0.9rem);
+                font-size: clamp(0.8rem, 1.8vw, 0.9rem);
             }
-
             .logo {
                 width: 10vw;
-                max-width: 50px;
+                max-width: 60px;
                 top: 2vw;
                 left: 2vw;
             }
-
             .mascot-small {
                 width: 10vw;
-                max-width: 50px;
+                max-width: 60px;
                 bottom: -3vw;
                 left: -3vw;
             }
-
             .results-mascot {
-                width: 24vw;
-                max-width: 120px;
+                width: 35vw;
+                max-width: 140px;
             }
         }
         
         /* Para celulares muito pequenos (max-width: 360px) */
         @media (max-width: 360px) {
             .slot {
-                width: 100%;
+                width: 95%;
+                max-width: 180px;
             }
-            
             .slot-item img {
-                max-width: 60%;
-                max-height: 60%;
+                max-width: 65%;
+                max-height: 65%;
             }
-
             .enunciado {
-                margin: -6vw auto 2.5vw;
-                padding: 1.8vw 2.5vw;
+                margin: -6vw auto 2vw;
+                padding: 2vw 3vw;
             }
-
             .enunciado p {
-                font-size: clamp(0.7rem, 2.5vw, 0.8rem);
+                font-size: clamp(0.75rem, 2vw, 0.85rem);
             }
-
             .option {
-                font-size: clamp(0.6rem, 2.2vw, 0.7rem);
+                font-size: clamp(0.65rem, 1.8vw, 0.75rem);
                 padding: 0.8vw 1.2vw;
             }
-
             .word-slot {
                 min-width: 11vw;
                 min-height: 5.5vw;
-                font-size: clamp(0.6rem, 2.2vw, 0.8rem);
+                font-size: clamp(0.65rem, 1.8vw, 0.75rem);
             }
-
             .sentence-container {
                 min-height: 7vw;
                 padding: 1.5vw;
                 gap: 0.8vw;
             }
-
             .spin-button,
             .check-button,
             .restart-button {
-                font-size: clamp(0.75rem, 2.8vw, 0.85rem);
+                font-size: clamp(0.75rem, 2vw, 0.85rem);
                 padding: 1.5vw 3.5vw;
             }
-
             .feedback {
-                font-size: clamp(0.85rem, 3.2vw, 1rem);
+                font-size: clamp(0.85rem, 2.5vw, 1rem);
             }
-
             .correct-answer,
             .translation {
-                font-size: clamp(0.7rem, 2.5vw, 0.8rem);
+                font-size: clamp(0.7rem, 1.8vw, 0.8rem);
             }
-
             .mascot {
-                width: 28vw;
-                max-width: 140px;
+                width: 40vw;
+                max-width: 160px;
             }
-
             .results-mascot {
-                width: 22vw;
-                max-width: 110px;
+                width: 40vw;
+                max-width: 120px;
             }
         }
         
@@ -1116,7 +1091,9 @@
                 const slots = document.querySelectorAll('.slot');
                 slots.forEach(slot => {
                     const slotWidth = slot.offsetWidth;
-                    const slotHeight = slotWidth * 0.6; // Proporção 0.6:1 (altura:largura)
+                    const isDesktop = window.innerWidth >= 1200;
+                    const aspectRatio = isDesktop ? 0.8 : 0.6; // Mais quadrado para desktops, mais retangular para celulares
+                    const slotHeight = slotWidth * aspectRatio;
                     slot.style.height = `${slotHeight}px`;
                     const slotItems = slot.querySelectorAll('.slot-item');
                     slotItems.forEach(item => {
