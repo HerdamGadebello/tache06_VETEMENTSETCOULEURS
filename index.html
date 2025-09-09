@@ -1,9 +1,8 @@
-```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jeu de Machine à Sous Français</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Franklin+Gothic+Demi&display=swap" rel="stylesheet">
@@ -28,15 +27,24 @@
             --marrom-dourado: #6C4500;
             --magenta: #A7007B;
             --turquesa: #10C894;
+            --slot-height: 150px;
+            --img-max-size: 85%;
+            --mascot-width: 200px;
+            --logo-width: 80px;
+            --button-font-size: 1.5rem;
+            --option-font-size: 0.9rem;
+            --feedback-font-size: 1.3rem;
+            --results-mascot-width: 150px;
+            --slots-flex-direction: row;
+            --slot-width: 45%;
         }
         
         body {
             font-family: 'Poppins', sans-serif;
-            overflow-x: hidden;
+            overflow: hidden;
             height: 100vh;
             width: 100vw;
             background-color: var(--bege-claro);
-            overscroll-behavior: none;
         }
         
         /* Página de introdução */
@@ -56,7 +64,7 @@
         }
         
         #intro-video {
-            width: 80%;
+            width: 60%;
             max-width: 800px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -78,16 +86,15 @@
         }
         
         .mascot {
-            width: 20vw;
-            max-width: 250px;
-            margin-bottom: 3vh;
+            width: var(--mascot-width);
+            margin-bottom: 30px;
         }
         
         .start-button {
             background-color: var(--azul-marinho);
             color: white;
             font-family: 'Franklin Gothic Demi', sans-serif;
-            font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+            font-size: var(--button-font-size);
             padding: 15px 40px;
             border-radius: 50px;
             border: none;
@@ -112,47 +119,43 @@
             justify-content: center;
             align-items: center;
             z-index: 80;
-            padding: 2vw;
-            overflow-x: hidden;
+            padding: 20px;
         }
         
         .logo {
             position: absolute;
-            top: 2vw;
-            left: 2vw;
-            width: 10vw;
-            max-width: 100px;
+            top: 20px;
+            left: 20px;
+            width: var(--logo-width);
             height: auto;
         }
         
         .game-container {
             background-color: var(--azul-marinho);
             border-radius: 20px;
-            padding: 3vw;
-            width: 80%;
-            max-width: 800px;
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
             position: relative;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            overflow-x: hidden;
         }
         
         .mascot-small {
             position: absolute;
-            bottom: -4vw;
-            left: -4vw;
-            width: 10vw;
-            max-width: 80px;
+            bottom: -30px;
+            left: -30px;
+            width: 80px;
             height: auto;
         }
         
         .enunciado {
             background-color: var(--vermelho);
             border-radius: 50px;
-            padding: 2vw 4vw;
+            padding: 12px 20px;
             text-align: center;
-            margin: -6vw auto 3vw;
-            width: 80%;
-            max-width: 600px;
+            margin: -40px auto 20px;
+            width: 90%;
+            max-width: 500px;
             position: relative;
             z-index: 10;
         }
@@ -160,20 +163,20 @@
         .enunciado p {
             font-family: 'Rockwell', serif;
             color: white;
-            font-size: clamp(1rem, 2vw, 1.2rem);
+            font-size: 1rem;
         }
         
         .slots-container {
             display: flex;
-            justify-content: center;
-            margin: 3vw 0;
-            gap: 2vw;
-            flex-wrap: wrap;
+            flex-direction: var(--slots-flex-direction);
+            justify-content: space-around;
+            margin: 20px 0;
+            gap: 15px;
         }
         
         .slot {
-            width: 40%;
-            max-width: 200px;
+            width: var(--slot-width);
+            height: var(--slot-height);
             background: white;
             border-radius: 10px;
             overflow: hidden;
@@ -189,32 +192,31 @@
         }
         
         .slot-item {
+            height: var(--slot-height);
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: clamp(1rem, 2vw, 1.2rem);
+            font-size: 1.2rem;
             font-weight: bold;
         }
         
         .slot-item img {
-            max-width: 90%;
-            max-height: 90%;
+            max-width: var(--img-max-size);
+            max-height: var(--img-max-size);
             object-fit: contain;
-            width: auto;
-            height: auto;
         }
         
         .spin-button {
             background-color: var(--verde);
             color: white;
             font-family: 'Franklin Gothic Demi', sans-serif;
-            font-size: clamp(1rem, 2vw, 1.2rem);
-            padding: 1.5vw 4vw;
+            font-size: 1rem;
+            padding: 10px 25px;
             border-radius: 50px;
             border: none;
             cursor: pointer;
             display: block;
-            margin: 2vw auto;
+            margin: 0 auto 15px;
             transition: transform 0.2s;
         }
         
@@ -226,17 +228,17 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 1.5vw;
-            margin: 2vw 0;
+            gap: 8px;
+            margin: 15px 0;
         }
         
         .option {
             background-color: var(--lavanda);
-            padding: 1vw 2vw;
+            padding: 8px 12px;
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.2s;
-            font-size: clamp(0.9rem, 1.8vw, 1rem);
+            font-size: var(--option-font-size);
         }
         
         .option:hover {
@@ -249,31 +251,30 @@
         }
         
         .sentence-container {
-            min-height: 8vw;
+            min-height: 50px;
             background: white;
             border-radius: 8px;
-            padding: 2vw;
-            margin: 2vw 0;
+            padding: 12px;
+            margin: 15px 0;
             display: flex;
             flex-wrap: wrap;
-            gap: 1vw;
+            gap: 8px;
             align-items: center;
             justify-content: center;
         }
         
         .word-slot {
             background-color: var(--bege-claro);
-            padding: 1vw 2vw;
+            padding: 6px 12px;
             border-radius: 5px;
-            min-width: 12vw;
-            min-height: 5vw;
+            min-width: 70px;
+            min-height: 35px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
-            font-size: clamp(0.9rem, 1.8vw, 1rem);
         }
         
         .word-slot.empty {
@@ -289,13 +290,13 @@
             background-color: var(--verde);
             color: white;
             font-family: 'Franklin Gothic Demi', sans-serif;
-            font-size: clamp(1rem, 2vw, 1.2rem);
-            padding: 1.5vw 4vw;
+            font-size: 1rem;
+            padding: 10px 25px;
             border-radius: 50px;
             border: none;
             cursor: pointer;
             display: block;
-            margin: 2vw auto;
+            margin: 15px auto;
             transition: transform 0.2s;
         }
         
@@ -306,9 +307,9 @@
         .feedback {
             text-align: center;
             font-family: 'Cooper Black', serif;
-            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
-            margin: 2vw 0;
-            min-height: 5vw;
+            font-size: var(--feedback-font-size);
+            margin: 8px 0;
+            min-height: 35px;
         }
         
         .correct {
@@ -321,27 +322,26 @@
         
         .correct-answer {
             text-align: center;
-            font-size: clamp(0.9rem, 1.8vw, 1rem);
-            margin: 1vw 0;
+            font-size: 1rem;
+            margin: 8px 0;
             color: var(--azul-marinho);
         }
         
         .translation {
             text-align: center;
-            font-size: clamp(0.8rem, 1.6vw, 0.9rem);
-            margin: 1vw 0;
+            font-size: 0.9rem;
+            margin: 5px 0;
             color: var(--vinho);
             font-style: italic;
         }
         
         .progress-container {
-            width: 80%;
-            max-width: 800px;
-            height: 1vw;
-            max-height: 10px;
+            width: 90%;
+            max-width: 600px;
+            height: 8px;
             background-color: var(--bege-claro);
             border-radius: 4px;
-            margin-top: 2vw;
+            margin-top: 15px;
             overflow: hidden;
         }
         
@@ -354,10 +354,9 @@
         
         .question-counter {
             text-align: center;
-            margin-top: 1vw;
+            margin-top: 10px;
             font-weight: 500;
             color: var(--azul-marinho);
-            font-size: clamp(0.9rem, 1.8vw, 1rem);
         }
         
         /* Página de resultados */
@@ -373,15 +372,15 @@
             justify-content: center;
             align-items: center;
             z-index: 70;
-            padding: 2vw;
+            padding: 20px;
         }
         
         .results-container {
             background-color: var(--azul-marinho);
             border-radius: 20px;
-            padding: 4vw;
-            width: 80%;
-            max-width: 800px;
+            padding: 30px;
+            width: 90%;
+            max-width: 600px;
             text-align: center;
             color: white;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
@@ -390,22 +389,21 @@
         .results-title {
             background-color: var(--vermelho);
             border-radius: 50px;
-            padding: 2vw;
+            padding: 12px;
             font-family: 'Franklin Gothic Demi', sans-serif;
-            font-size: clamp(1.6rem, 3vw, 2rem);
-            margin-bottom: 2vw;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
         }
         
         .results-text {
             font-family: 'Poppins', sans-serif;
-            margin-bottom: 3vw;
+            margin-bottom: 20px;
             line-height: 1.6;
-            font-size: clamp(0.9rem, 1.8vw, 1rem);
+            font-size: 0.95rem;
         }
         
         .results-mascot {
-            width: 20vw;
-            max-width: 200px;
+            width: var(--results-mascot-width);
             margin: 0 auto;
         }
         
@@ -413,13 +411,13 @@
             background-color: var(--verde);
             color: white;
             font-family: 'Franklin Gothic Demi', sans-serif;
-            font-size: clamp(1rem, 2vw, 1.2rem);
-            padding: 1.5vw 4vw;
+            font-size: 1rem;
+            padding: 10px 25px;
             border-radius: 50px;
             border: none;
             cursor: pointer;
             display: block;
-            margin: 3vw auto 0;
+            margin: 20px auto 0;
             transition: transform 0.2s;
         }
         
@@ -427,307 +425,31 @@
             transform: scale(1.05);
         }
         
-        /* Responsividade aprimorada */
-        /* Para desktops grandes (min-width: 1200px) */
-        @media (min-width: 1200px) {
-            .slot {
-                width: 35%;
-                max-width: 250px;
-            }
-            .slot-item img {
-                max-width: 95%;
-                max-height: 95%;
-            }
-            .game-container {
-                width: 70%;
-                max-width: 900px;
-                padding: 2vw;
-            }
-            .enunciado {
-                width: 70%;
-                max-width: 700px;
-            }
-            .mascot {
-                width: 15vw;
-                max-width: 300px;
-            }
-            .results-mascot {
-                width: 15vw;
-                max-width: 250px;
-            }
-        }
-        
-        /* Para tablets e telas menores (max-width: 1024px) */
-        @media (max-width: 1024px) {
-            #intro-video {
-                width: 85%;
-            }
-            .mascot {
-                width: 25vw;
-                max-width: 220px;
-            }
-            .start-button {
-                font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-                padding: 2vw 5vw;
-            }
-            .game-container {
-                width: 85%;
-                max-width: 700px;
-                padding: 3vw;
-            }
-            .slot {
-                width: 45%;
-                max-width: 180px;
-            }
-            .slot-item img {
-                max-width: 85%;
-                max-height: 85%;
-            }
-            .enunciado p {
-                font-size: clamp(0.9rem, 2vw, 1.1rem);
-            }
-            .option {
-                font-size: clamp(0.8rem, 1.8vw, 0.9rem);
-                padding: 1vw 2vw;
-            }
-            .word-slot {
-                min-width: 14vw;
-                min-height: 5vw;
-                font-size: clamp(0.8rem, 1.8vw, 0.9rem);
-            }
-            .results-container {
-                width: 85%;
-                max-width: 700px;
-                padding: 4vw;
-            }
-            .results-title {
-                font-size: clamp(1.4rem, 2.5vw, 1.8rem);
-            }
-            .results-text {
-                font-size: clamp(0.85rem, 1.8vw, 0.95rem);
-            }
-            .results-mascot {
-                width: 25vw;
-                max-width: 180px;
-            }
-        }
-        
-        /* Para tablets menores e celulares maiores (max-width: 768px) */
+        /* Responsividade com fallback de media queries */
         @media (max-width: 768px) {
-            #intro-video {
-                width: 90%;
-            }
-            .slots-container {
-                flex-direction: column;
-                align-items: center;
-                gap: 3vw;
-            }
-            .slot {
-                width: 80%;
-                max-width: 300px;
-            }
-            .slot-item img {
-                max-width: 80%;
-                max-height: 80%;
-            }
-            .enunciado p {
-                font-size: clamp(0.85rem, 2vw, 1rem);
-            }
-            .option {
-                font-size: clamp(0.75rem, 1.8vw, 0.85rem);
-                padding: 1vw 1.8vw;
-            }
-            .game-container {
-                width: 90%;
-                padding: 4vw;
-            }
-            .mascot-small {
-                width: 12vw;
-                max-width: 70px;
-                bottom: -3vw;
-                left: -3vw;
-            }
-            .logo {
-                width: 12vw;
-                max-width: 70px;
-                top: 2vw;
-                left: 2vw;
-            }
-            .mascot {
-                width: 30vw;
-                max-width: 200px;
-            }
-            .start-button {
-                font-size: clamp(1rem, 2.5vw, 1.3rem);
-                padding: 2vw 5vw;
-            }
-            .spin-button,
-            .check-button,
-            .restart-button {
-                font-size: clamp(0.9rem, 2vw, 1rem);
-                padding: 2vw 4vw;
-            }
-            .feedback {
-                font-size: clamp(1rem, 2.5vw, 1.2rem);
-            }
-            .correct-answer,
-            .translation {
-                font-size: clamp(0.85rem, 1.8vw, 0.95rem);
-            }
-            .question-counter {
-                font-size: clamp(0.85rem, 1.8vw, 0.95rem);
-            }
-            .results-title {
-                font-size: clamp(1.3rem, 2.5vw, 1.6rem);
-            }
-            .results-text {
-                font-size: clamp(0.8rem, 1.8vw, 0.9rem);
-            }
-            .results-mascot {
-                width: 30vw;
-                max-width: 160px;
-            }
+            --slot-height: 130px;
+            --img-max-size: 80%;
+            --mascot-width: 160px;
+            --logo-width: 60px;
+            --button-font-size: 1.3rem;
+            --option-font-size: 0.8rem;
+            --feedback-font-size: 1.2rem;
+            --results-mascot-width: 130px;
+            --slots-flex-direction: column;
+            --slot-width: 90%;
         }
         
-        /* Para celulares (max-width: 480px) */
         @media (max-width: 480px) {
-            #intro-video {
-                width: 95%;
-            }
-            .slot {
-                width: 90%;
-                max-width: 200px;
-            }
-            .slot-item img {
-                max-width: 70%;
-                max-height: 70%;
-            }
-            .results-container {
-                width: 95%;
-                padding: 5vw;
-            }
-            .results-title {
-                font-size: clamp(1.2rem, 2.5vw, 1.5rem);
-            }
-            .start-button {
-                font-size: clamp(0.9rem, 2.5vw, 1.2rem);
-                padding: 2vw 5vw;
-            }
-            .mascot {
-                width: 35vw;
-                max-width: 180px;
-            }
-            .word-slot {
-                min-width: 12vw;
-                min-height: 6vw;
-                font-size: clamp(0.7rem, 1.8vw, 0.85rem);
-            }
-            .enunciado {
-                margin: -7vw auto 3vw;
-                padding: 2vw 3vw;
-            }
-            .enunciado p {
-                font-size: clamp(0.8rem, 2vw, 0.9rem);
-            }
-            .option {
-                font-size: clamp(0.7rem, 1.8vw, 0.8rem);
-                padding: 1vw 1.5vw;
-            }
-            .sentence-container {
-                min-height: 8vw;
-                padding: 2vw;
-                gap: 1vw;
-            }
-            .spin-button,
-            .check-button,
-            .restart-button {
-                font-size: clamp(0.8rem, 2vw, 0.9rem);
-                padding: 1.5vw 4vw;
-            }
-            .feedback {
-                font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-            }
-            .correct-answer,
-            .translation {
-                font-size: clamp(0.75rem, 1.8vw, 0.85rem);
-            }
-            .progress-container {
-                height: 1.2vw;
-                max-height: 8px;
-            }
-            .question-counter {
-                font-size: clamp(0.8rem, 1.8vw, 0.9rem);
-            }
-            .logo {
-                width: 10vw;
-                max-width: 60px;
-                top: 2vw;
-                left: 2vw;
-            }
-            .mascot-small {
-                width: 10vw;
-                max-width: 60px;
-                bottom: -3vw;
-                left: -3vw;
-            }
-            .results-mascot {
-                width: 35vw;
-                max-width: 140px;
-            }
-        }
-        
-        /* Para celulares muito pequenos (max-width: 360px) */
-        @media (max-width: 360px) {
-            .slot {
-                width: 95%;
-                max-width: 180px;
-            }
-            .slot-item img {
-                max-width: 65%;
-                max-height: 65%;
-            }
-            .enunciado {
-                margin: -6vw auto 2vw;
-                padding: 2vw 3vw;
-            }
-            .enunciado p {
-                font-size: clamp(0.75rem, 2vw, 0.85rem);
-            }
-            .option {
-                font-size: clamp(0.65rem, 1.8vw, 0.75rem);
-                padding: 0.8vw 1.2vw;
-            }
-            .word-slot {
-                min-width: 11vw;
-                min-height: 5.5vw;
-                font-size: clamp(0.65rem, 1.8vw, 0.75rem);
-            }
-            .sentence-container {
-                min-height: 7vw;
-                padding: 1.5vw;
-                gap: 0.8vw;
-            }
-            .spin-button,
-            .check-button,
-            .restart-button {
-                font-size: clamp(0.75rem, 2vw, 0.85rem);
-                padding: 1.5vw 3.5vw;
-            }
-            .feedback {
-                font-size: clamp(0.85rem, 2.5vw, 1rem);
-            }
-            .correct-answer,
-            .translation {
-                font-size: clamp(0.7rem, 1.8vw, 0.8rem);
-            }
-            .mascot {
-                width: 40vw;
-                max-width: 160px;
-            }
-            .results-mascot {
-                width: 40vw;
-                max-width: 120px;
-            }
+            --slot-height: 110px;
+            --img-max-size: 75%;
+            --mascot-width: 150px;
+            --logo-width: 50px;
+            --button-font-size: 1.2rem;
+            --option-font-size: 0.75rem;
+            --feedback-font-size: 1.1rem;
+            --results-mascot-width: 120px;
+            --slots-flex-direction: column;
+            --slot-width: 95%;
         }
         
         /* Animações */
@@ -843,6 +565,37 @@
     <audio id="negative-sound" src="NEGATIVO.mp3"></audio>
 
     <script>
+        // Detectar se é dispositivo móvel
+        function isMobileDevice() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+
+        if (isMobileDevice()) {
+            // Ajustes para celular
+            document.documentElement.style.setProperty('--slot-height', '110px');
+            document.documentElement.style.setProperty('--img-max-size', '75%');
+            document.documentElement.style.setProperty('--mascot-width', '150px');
+            document.documentElement.style.setProperty('--logo-width', '50px');
+            document.documentElement.style.setProperty('--button-font-size', '1.2rem');
+            document.documentElement.style.setProperty('--option-font-size', '0.75rem');
+            document.documentElement.style.setProperty('--feedback-font-size', '1.1rem');
+            document.documentElement.style.setProperty('--results-mascot-width', '120px');
+            document.documentElement.style.setProperty('--slots-flex-direction', 'column');
+            document.documentElement.style.setProperty('--slot-width', '95%');
+        } else {
+            // Manter padrão para PC
+            document.documentElement.style.setProperty('--slot-height', '150px');
+            document.documentElement.style.setProperty('--img-max-size', '85%');
+            document.documentElement.style.setProperty('--mascot-width', '200px');
+            document.documentElement.style.setProperty('--logo-width', '80px');
+            document.documentElement.style.setProperty('--button-font-size', '1.5rem');
+            document.documentElement.style.setProperty('--option-font-size', '0.9rem');
+            document.documentElement.style.setProperty('--feedback-font-size', '1.3rem');
+            document.documentElement.style.setProperty('--results-mascot-width', '150px');
+            document.documentElement.style.setProperty('--slots-flex-direction', 'row');
+            document.documentElement.style.setProperty('--slot-width', '45%');
+        }
+
         // Dados do jogo
         const clothes = [
             { name: "écharpe", article: "une", image: "L'écharpe.png", gender: "f", number: "s" },
@@ -1020,25 +773,22 @@
             
             checkButton.addEventListener('click', function() {
                 if (isCheckingPhase) {
-                    // Se estiver na fase de verificação, transformar em "Girar Roleta Novamente"
                     playSound(buttonSound);
                     resetSelection();
                     spinButton.disabled = false;
                     checkButton.textContent = "Verificar";
                     isCheckingPhase = false;
                     
-                    // Avançar para a próxima questão
                     currentQuestion++;
                     updateQuestionCounter();
                     updateProgressBar();
                     
                     if (currentQuestion < totalQuestions) {
-                        spinSlots(); // Girar a roleta para a próxima questão
+                        spinSlots();
                     } else {
                         showResults();
                     }
                 } else {
-                    // Se estiver na fase normal, verificar a resposta
                     playSound(buttonSound);
                     checkAnswer();
                 }
@@ -1085,27 +835,6 @@
                     selectedOptions.color = null;
                 }
             });
-
-            // Ajustar a altura dos slots dinamicamente com base na largura da tela
-            function adjustSlotHeight() {
-                const slots = document.querySelectorAll('.slot');
-                slots.forEach(slot => {
-                    const slotWidth = slot.offsetWidth;
-                    const isDesktop = window.innerWidth >= 1200;
-                    const aspectRatio = isDesktop ? 0.8 : 0.6; // Mais quadrado para desktops, mais retangular para celulares
-                    const slotHeight = slotWidth * aspectRatio;
-                    slot.style.height = `${slotHeight}px`;
-                    const slotItems = slot.querySelectorAll('.slot-item');
-                    slotItems.forEach(item => {
-                        item.style.height = `${slotHeight}px`;
-                    });
-                });
-            }
-
-            // Chamar a função de ajuste no carregamento e no redimensionamento da janela
-            window.addEventListener('resize', adjustSlotHeight);
-            window.addEventListener('orientationchange', adjustSlotHeight);
-            adjustSlotHeight();
         });
 
         // Funções do jogo
@@ -1200,7 +929,7 @@
             const randomColorsIndex = Math.floor(Math.random() * colors.length);
             
             // Calcular posições para os slots
-            const slot = document.querySelector('.slot');
+            const slot = document.getElementById('clothes-slot');
             const slotHeight = slot.offsetHeight;
             const clothesPosition = -randomClothesIndex * slotHeight;
             const colorsPosition = -randomColorsIndex * slotHeight;
@@ -1257,7 +986,7 @@
                 clothesSlotInner.style.transition = 'none';
                 colorsSlotInner.style.transition = 'none';
                 
-                const slot = document.querySelector('.slot');
+                const slot = document.getElementById('clothes-slot');
                 const slotHeight = slot.offsetHeight;
                 clothesSlotInner.style.top = (-randomClothesIndex * slotHeight) + 'px';
                 colorsSlotInner.style.top = (-randomColorsIndex * slotHeight) + 'px';
@@ -1566,7 +1295,7 @@
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
+                [array[i], array[j] = [array[j], array[i]];
             }
             return array;
         }
@@ -1576,4 +1305,3 @@
     </script>
 </body>
 </html>
-```
