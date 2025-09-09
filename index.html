@@ -1,8 +1,9 @@
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Jeu de Machine à Sous Français</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Franklin+Gothic+Demi&display=swap" rel="stylesheet">
@@ -31,10 +32,11 @@
         
         body {
             font-family: 'Poppins', sans-serif;
-            overflow: hidden;
+            overflow-x: hidden;
             height: 100vh;
             width: 100vw;
             background-color: var(--bege-claro);
+            overscroll-behavior: none;
         }
         
         /* Página de introdução */
@@ -54,7 +56,7 @@
         }
         
         #intro-video {
-            width: 60%;
+            width: 80%;
             max-width: 800px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -76,15 +78,16 @@
         }
         
         .mascot {
-            width: 200px;
-            margin-bottom: 30px;
+            width: 40vw;
+            max-width: 200px;
+            margin-bottom: 5vh;
         }
         
         .start-button {
             background-color: var(--azul-marinho);
             color: white;
             font-family: 'Franklin Gothic Demi', sans-serif;
-            font-size: 1.5rem;
+            font-size: clamp(1.2rem, 5vw, 1.5rem);
             padding: 15px 40px;
             border-radius: 50px;
             border: none;
@@ -109,21 +112,22 @@
             justify-content: center;
             align-items: center;
             z-index: 80;
-            padding: 20px;
+            padding: 4vw;
         }
         
         .logo {
             position: absolute;
-            top: 20px;
-            left: 20px;
-            width: 80px;
+            top: 3vw;
+            left: 3vw;
+            width: 15vw;
+            max-width: 80px;
             height: auto;
         }
         
         .game-container {
             background-color: var(--azul-marinho);
             border-radius: 20px;
-            padding: 20px;
+            padding: 4vw;
             width: 90%;
             max-width: 600px;
             position: relative;
@@ -132,18 +136,19 @@
         
         .mascot-small {
             position: absolute;
-            bottom: -30px;
-            left: -30px;
-            width: 80px;
+            bottom: -5vw;
+            left: -5vw;
+            width: 15vw;
+            max-width: 80px;
             height: auto;
         }
         
         .enunciado {
             background-color: var(--vermelho);
             border-radius: 50px;
-            padding: 12px 20px;
+            padding: 2.5vw 4vw;
             text-align: center;
-            margin: -40px auto 20px;
+            margin: -8vw auto 4vw;
             width: 90%;
             max-width: 500px;
             position: relative;
@@ -153,19 +158,21 @@
         .enunciado p {
             font-family: 'Rockwell', serif;
             color: white;
-            font-size: 1rem;
+            font-size: clamp(0.9rem, 4vw, 1rem);
         }
         
         .slots-container {
             display: flex;
             justify-content: space-around;
-            margin: 20px 0;
-            gap: 15px;
+            margin: 4vw 0;
+            gap: 3vw;
+            flex-wrap: wrap;
         }
         
         .slot {
             width: 45%;
-            height: 150px;
+            height: 30vw;
+            max-height: 150px;
             background: white;
             border-radius: 10px;
             overflow: hidden;
@@ -181,31 +188,34 @@
         }
         
         .slot-item {
-            height: 150px;
+            height: 30vw;
+            max-height: 150px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 4vw, 1.2rem);
             font-weight: bold;
         }
         
         .slot-item img {
-            max-width: 85%;
-            max-height: 85%;
+            max-width: 90%;
+            max-height: 90%;
             object-fit: contain;
+            width: auto;
+            height: auto;
         }
         
         .spin-button {
             background-color: var(--verde);
             color: white;
             font-family: 'Franklin Gothic Demi', sans-serif;
-            font-size: 1rem;
-            padding: 10px 25px;
+            font-size: clamp(0.9rem, 4vw, 1rem);
+            padding: 2vw 5vw;
             border-radius: 50px;
             border: none;
             cursor: pointer;
             display: block;
-            margin: 0 auto 15px;
+            margin: 0 auto 3vw;
             transition: transform 0.2s;
         }
         
@@ -217,17 +227,17 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 8px;
-            margin: 15px 0;
+            gap: 1.5vw;
+            margin: 3vw 0;
         }
         
         .option {
             background-color: var(--lavanda);
-            padding: 8px 12px;
+            padding: 1.5vw 2.5vw;
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.2s;
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 3.5vw, 0.9rem);
         }
         
         .option:hover {
@@ -240,30 +250,31 @@
         }
         
         .sentence-container {
-            min-height: 50px;
+            min-height: 10vw;
             background: white;
             border-radius: 8px;
-            padding: 12px;
-            margin: 15px 0;
+            padding: 2.5vw;
+            margin: 3vw 0;
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 1.5vw;
             align-items: center;
             justify-content: center;
         }
         
         .word-slot {
             background-color: var(--bege-claro);
-            padding: 6px 12px;
+            padding: 1.5vw 2.5vw;
             border-radius: 5px;
-            min-width: 70px;
-            min-height: 35px;
+            min-width: 15vw;
+            min-height: 7vw;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
+            font-size: clamp(0.8rem, 3.5vw, 0.9rem);
         }
         
         .word-slot.empty {
@@ -279,13 +290,13 @@
             background-color: var(--verde);
             color: white;
             font-family: 'Franklin Gothic Demi', sans-serif;
-            font-size: 1rem;
-            padding: 10px 25px;
+            font-size: clamp(0.9rem, 4vw, 1rem);
+            padding: 2vw 5vw;
             border-radius: 50px;
             border: none;
             cursor: pointer;
             display: block;
-            margin: 15px auto;
+            margin: 3vw auto;
             transition: transform 0.2s;
         }
         
@@ -296,9 +307,9 @@
         .feedback {
             text-align: center;
             font-family: 'Cooper Black', serif;
-            font-size: 1.3rem;
-            margin: 8px 0;
-            min-height: 35px;
+            font-size: clamp(1.1rem, 4.5vw, 1.3rem);
+            margin: 2vw 0;
+            min-height: 7vw;
         }
         
         .correct {
@@ -311,15 +322,15 @@
         
         .correct-answer {
             text-align: center;
-            font-size: 1rem;
-            margin: 8px 0;
+            font-size: clamp(0.9rem, 4vw, 1rem);
+            margin: 2vw 0;
             color: var(--azul-marinho);
         }
         
         .translation {
             text-align: center;
-            font-size: 0.9rem;
-            margin: 5px 0;
+            font-size: clamp(0.8rem, 3.5vw, 0.9rem);
+            margin: 1vw 0;
             color: var(--vinho);
             font-style: italic;
         }
@@ -327,10 +338,11 @@
         .progress-container {
             width: 90%;
             max-width: 600px;
-            height: 8px;
+            height: 1.5vw;
+            max-height: 8px;
             background-color: var(--bege-claro);
             border-radius: 4px;
-            margin-top: 15px;
+            margin-top: 3vw;
             overflow: hidden;
         }
         
@@ -343,9 +355,10 @@
         
         .question-counter {
             text-align: center;
-            margin-top: 10px;
+            margin-top: 2vw;
             font-weight: 500;
             color: var(--azul-marinho);
+            font-size: clamp(0.9rem, 4vw, 1rem);
         }
         
         /* Página de resultados */
@@ -361,13 +374,13 @@
             justify-content: center;
             align-items: center;
             z-index: 70;
-            padding: 20px;
+            padding: 4vw;
         }
         
         .results-container {
             background-color: var(--azul-marinho);
             border-radius: 20px;
-            padding: 30px;
+            padding: 6vw;
             width: 90%;
             max-width: 600px;
             text-align: center;
@@ -378,21 +391,22 @@
         .results-title {
             background-color: var(--vermelho);
             border-radius: 50px;
-            padding: 12px;
+            padding: 2.5vw;
             font-family: 'Franklin Gothic Demi', sans-serif;
-            font-size: 1.8rem;
-            margin-bottom: 15px;
+            font-size: clamp(1.5rem, 5vw, 1.8rem);
+            margin-bottom: 3vw;
         }
         
         .results-text {
             font-family: 'Poppins', sans-serif;
-            margin-bottom: 20px;
+            margin-bottom: 4vw;
             line-height: 1.6;
-            font-size: 0.95rem;
+            font-size: clamp(0.85rem, 3.5vw, 0.95rem);
         }
         
         .results-mascot {
-            width: 150px;
+            width: 30vw;
+            max-width: 150px;
             margin: 0 auto;
         }
         
@@ -400,13 +414,13 @@
             background-color: var(--verde);
             color: white;
             font-family: 'Franklin Gothic Demi', sans-serif;
-            font-size: 1rem;
-            padding: 10px 25px;
+            font-size: clamp(0.9rem, 4vw, 1rem);
+            padding: 2vw 5vw;
             border-radius: 50px;
             border: none;
             cursor: pointer;
             display: block;
-            margin: 20px auto 0;
+            margin: 4vw auto 0;
             transition: transform 0.2s;
         }
         
@@ -418,154 +432,176 @@
         /* Para tablets e telas menores (max-width: 1024px) */
         @media (max-width: 1024px) {
             #intro-video {
-                width: 80%;
+                width: 85%;
             }
 
             .mascot {
-                width: 180px;
+                width: 35vw;
+                max-width: 180px;
             }
 
             .start-button {
-                font-size: 1.4rem;
-                padding: 14px 35px;
+                font-size: clamp(1.1rem, 4.5vw, 1.4rem);
+                padding: 3vw 7vw;
             }
 
             .game-container {
-                padding: 18px;
+                padding: 3.5vw;
                 max-width: 550px;
             }
 
             .slots-container {
-                gap: 12px;
+                gap: 2.5vw;
             }
 
             .slot {
-                height: 140px;
+                width: 48%;
+                height: 28vw;
+                max-height: 140px;
             }
 
             .slot-item {
-                height: 140px;
-                font-size: 1.1rem;
+                height: 28vw;
+                max-height: 140px;
+                font-size: clamp(0.95rem, 3.5vw, 1.1rem);
+            }
+
+            .slot-item img {
+                max-width: 85%;
+                max-height: 85%;
             }
 
             .enunciado p {
-                font-size: 0.95rem;
+                font-size: clamp(0.85rem, 3.5vw, 0.95rem);
             }
 
             .option {
-                font-size: 0.85rem;
-                padding: 7px 11px;
+                font-size: clamp(0.75rem, 3vw, 0.85rem);
+                padding: 1.5vw 2vw;
             }
 
             .word-slot {
-                min-width: 65px;
-                min-height: 32px;
-                font-size: 0.95rem;
+                min-width: 14vw;
+                min-height: 6.5vw;
+                font-size: clamp(0.75rem, 3vw, 0.85rem);
             }
 
             .results-container {
-                padding: 25px;
+                padding: 5vw;
                 max-width: 550px;
             }
 
             .results-title {
-                font-size: 1.7rem;
+                font-size: clamp(1.4rem, 4.5vw, 1.7rem);
             }
 
             .results-text {
-                font-size: 0.9rem;
+                font-size: clamp(0.8rem, 3vw, 0.9rem);
             }
 
             .results-mascot {
-                width: 140px;
+                width: 28vw;
+                max-width: 140px;
             }
         }
 
         /* Para tablets menores e celulares maiores (max-width: 768px) */
         @media (max-width: 768px) {
             #intro-video {
-                width: 90%;
+                width: 95%;
             }
             
             .slots-container {
                 flex-direction: column;
                 align-items: center;
-                gap: 15px;
+                gap: 3vw;
             }
             
             .slot {
                 width: 90%;
-                height: 130px;
+                height: 25vw;
+                max-height: 130px;
             }
             
             .slot-item {
-                height: 130px;
+                height: 25vw;
+                max-height: 130px;
+                font-size: clamp(0.9rem, 3.5vw, 1rem);
+            }
+            
+            .slot-item img {
+                max-width: 80%;
+                max-height: 80%;
             }
             
             .enunciado p {
-                font-size: 0.9rem;
+                font-size: clamp(0.8rem, 3vw, 0.9rem);
             }
             
             .option {
-                font-size: 0.8rem;
-                padding: 6px 10px;
+                font-size: clamp(0.7rem, 2.8vw, 0.8rem);
+                padding: 1.2vw 1.8vw;
             }
             
             .game-container {
-                padding: 15px;
+                padding: 3vw;
             }
             
             .mascot-small {
-                width: 60px;
-                bottom: -20px;
-                left: -20px;
+                width: 12vw;
+                max-width: 60px;
+                bottom: -4vw;
+                left: -4vw;
             }
             
             .logo {
-                width: 60px;
-                top: 15px;
-                left: 15px;
+                width: 12vw;
+                max-width: 60px;
+                top: 2.5vw;
+                left: 2.5vw;
             }
 
             .mascot {
-                width: 160px;
+                width: 32vw;
+                max-width: 160px;
             }
 
             .start-button {
-                font-size: 1.3rem;
-                padding: 12px 30px;
+                font-size: clamp(1rem, 4vw, 1.3rem);
+                padding: 2.5vw 6vw;
             }
 
             .spin-button,
             .check-button,
             .restart-button {
-                font-size: 0.95rem;
-                padding: 9px 22px;
+                font-size: clamp(0.85rem, 3.5vw, 0.95rem);
+                padding: 2vw 4.5vw;
             }
 
             .feedback {
-                font-size: 1.2rem;
+                font-size: clamp(1rem, 4vw, 1.2rem);
             }
 
             .correct-answer,
             .translation {
-                font-size: 0.95rem;
+                font-size: clamp(0.8rem, 3vw, 0.95rem);
             }
 
             .question-counter {
-                font-size: 0.95rem;
+                font-size: clamp(0.85rem, 3.5vw, 0.95rem);
             }
 
             .results-title {
-                font-size: 1.6rem;
+                font-size: clamp(1.3rem, 4vw, 1.6rem);
             }
 
             .results-text {
-                font-size: 0.85rem;
+                font-size: clamp(0.75rem, 2.8vw, 0.85rem);
             }
 
             .results-mascot {
-                width: 130px;
+                width: 26vw;
+                max-width: 130px;
             }
         }
         
@@ -576,95 +612,180 @@
             }
 
             .slot {
-                height: 110px;
                 width: 95%;
+                height: 22vw;
+                max-height: 110px;
             }
             
             .slot-item {
-                height: 110px;
-                font-size: 1rem;
+                height: 22vw;
+                max-height: 110px;
+                font-size: clamp(0.85rem, 3vw, 1rem);
+            }
+            
+            .slot-item img {
+                max-width: 75%;
+                max-height: 75%;
             }
             
             .results-container {
-                padding: 20px;
+                padding: 4vw;
             }
             
             .results-title {
-                font-size: 1.5rem;
+                font-size: clamp(1.2rem, 3.8vw, 1.5rem);
             }
             
             .start-button {
-                font-size: 1.2rem;
-                padding: 12px 30px;
+                font-size: clamp(0.9rem, 3.5vw, 1.2rem);
+                padding: 2.5vw 6vw;
             }
             
             .mascot {
-                width: 150px;
+                width: 30vw;
+                max-width: 150px;
             }
             
             .word-slot {
-                min-width: 60px;
-                font-size: 0.9rem;
+                min-width: 12vw;
+                min-height: 6vw;
+                font-size: clamp(0.65rem, 2.5vw, 0.9rem);
             }
 
             .enunciado {
-                margin: -35px auto 15px;
-                padding: 10px 15px;
+                margin: -7vw auto 3vw;
+                padding: 2vw 3vw;
             }
 
             .enunciado p {
-                font-size: 0.85rem;
+                font-size: clamp(0.75rem, 2.8vw, 0.85rem);
             }
 
             .option {
-                font-size: 0.75rem;
-                padding: 5px 8px;
+                font-size: clamp(0.65rem, 2.5vw, 0.75rem);
+                padding: 1vw 1.5vw;
             }
 
             .sentence-container {
-                min-height: 40px;
-                padding: 10px;
-                gap: 6px;
+                min-height: 8vw;
+                padding: 2vw;
+                gap: 1vw;
             }
 
             .spin-button,
             .check-button,
             .restart-button {
-                font-size: 0.9rem;
-                padding: 8px 20px;
+                font-size: clamp(0.8rem, 3vw, 0.9rem);
+                padding: 1.8vw 4vw;
             }
 
             .feedback {
-                font-size: 1.1rem;
+                font-size: clamp(0.9rem, 3.5vw, 1.1rem);
             }
 
             .correct-answer,
             .translation {
-                font-size: 0.85rem;
+                font-size: clamp(0.75rem, 2.8vw, 0.85rem);
             }
 
             .progress-container {
-                height: 6px;
+                height: 1.2vw;
+                max-height: 6px;
             }
 
             .question-counter {
-                font-size: 0.9rem;
+                font-size: clamp(0.8rem, 3vw, 0.9rem);
             }
 
             .logo {
-                width: 50px;
-                top: 10px;
-                left: 10px;
+                width: 10vw;
+                max-width: 50px;
+                top: 2vw;
+                left: 2vw;
             }
 
             .mascot-small {
-                width: 50px;
-                bottom: -15px;
-                left: -15px;
+                width: 10vw;
+                max-width: 50px;
+                bottom: -3vw;
+                left: -3vw;
             }
 
             .results-mascot {
-                width: 120px;
+                width: 24vw;
+                max-width: 120px;
+            }
+        }
+        
+        /* Para celulares muito pequenos (max-width: 360px) */
+        @media (max-width: 360px) {
+            .slot {
+                width: 100%;
+                height: 20vw;
+                max-height: 100px;
+            }
+            
+            .slot-item {
+                height: 20vw;
+                max-height: 100px;
+                font-size: clamp(0.8rem, 2.8vw, 0.9rem);
+            }
+            
+            .slot-item img {
+                max-width: 70%;
+                max-height: 70%;
+            }
+
+            .enunciado {
+                margin: -6vw auto 2.5vw;
+                padding: 1.8vw 2.5vw;
+            }
+
+            .enunciado p {
+                font-size: clamp(0.7rem, 2.5vw, 0.8rem);
+            }
+
+            .option {
+                font-size: clamp(0.6rem, 2.2vw, 0.7rem);
+                padding: 0.8vw 1.2vw;
+            }
+
+            .word-slot {
+                min-width: 11vw;
+                min-height: 5.5vw;
+                font-size: clamp(0.6rem, 2.2vw, 0.8rem);
+            }
+
+            .sentence-container {
+                min-height: 7vw;
+                padding: 1.5vw;
+                gap: 0.8vw;
+            }
+
+            .spin-button,
+            .check-button,
+            .restart-button {
+                font-size: clamp(0.75rem, 2.8vw, 0.85rem);
+                padding: 1.5vw 3.5vw;
+            }
+
+            .feedback {
+                font-size: clamp(0.85rem, 3.2vw, 1rem);
+            }
+
+            .correct-answer,
+            .translation {
+                font-size: clamp(0.7rem, 2.5vw, 0.8rem);
+            }
+
+            .mascot {
+                width: 28vw;
+                max-width: 140px;
+            }
+
+            .results-mascot {
+                width: 22vw;
+                max-width: 110px;
             }
         }
         
@@ -1023,6 +1144,23 @@
                     selectedOptions.color = null;
                 }
             });
+
+            // Ajustar a altura dos slots dinamicamente com base na largura da tela
+            function adjustSlotHeight() {
+                const slots = document.querySelectorAll('.slot');
+                slots.forEach(slot => {
+                    const slotWidth = slot.offsetWidth;
+                    slot.style.height = `${slotWidth * 0.6}px`; // Proporção 0.6:1 (altura:largura)
+                    const slotItems = slot.querySelectorAll('.slot-item');
+                    slotItems.forEach(item => {
+                        item.style.height = `${slotWidth * 0.6}px`;
+                    });
+                });
+            }
+
+            // Chamar a função de ajuste no carregamento e no redimensionamento da janela
+            window.addEventListener('resize', adjustSlotHeight);
+            adjustSlotHeight();
         });
 
         // Funções do jogo
@@ -1117,8 +1255,9 @@
             const randomColorsIndex = Math.floor(Math.random() * colors.length);
             
             // Calcular posições para os slots
-            const clothesPosition = -randomClothesIndex * 150;
-            const colorsPosition = -randomColorsIndex * 150;
+            const slotHeight = document.querySelector('.slot').offsetHeight;
+            const clothesPosition = -randomClothesIndex * slotHeight;
+            const colorsPosition = -randomColorsIndex * slotHeight;
             
             // Aplicar animação aos slots
             clothesSlotInner.style.transition = 'top 4s cubic-bezier(0.17, 0.67, 0.83, 0.67)';
@@ -1172,8 +1311,9 @@
                 clothesSlotInner.style.transition = 'none';
                 colorsSlotInner.style.transition = 'none';
                 
-                clothesSlotInner.style.top = (-randomClothesIndex * 150) + 'px';
-                colorsSlotInner.style.top = (-randomColorsIndex * 150) + 'px';
+                const slotHeight = document.querySelector('.slot').offsetHeight;
+                clothesSlotInner.style.top = (-randomClothesIndex * slotHeight) + 'px';
+                colorsSlotInner.style.top = (-randomColorsIndex * slotHeight) + 'px';
                 
                 currentClothesIndex = randomClothesIndex;
                 currentColorsIndex = randomColorsIndex;
@@ -1489,3 +1629,4 @@
     </script>
 </body>
 </html>
+```
