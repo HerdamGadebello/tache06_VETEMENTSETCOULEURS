@@ -113,6 +113,7 @@
             align-items: center;
             z-index: 80;
             padding: 4vw;
+            overflow-x: hidden;
         }
         
         .logo {
@@ -132,6 +133,7 @@
             max-width: 600px;
             position: relative;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            overflow-x: hidden;
         }
         
         .mascot-small {
@@ -163,7 +165,7 @@
         
         .slots-container {
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
             margin: 4vw 0;
             gap: 3vw;
             flex-wrap: wrap;
@@ -171,8 +173,6 @@
         
         .slot {
             width: 45%;
-            height: 30vw;
-            max-height: 150px;
             background: white;
             border-radius: 10px;
             overflow: hidden;
@@ -188,8 +188,6 @@
         }
         
         .slot-item {
-            height: 30vw;
-            max-height: 150px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -198,8 +196,8 @@
         }
         
         .slot-item img {
-            max-width: 90%;
-            max-height: 90%;
+            max-width: 80%;
+            max-height: 80%;
             object-fit: contain;
             width: auto;
             height: auto;
@@ -456,19 +454,11 @@
 
             .slot {
                 width: 48%;
-                height: 28vw;
-                max-height: 140px;
-            }
-
-            .slot-item {
-                height: 28vw;
-                max-height: 140px;
-                font-size: clamp(0.95rem, 3.5vw, 1.1rem);
             }
 
             .slot-item img {
-                max-width: 85%;
-                max-height: 85%;
+                max-width: 75%;
+                max-height: 75%;
             }
 
             .enunciado p {
@@ -519,19 +509,11 @@
             
             .slot {
                 width: 90%;
-                height: 25vw;
-                max-height: 130px;
-            }
-            
-            .slot-item {
-                height: 25vw;
-                max-height: 130px;
-                font-size: clamp(0.9rem, 3.5vw, 1rem);
             }
             
             .slot-item img {
-                max-width: 80%;
-                max-height: 80%;
+                max-width: 70%;
+                max-height: 70%;
             }
             
             .enunciado p {
@@ -613,19 +595,11 @@
 
             .slot {
                 width: 95%;
-                height: 22vw;
-                max-height: 110px;
-            }
-            
-            .slot-item {
-                height: 22vw;
-                max-height: 110px;
-                font-size: clamp(0.85rem, 3vw, 1rem);
             }
             
             .slot-item img {
-                max-width: 75%;
-                max-height: 75%;
+                max-width: 65%;
+                max-height: 65%;
             }
             
             .results-container {
@@ -721,19 +695,11 @@
         @media (max-width: 360px) {
             .slot {
                 width: 100%;
-                height: 20vw;
-                max-height: 100px;
-            }
-            
-            .slot-item {
-                height: 20vw;
-                max-height: 100px;
-                font-size: clamp(0.8rem, 2.8vw, 0.9rem);
             }
             
             .slot-item img {
-                max-width: 70%;
-                max-height: 70%;
+                max-width: 60%;
+                max-height: 60%;
             }
 
             .enunciado {
@@ -1150,16 +1116,18 @@
                 const slots = document.querySelectorAll('.slot');
                 slots.forEach(slot => {
                     const slotWidth = slot.offsetWidth;
-                    slot.style.height = `${slotWidth * 0.6}px`; // Proporção 0.6:1 (altura:largura)
+                    const slotHeight = slotWidth * 0.6; // Proporção 0.6:1 (altura:largura)
+                    slot.style.height = `${slotHeight}px`;
                     const slotItems = slot.querySelectorAll('.slot-item');
                     slotItems.forEach(item => {
-                        item.style.height = `${slotWidth * 0.6}px`;
+                        item.style.height = `${slotHeight}px`;
                     });
                 });
             }
 
             // Chamar a função de ajuste no carregamento e no redimensionamento da janela
             window.addEventListener('resize', adjustSlotHeight);
+            window.addEventListener('orientationchange', adjustSlotHeight);
             adjustSlotHeight();
         });
 
@@ -1255,7 +1223,8 @@
             const randomColorsIndex = Math.floor(Math.random() * colors.length);
             
             // Calcular posições para os slots
-            const slotHeight = document.querySelector('.slot').offsetHeight;
+            const slot = document.querySelector('.slot');
+            const slotHeight = slot.offsetHeight;
             const clothesPosition = -randomClothesIndex * slotHeight;
             const colorsPosition = -randomColorsIndex * slotHeight;
             
@@ -1311,7 +1280,8 @@
                 clothesSlotInner.style.transition = 'none';
                 colorsSlotInner.style.transition = 'none';
                 
-                const slotHeight = document.querySelector('.slot').offsetHeight;
+                const slot = document.querySelector('.slot');
+                const slotHeight = slot.offsetHeight;
                 clothesSlotInner.style.top = (-randomClothesIndex * slotHeight) + 'px';
                 colorsSlotInner.style.top = (-randomColorsIndex * slotHeight) + 'px';
                 
