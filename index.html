@@ -31,17 +31,10 @@
         
         body {
             font-family: 'Poppins', sans-serif;
-            overflow-x: hidden;
-            min-height: 100vh;
-            width: 100%;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
             background-color: var(--bege-claro);
-        }
-        
-        /* Container principal responsivo */
-        .main-container {
-            width: 100%;
-            min-height: 100vh;
-            position: relative;
         }
         
         /* Página de introdução */
@@ -51,7 +44,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #F1E1AC 0%, #D4C196 100%);
+            background: url('fundo.jpg') no-repeat center center;
+            background-size: cover;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -59,57 +53,11 @@
             transition: opacity 1s ease;
         }
         
-        .intro-content {
-            text-align: center;
-            padding: 20px;
-            max-width: 600px;
-            width: 90%;
-        }
-        
-        .intro-title {
-            font-family: 'Franklin Gothic Demi', sans-serif;
-            font-size: 2.5rem;
-            color: var(--azul-marinho);
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
-        }
-        
-        .intro-subtitle {
-            font-size: 1.2rem;
-            color: var(--vermelho);
-            margin-bottom: 30px;
-        }
-        
-        .intro-image {
-            width: 100%;
-            max-width: 400px;
-            height: 200px;
-            background-color: var(--lavanda);
+        #intro-video {
+            width: 60%;
+            max-width: 800px;
             border-radius: 10px;
-            margin: 0 auto 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            color: var(--azul-marinho);
-            font-size: 1.2rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .skip-intro {
-            background-color: var(--vermelho);
-            color: white;
-            font-family: 'Franklin Gothic Demi', sans-serif;
-            font-size: 1.2rem;
-            padding: 12px 30px;
-            border-radius: 50px;
-            border: none;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        
-        .skip-intro:hover {
-            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
         
         /* Página inicial do quiz */
@@ -125,23 +73,11 @@
             justify-content: center;
             align-items: center;
             z-index: 90;
-            padding: 20px;
         }
         
         .mascot {
             width: 200px;
-            height: 200px;
-            background-color: var(--lavanda);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
             margin-bottom: 30px;
-            color: var(--azul-marinho);
-            font-size: 1.1rem;
-            text-align: center;
-            padding: 15px;
         }
         
         .start-button {
@@ -173,35 +109,25 @@
             justify-content: center;
             align-items: center;
             z-index: 80;
-            padding: 15px;
-            overflow-y: auto;
+            padding: 20px;
         }
         
         .logo {
             position: absolute;
-            top: 15px;
-            left: 15px;
-            width: 70px;
-            height: 70px;
-            background-color: var(--vermelho);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-weight: bold;
-            z-index: 10;
+            top: 20px;
+            left: 20px;
+            width: 80px;
+            height: auto;
         }
         
         .game-container {
             background-color: var(--azul-marinho);
             border-radius: 20px;
             padding: 20px;
-            width: 100%;
+            width: 90%;
             max-width: 600px;
             position: relative;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            margin: 50px 0 20px;
         }
         
         .mascot-small {
@@ -209,23 +135,13 @@
             bottom: -30px;
             left: -30px;
             width: 80px;
-            height: 80px;
-            background-color: var(--lavanda);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            z-index: 5;
-            color: var(--azul-marinho);
-            font-size: 0.9rem;
-            text-align: center;
+            height: auto;
         }
         
         .enunciado {
             background-color: var(--vermelho);
             border-radius: 50px;
-            padding: 12px 15px;
+            padding: 12px 20px;
             text-align: center;
             margin: -40px auto 20px;
             width: 90%;
@@ -245,12 +161,10 @@
             justify-content: space-around;
             margin: 20px 0;
             gap: 15px;
-            flex-wrap: wrap;
         }
         
         .slot {
             width: 45%;
-            min-width: 140px;
             height: 150px;
             background: white;
             border-radius: 10px;
@@ -273,7 +187,6 @@
             align-items: center;
             font-size: 1.2rem;
             font-weight: bold;
-            background-color: #f8f8f8;
         }
         
         .slot-item img {
@@ -282,32 +195,18 @@
             object-fit: contain;
         }
         
-        .item-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            color: var(--azul-marinho);
-            text-align: center;
-            padding: 10px;
-        }
-        
         .spin-button {
             background-color: var(--verde);
             color: white;
             font-family: 'Franklin Gothic Demi', sans-serif;
             font-size: 1rem;
-            padding: 12px 30px;
+            padding: 10px 25px;
             border-radius: 50px;
             border: none;
             cursor: pointer;
             display: block;
             margin: 0 auto 15px;
             transition: transform 0.2s;
-            width: 80%;
-            max-width: 200px;
         }
         
         .spin-button:hover {
@@ -329,9 +228,6 @@
             cursor: pointer;
             transition: all 0.2s;
             font-size: 0.9rem;
-            flex: 1;
-            min-width: 80px;
-            text-align: center;
         }
         
         .option:hover {
@@ -368,7 +264,6 @@
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
-            flex: 1;
         }
         
         .word-slot.empty {
@@ -385,15 +280,13 @@
             color: white;
             font-family: 'Franklin Gothic Demi', sans-serif;
             font-size: 1rem;
-            padding: 12px 30px;
+            padding: 10px 25px;
             border-radius: 50px;
             border: none;
             cursor: pointer;
             display: block;
             margin: 15px auto;
             transition: transform 0.2s;
-            width: 80%;
-            max-width: 200px;
         }
         
         .check-button:hover {
@@ -469,7 +362,6 @@
             align-items: center;
             z-index: 70;
             padding: 20px;
-            overflow-y: auto;
         }
         
         .results-container {
@@ -481,7 +373,6 @@
             text-align: center;
             color: white;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            margin: 20px 0;
         }
         
         .results-title {
@@ -502,17 +393,7 @@
         
         .results-mascot {
             width: 150px;
-            height: 150px;
-            background-color: var(--lavanda);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
             margin: 0 auto;
-            color: var(--azul-marinho);
-            text-align: center;
-            padding: 15px;
         }
         
         .restart-button {
@@ -520,99 +401,90 @@
             color: white;
             font-family: 'Franklin Gothic Demi', sans-serif;
             font-size: 1rem;
-            padding: 12px 30px;
+            padding: 10px 25px;
             border-radius: 50px;
             border: none;
             cursor: pointer;
             display: block;
             margin: 20px auto 0;
             transition: transform 0.2s;
-            width: 80%;
-            max-width: 200px;
         }
         
         .restart-button:hover {
             transform: scale(1.05);
         }
         
-        /* Responsividade para tablets */
-        @media (max-width: 1024px) and (min-width: 769px) {
+        /* Responsividade aprimorada */
+        /* Para tablets e telas menores (max-width: 1024px) */
+        @media (max-width: 1024px) {
+            #intro-video {
+                width: 80%;
+            }
+
+            .mascot {
+                width: 180px;
+            }
+
+            .start-button {
+                font-size: 1.4rem;
+                padding: 14px 35px;
+            }
+
             .game-container {
-                max-width: 90%;
+                padding: 18px;
+                max-width: 550px;
             }
-            
+
+            .slots-container {
+                gap: 12px;
+            }
+
             .slot {
-                width: 45%;
-                height: 180px;
+                height: 140px;
             }
-            
+
             .slot-item {
-                height: 180px;
-            }
-            
-            .enunciado p {
+                height: 140px;
                 font-size: 1.1rem;
             }
-            
+
+            .enunciado p {
+                font-size: 0.95rem;
+            }
+
             .option {
-                font-size: 1rem;
-                padding: 10px 15px;
+                font-size: 0.85rem;
+                padding: 7px 11px;
+            }
+
+            .word-slot {
+                min-width: 65px;
+                min-height: 32px;
+                font-size: 0.95rem;
+            }
+
+            .results-container {
+                padding: 25px;
+                max-width: 550px;
+            }
+
+            .results-title {
+                font-size: 1.7rem;
+            }
+
+            .results-text {
+                font-size: 0.9rem;
+            }
+
+            .results-mascot {
+                width: 140px;
             }
         }
-        
-        /* Responsividade para dispositivos móveis */
+
+        /* Para tablets menores e celulares maiores (max-width: 768px) */
         @media (max-width: 768px) {
-            .intro-title {
-                font-size: 2rem;
-            }
-            
-            .intro-subtitle {
-                font-size: 1rem;
-            }
-            
-            .intro-image {
-                height: 150px;
-            }
-            
-            .mascot {
-                width: 150px;
-                height: 150px;
-                font-size: 1rem;
-            }
-            
-            .start-button {
-                font-size: 1.2rem;
-                padding: 12px 30px;
-            }
-            
-            .logo {
-                width: 50px;
-                height: 50px;
-                top: 10px;
-                left: 10px;
-                font-size: 0.8rem;
-            }
-            
-            .game-container {
-                padding: 15px;
-                margin: 40px 0 20px;
-            }
-            
-            .mascot-small {
-                width: 60px;
-                height: 60px;
-                bottom: -20px;
-                left: -20px;
-                font-size: 0.7rem;
-            }
-            
-            .enunciado {
-                padding: 10px 12px;
-                margin: -30px auto 15px;
-            }
-            
-            .enunciado p {
-                font-size: 0.9rem;
+            #intro-video {
+                width: 90%;
             }
             
             .slots-container {
@@ -624,40 +496,93 @@
             .slot {
                 width: 90%;
                 height: 130px;
-                min-width: unset;
             }
             
             .slot-item {
                 height: 130px;
             }
             
-            .options-container {
-                gap: 6px;
+            .enunciado p {
+                font-size: 0.9rem;
             }
             
             .option {
                 font-size: 0.8rem;
                 padding: 6px 10px;
-                min-width: 70px;
             }
             
-            .word-slot {
-                min-width: 60px;
-                font-size: 0.9rem;
-                padding: 5px 10px;
+            .game-container {
+                padding: 15px;
             }
             
-            .spin-button, .check-button, .restart-button {
-                font-size: 0.9rem;
-                padding: 10px 25px;
+            .mascot-small {
+                width: 60px;
+                bottom: -20px;
+                left: -20px;
             }
             
+            .logo {
+                width: 60px;
+                top: 15px;
+                left: 15px;
+            }
+
+            .mascot {
+                width: 160px;
+            }
+
+            .start-button {
+                font-size: 1.3rem;
+                padding: 12px 30px;
+            }
+
+            .spin-button,
+            .check-button,
+            .restart-button {
+                font-size: 0.95rem;
+                padding: 9px 22px;
+            }
+
             .feedback {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
+            }
+
+            .correct-answer,
+            .translation {
+                font-size: 0.95rem;
+            }
+
+            .question-counter {
+                font-size: 0.95rem;
+            }
+
+            .results-title {
+                font-size: 1.6rem;
+            }
+
+            .results-text {
+                font-size: 0.85rem;
+            }
+
+            .results-mascot {
+                width: 130px;
+            }
+        }
+        
+        /* Para celulares (max-width: 480px) */
+        @media (max-width: 480px) {
+            #intro-video {
+                width: 100%;
+            }
+
+            .slot {
+                height: 110px;
+                width: 95%;
             }
             
-            .correct-answer, .translation {
-                font-size: 0.9rem;
+            .slot-item {
+                height: 110px;
+                font-size: 1rem;
             }
             
             .results-container {
@@ -666,121 +591,80 @@
             
             .results-title {
                 font-size: 1.5rem;
-                padding: 10px;
             }
             
-            .results-text {
-                font-size: 0.9rem;
+            .start-button {
+                font-size: 1.2rem;
+                padding: 12px 30px;
             }
             
-            .results-mascot {
-                width: 120px;
-                height: 120px;
-                font-size: 0.9rem;
-            }
-        }
-        
-        /* Para telas muito pequenas (celulares pequenos) */
-        @media (max-width: 480px) {
-            .slot {
-                height: 110px;
-                width: 95%;
-            }
-            
-            .slot-item {
-                height: 110px;
-            }
-            
-            .enunciado {
-                width: 95%;
-            }
-            
-            .enunciado p {
-                font-size: 0.8rem;
-            }
-            
-            .option {
-                font-size: 0.75rem;
-                padding: 5px 8px;
-                min-width: 60px;
+            .mascot {
+                width: 150px;
             }
             
             .word-slot {
-                min-width: 50px;
-                font-size: 0.8rem;
-                padding: 4px 8px;
+                min-width: 60px;
+                font-size: 0.9rem;
             }
-            
-            .sentence-container {
-                padding: 8px;
-                gap: 5px;
+
+            .enunciado {
+                margin: -35px auto 15px;
+                padding: 10px 15px;
             }
-            
-            .results-container {
-                padding: 15px;
-            }
-            
-            .results-title {
-                font-size: 1.3rem;
-            }
-            
-            .results-text {
+
+            .enunciado p {
                 font-size: 0.85rem;
             }
-            
+
+            .option {
+                font-size: 0.75rem;
+                padding: 5px 8px;
+            }
+
+            .sentence-container {
+                min-height: 40px;
+                padding: 10px;
+                gap: 6px;
+            }
+
+            .spin-button,
+            .check-button,
+            .restart-button {
+                font-size: 0.9rem;
+                padding: 8px 20px;
+            }
+
+            .feedback {
+                font-size: 1.1rem;
+            }
+
+            .correct-answer,
+            .translation {
+                font-size: 0.85rem;
+            }
+
+            .progress-container {
+                height: 6px;
+            }
+
+            .question-counter {
+                font-size: 0.9rem;
+            }
+
+            .logo {
+                width: 50px;
+                top: 10px;
+                left: 10px;
+            }
+
             .mascot-small {
                 width: 50px;
-                height: 50px;
                 bottom: -15px;
                 left: -15px;
-                font-size: 0.6rem;
             }
-        }
-        
-        /* Para orientação paisagem em dispositivos móveis */
-        @media (max-height: 600px) and (orientation: landscape) {
-            #game-page {
-                padding: 10px;
-                justify-content: flex-start;
-            }
-            
-            .game-container {
-                margin-top: 60px;
-                max-width: 95%;
-            }
-            
-            .logo {
-                top: 5px;
-                left: 5px;
-                width: 40px;
-                height: 40px;
-                font-size: 0.7rem;
-            }
-            
-            .slot {
-                height: 100px;
-            }
-            
-            .slot-item {
-                height: 100px;
-            }
-            
-            .enunciado {
-                margin-top: -25px;
-                padding: 8px 10px;
-            }
-            
-            .enunciado p {
-                font-size: 0.8rem;
-            }
-            
-            .options-container {
-                margin: 10px 0;
-            }
-            
-            .sentence-container {
-                margin: 10px 0;
-                min-height: 40px;
+
+            .results-mascot {
+                width: 120px;
             }
         }
         
@@ -812,90 +696,89 @@
         .hidden {
             display: none;
         }
-        
-        /* Melhorias de acessibilidade para foco */
-        button:focus, .option:focus {
-            outline: 2px solid var(--amarelo);
-            outline-offset: 2px;
-        }
     </style>
 </head>
 <body>
-    <div class="main-container">
-        <!-- Página de Introdução -->
-        <div id="intro-page">
-            <div class="intro-content">
-                <h1 class="intro-title">Jeu de Machine à Sous Français</h1>
-                <p class="intro-subtitle">Apprenez le français de manière amusante!</p>
-                <div class="intro-image">Placeholder pour vidéo d'introduction</div>
-                <button class="skip-intro" id="skip-intro">COMMENCER</button>
-            </div>
-        </div>
+    <!-- Página de Introdução -->
+    <div id="intro-page">
+        <video id="intro-video" autoplay muted>
+            <source src="VIDEOINTRO.mp4" type="video/mp4">
+            Seu navegador não suporta o elemento de vídeo.
+        </video>
+        <audio id="intro-audio" src="SOMINTRO.mp3" autoplay></audio>
+    </div>
 
-        <!-- Página Inicial do Quiz -->
-        <div id="home-page">
-            <div class="mascot">Mascotte</div>
-            <button class="start-button" id="start-button">INICIAR EXERCÍCIO</button>
-        </div>
+    <!-- Página Inicial do Quiz -->
+    <div id="home-page">
+        <img src="MASCOTENEUTRO.png" alt="Mascote" class="mascot">
+        <button class="start-button" id="start-button">INICIAR EXERCÍCIO</button>
+    </div>
 
-        <!-- Página do Jogo -->
-        <div id="game-page">
-            <div class="logo">Logo</div>
-            <div class="game-container">
-                <div class="mascot-small">Mascotte</div>
-                <div class="enunciado">
-                    <p>Forme uma frase indefinida usando as seguintes imagens:</p>
-                </div>
-                
-                <div class="slots-container">
-                    <div class="slot" id="clothes-slot">
-                        <div class="slot-inner" id="clothes-slot-inner">
-                            <!-- Itens serão preenchidos via JavaScript -->
-                        </div>
-                    </div>
-                    <div class="slot" id="colors-slot">
-                        <div class="slot-inner" id="colors-slot-inner">
-                            <!-- Itens serão preenchidos via JavaScript -->
-                        </div>
-                    </div>
-                </div>
-                
-                <button class="spin-button" id="spin-button">Girar Roleta</button>
-                
-                <div class="options-container" id="options-container">
-                    <!-- Opções serão preenchidas via JavaScript -->
-                </div>
-                
-                <div class="sentence-container" id="sentence-container">
-                    <div class="word-slot empty" id="article-slot" data-type="article"></div>
-                    <div class="word-slot empty" id="clothes-slot-word" data-type="clothes"></div>
-                    <div class="word-slot empty" id="colors-slot-word" data-type="color"></div>
-                </div>
-                
-                <button class="check-button" id="check-button">Verificar</button>
-                
-                <div class="feedback" id="feedback"></div>
-                <div class="correct-answer" id="correct-answer"></div>
-                <div class="translation" id="translation"></div>
-                
-                <div class="question-counter" id="question-counter">Questão 1 de 20</div>
+    <!-- Página do Jogo -->
+    <div id="game-page">
+        <img src="LOGODAMIAO.png" alt="Logo" class="logo">
+        <div class="game-container">
+            <img src="MASCOTENINHO.png" alt="Mascote pequeno" class="mascot-small">
+            <div class="enunciado">
+                <p>Forme uma frase indefinida usando as seguintes imagens:</p>
             </div>
             
-            <div class="progress-container">
-                <div class="progress-bar" id="progress-bar"></div>
+            <div class="slots-container">
+                <div class="slot" id="clothes-slot">
+                    <div class="slot-inner" id="clothes-slot-inner">
+                        <!-- Itens serão preenchidos via JavaScript -->
+                    </div>
+                </div>
+                <div class="slot" id="colors-slot">
+                    <div class="slot-inner" id="colors-slot-inner">
+                        <!-- Itens serão preenchidos via JavaScript -->
+                    </div>
+                </div>
             </div>
+            
+            <button class="spin-button" id="spin-button">Girar Roleta</button>
+            
+            <div class="options-container" id="options-container">
+                <!-- Opções serão preenchidas via JavaScript -->
+            </div>
+            
+            <div class="sentence-container" id="sentence-container">
+                <div class="word-slot empty" id="article-slot" data-type="article"></div>
+                <div class="word-slot empty" id="clothes-slot-word" data-type="clothes"></div>
+                <div class="word-slot empty" id="colors-slot-word" data-type="color"></div>
+            </div>
+            
+            <button class="check-button" id="check-button">Verificar</button>
+            
+            <div class="feedback" id="feedback"></div>
+            <div class="correct-answer" id="correct-answer"></div>
+            <div class="translation" id="translation"></div>
+            
+            <div class="question-counter" id="question-counter">Questão 1 de 20</div>
         </div>
-
-        <!-- Página de Resultados -->
-        <div id="results-page">
-            <div class="results-container">
-                <div class="results-title" id="results-title"></div>
-                <div class="results-text" id="results-text"></div>
-                <div class="results-mascot" id="results-mascot"></div>
-                <button class="restart-button" id="restart-button">Jogar Novamente</button>
-            </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
         </div>
     </div>
+
+    <!-- Página de Resultados -->
+    <div id="results-page">
+        <div class="results-container">
+            <div class="results-title" id="results-title"></div>
+            <div class="results-text" id="results-text"></div>
+            <img src="" alt="Mascote resultado" class="results-mascot" id="results-mascot">
+            <button class="restart-button" id="restart-button">Jogar Novamente</button>
+            <audio id="results-audio"></audio>
+        </div>
+    </div>
+
+    <!-- Elementos de áudio -->
+    <audio id="button-sound" src="BUTTON.mp3"></audio>
+    <audio id="win-sound" src="WIN.wav"></audio>
+    <audio id="error-sound" src="ERROR.wav"></audio>
+    <audio id="positive-sound" src="POSITIVO.mp3"></audio>
+    <audio id="negative-sound" src="NEGATIVO.mp3"></audio>
 
     <script>
         // Dados do jogo
@@ -1001,7 +884,7 @@
         let selectedClothes = "";
         let selectedColor = "";
         let currentQuestion = 0;
-        const totalQuestions = 20;
+        let totalQuestions = 20;
         let correctAnswers = 0;
         let isSpinning = false;
         let usedClothesIndices = [];
@@ -1014,10 +897,10 @@
 
         // Elementos DOM
         const introPage = document.getElementById('intro-page');
+        const introVideo = document.getElementById('intro-video');
         const homePage = document.getElementById('home-page');
         const gamePage = document.getElementById('game-page');
         const resultsPage = document.getElementById('results-page');
-        const skipIntroButton = document.getElementById('skip-intro');
         const startButton = document.getElementById('start-button');
         const spinButton = document.getElementById('spin-button');
         const checkButton = document.getElementById('check-button');
@@ -1036,23 +919,30 @@
         const resultsTitle = document.getElementById('results-title');
         const resultsText = document.getElementById('results-text');
         const resultsMascot = document.getElementById('results-mascot');
+        const resultsAudio = document.getElementById('results-audio');
+        const buttonSound = document.getElementById('button-sound');
+        const winSound = document.getElementById('win-sound');
+        const errorSound = document.getElementById('error-sound');
+        const positiveSound = document.getElementById('positive-sound');
+        const negativeSound = document.getElementById('negative-sound');
 
         // Inicialização
         document.addEventListener('DOMContentLoaded', function() {
-            // Preencher os slots com placeholders
+            // Preencher os slots com imagens
             fillSlots();
             
-            // Configurar evento para pular a introdução
-            skipIntroButton.addEventListener('click', function() {
+            // Configurar evento para o vídeo de introdução
+            introVideo.addEventListener('ended', function() {
                 introPage.style.opacity = '0';
                 setTimeout(function() {
                     introPage.style.display = 'none';
                     homePage.style.display = 'flex';
-                }, 500);
+                }, 1000);
             });
             
             // Configurar botões
             startButton.addEventListener('click', function() {
+                playSound(buttonSound);
                 homePage.style.display = 'none';
                 gamePage.style.display = 'flex';
                 resetGame();
@@ -1061,6 +951,7 @@
             
             spinButton.addEventListener('click', function() {
                 if (!isSpinning && !isCheckingPhase) {
+                    playSound(buttonSound);
                     spinSlots();
                 }
             });
@@ -1068,6 +959,7 @@
             checkButton.addEventListener('click', function() {
                 if (isCheckingPhase) {
                     // Se estiver na fase de verificação, transformar em "Girar Roleta Novamente"
+                    playSound(buttonSound);
                     resetSelection();
                     spinButton.disabled = false;
                     checkButton.textContent = "Verificar";
@@ -1085,11 +977,13 @@
                     }
                 } else {
                     // Se estiver na fase normal, verificar a resposta
+                    playSound(buttonSound);
                     checkAnswer();
                 }
             });
             
             restartButton.addEventListener('click', function() {
+                playSound(buttonSound);
                 resultsPage.style.display = 'none';
                 resetGame();
                 gamePage.style.display = 'flex';
@@ -1133,18 +1027,11 @@
 
         // Funções do jogo
         function fillSlots() {
-            // Limpar slots existentes
-            clothesSlotInner.innerHTML = '';
-            colorsSlotInner.innerHTML = '';
-            
             // Preencher slot de roupas
             clothes.forEach((item, index) => {
                 const slotItem = document.createElement('div');
                 slotItem.className = 'slot-item';
-                const placeholder = document.createElement('div');
-                placeholder.className = 'item-placeholder';
-                placeholder.textContent = item.name;
-                slotItem.appendChild(placeholder);
+                slotItem.innerHTML = `<img src="${item.image}" alt="${item.name}">`;
                 slotItem.dataset.index = index;
                 clothesSlotInner.appendChild(slotItem);
             });
@@ -1153,10 +1040,7 @@
             colors.forEach((color, index) => {
                 const slotItem = document.createElement('div');
                 slotItem.className = 'slot-item';
-                const placeholder = document.createElement('div');
-                placeholder.className = 'item-placeholder';
-                placeholder.textContent = color.name;
-                slotItem.appendChild(placeholder);
+                slotItem.innerHTML = `<img src="${color.name}.png" alt="${color.name}">`;
                 slotItem.dataset.index = index;
                 colorsSlotInner.appendChild(slotItem);
             });
@@ -1206,7 +1090,7 @@
             const options = optionsContainer.querySelectorAll('.option');
             options.forEach(option => {
                 option.classList.remove('selected');
-                option.style.display = 'block';
+                option.style.visibility = 'visible';
             });
         }
 
@@ -1410,6 +1294,8 @@
         }
 
         function selectOption(element, type, value) {
+            playSound(buttonSound);
+            
             // Verificar se já existe uma seleção deste tipo
             if (type === 'article' && selectedOptions.article) {
                 returnOptionToSelection(selectedArticle, 'article');
@@ -1436,7 +1322,7 @@
             
             // Adicionar seleção atual
             element.classList.add('selected');
-            element.style.display = 'none';
+            element.style.visibility = 'hidden';
             
             // Atualizar slot correspondente
             if (type === 'article') {
@@ -1465,7 +1351,7 @@
             for (let option of options) {
                 if (option.textContent === value && option.dataset.type === type) {
                     option.classList.remove('selected');
-                    option.style.display = 'block';
+                    option.style.visibility = 'visible';
                     break;
                 }
             }
@@ -1499,10 +1385,12 @@
             if (isCorrect) {
                 feedback.textContent = "CORRETO";
                 feedback.className = "feedback correct";
+                playSound(winSound);
                 correctAnswers++;
             } else {
                 feedback.textContent = "INCORRETO";
                 feedback.className = "feedback incorrect";
+                playSound(errorSound);
                 
                 // Mostrar resposta correta
                 const correctAnswerText = `${currentClothes.article} ${currentClothes.name} ${correctColorForm}`;
@@ -1515,8 +1403,11 @@
             }
             
             // Transformar o botão em "Girar Roleta Novamente"
-            checkButton.textContent = "Próxima Questão";
+            checkButton.textContent = "Girar Roleta Novamente";
             isCheckingPhase = true;
+            
+            // Salvar progresso
+            saveProgress();
         }
 
         function updateQuestionCounter() {
@@ -1536,21 +1427,53 @@
             
             if (percentage >= 95) {
                 resultsTitle.textContent = "EXCELENTE";
-                resultsText.innerHTML = `Parabéns pelo seu desempenho excepcional! Você alcançou um resultado EXCELENTE, acertando ${correctAnswers} das ${totalQuestions} palavras no teste de francês! Isso demonstra um domínio impressionante das expressões e da ortografia francesa. Continue assim, pois seu esforço e dedicação são inspiradores!`;
-                resultsMascot.textContent = "🎉";
+                resultsText.innerHTML = `Parabéns pelo seu desempenho excepcional! Você alcançou um resultado EXCELENTE, acertando ${correctAnswers} das ${totalQuestions} palavras no teste de francês! Isso demonstra um domínio impressionante das expressões e da ortografia francesa. Continue assim, pois seu esforço e dedicação são inspiradores! Este resultado reflete não apenas sua habilidade linguística, mas também sua atenção aos detalhes e compromisso em aprender. Que tal continuar explorando o idioma com o mesmo entusiasmo? A prática constante vai te levar ainda mais longe.`;
+                resultsMascot.src = "MASCOTEFELIZ.png";
+                playSound(positiveSound);
             } else if (percentage >= 75) {
                 resultsTitle.textContent = "PARABÉNS";
-                resultsText.innerHTML = `Parabéns pelo seu desempenho! Você obteve um BOM resultado, acertando ${correctAnswers} das ${totalQuestions} palavras no teste de francês! Isso mostra que você está no caminho certo, com uma sólida compreensão do idioma.`;
-                resultsMascot.textContent = "👍";
+                resultsText.innerHTML = `Parabéns pelo seu desempenho! Você obteve um BOM resultado, acertando ${correctAnswers} das ${totalQuestions} palavras no teste de francês! Isso mostra que você está no caminho certo, com uma sólida compreensão do idioma. Sua dedicação está valendo a pena, e cada palavra certa é um passo rumo à fluência. Continue assim, brilhando no aprendizado do francês!`;
+                resultsMascot.src = "MASCOTEALEGRE.png";
+                playSound(positiveSound);
             } else if (percentage >= 60) {
                 resultsTitle.textContent = "QUASE LÁ";
-                resultsText.innerHTML = `Você alcançou o nível SUFICIENTE, acertando ${correctAnswers} das ${totalQuestions} palavras no teste de francês! Isso indica um progresso notável, com uma boa base no idioma.`;
-                resultsMascot.textContent = "💪";
+                resultsText.innerHTML = `Você alcançou o nível SUFICIENTE, acertando ${correctAnswers} das ${totalQuestions} palavras no teste de francês! Isso indica um progresso notável, com uma boa base no idioma. Sua dedicação está clara, e você está muito próximo de resultados ainda melhores. Cada palavra escrita é um avanço no aprendizado do francês. Continue se empenhando, e logo verá seu desempenho crescer! Siga firme na jornada para dominar o idioma!`;
+                resultsMascot.src = "MASCOTEDUVIDA.png";
+                playSound(negativeSound);
             } else {
                 resultsTitle.textContent = "NÃO FOI DESSA VEZ";
-                resultsText.innerHTML = `Você obteve o nível INSUFICIENTE, acertando ${correctAnswers} das ${totalQuestions} palavras no teste de francês. Não desanime! Cada tentativa é uma oportunidade de aprendizado.`;
-                resultsMascot.textContent = "📚";
+                resultsText.innerHTML = `Você obteve o nível INSUFICIENTE, acertando ${correctAnswers} das ${totalQuestions} palavras no teste de francês. Não desanime! Cada tentativa é uma oportunidade de aprendizado, e você já deu o primeiro passo ao participar. O francês pode ser desafiador, mas com prática, você vai melhorar. Reforce as palavras e continue se dedicando. Sua persistência vai te levar mais longe na jornada do idioma!`;
+                resultsMascot.src = "MASCOTEDUVIDA.png";
+                playSound(negativeSound);
             }
+        }
+
+        function saveProgress() {
+            const progress = {
+                currentQuestion: currentQuestion,
+                correctAnswers: correctAnswers,
+                totalQuestions: totalQuestions,
+                usedClothesIndices: usedClothesIndices
+            };
+            localStorage.setItem('quizProgress', JSON.stringify(progress));
+        }
+
+        function loadProgress() {
+            const savedProgress = localStorage.getItem('quizProgress');
+            if (savedProgress) {
+                const progress = JSON.parse(savedProgress);
+                currentQuestion = progress.currentQuestion || 0;
+                correctAnswers = progress.correctAnswers || 0;
+                totalQuestions = progress.totalQuestions || 20;
+                usedClothesIndices = progress.usedClothesIndices || [];
+                updateQuestionCounter();
+                updateProgressBar();
+            }
+        }
+
+        function playSound(soundElement) {
+            soundElement.currentTime = 0;
+            soundElement.play();
         }
 
         function shuffleArray(array) {
@@ -1560,6 +1483,9 @@
             }
             return array;
         }
+
+        // Carregar progresso salvo
+        loadProgress();
     </script>
 </body>
 </html>
