@@ -27,16 +27,6 @@
             --marrom-dourado: #6C4500;
             --magenta: #A7007B;
             --turquesa: #10C894;
-            --slot-height: 150px;
-            --img-max-size: 85%;
-            --mascot-width: 200px;
-            --logo-width: 80px;
-            --button-font-size: 1.5rem;
-            --option-font-size: 0.9rem;
-            --feedback-font-size: 1.3rem;
-            --results-mascot-width: 150px;
-            --slots-flex-direction: row;
-            --slot-width: 45%;
         }
         
         body {
@@ -86,7 +76,7 @@
         }
         
         .mascot {
-            width: var(--mascot-width);
+            width: 200px;
             margin-bottom: 30px;
         }
         
@@ -94,7 +84,7 @@
             background-color: var(--azul-marinho);
             color: white;
             font-family: 'Franklin Gothic Demi', sans-serif;
-            font-size: var(--button-font-size);
+            font-size: 1.5rem;
             padding: 15px 40px;
             border-radius: 50px;
             border: none;
@@ -126,7 +116,7 @@
             position: absolute;
             top: 20px;
             left: 20px;
-            width: var(--logo-width);
+            width: 80px;
             height: auto;
         }
         
@@ -168,15 +158,14 @@
         
         .slots-container {
             display: flex;
-            flex-direction: var(--slots-flex-direction);
             justify-content: space-around;
             margin: 20px 0;
             gap: 15px;
         }
         
         .slot {
-            width: var(--slot-width);
-            height: var(--slot-height);
+            width: 45%;
+            height: 150px;
             background: white;
             border-radius: 10px;
             overflow: hidden;
@@ -192,7 +181,7 @@
         }
         
         .slot-item {
-            height: var(--slot-height);
+            height: 150px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -201,8 +190,8 @@
         }
         
         .slot-item img {
-            max-width: var(--img-max-size);
-            max-height: var(--img-max-size);
+            max-width: 85%;
+            max-height: 85%;
             object-fit: contain;
         }
         
@@ -238,7 +227,7 @@
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.2s;
-            font-size: var(--option-font-size);
+            font-size: 0.9rem;
         }
         
         .option:hover {
@@ -307,7 +296,7 @@
         .feedback {
             text-align: center;
             font-family: 'Cooper Black', serif;
-            font-size: var(--feedback-font-size);
+            font-size: 1.3rem;
             margin: 8px 0;
             min-height: 35px;
         }
@@ -403,7 +392,7 @@
         }
         
         .results-mascot {
-            width: var(--results-mascot-width);
+            width: 150px;
             margin: 0 auto;
         }
         
@@ -425,31 +414,84 @@
             transform: scale(1.05);
         }
         
-        /* Responsividade com fallback de media queries */
+        /* Responsividade */
         @media (max-width: 768px) {
-            --slot-height: 130px;
-            --img-max-size: 80%;
-            --mascot-width: 160px;
-            --logo-width: 60px;
-            --button-font-size: 1.3rem;
-            --option-font-size: 0.8rem;
-            --feedback-font-size: 1.2rem;
-            --results-mascot-width: 130px;
-            --slots-flex-direction: column;
-            --slot-width: 90%;
+            #intro-video {
+                width: 90%;
+            }
+            
+            .slots-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .slot {
+                width: 90%;
+                height: 130px;
+            }
+            
+            .slot-item {
+                height: 130px;
+            }
+            
+            .enunciado p {
+                font-size: 0.9rem;
+            }
+            
+            .option {
+                font-size: 0.8rem;
+                padding: 6px 10px;
+            }
+            
+            .game-container {
+                padding: 15px;
+            }
+            
+            .mascot-small {
+                width: 60px;
+                bottom: -20px;
+                left: -20px;
+            }
+            
+            .logo {
+                width: 60px;
+                top: 15px;
+                left: 15px;
+            }
         }
         
         @media (max-width: 480px) {
-            --slot-height: 110px;
-            --img-max-size: 75%;
-            --mascot-width: 150px;
-            --logo-width: 50px;
-            --button-font-size: 1.2rem;
-            --option-font-size: 0.75rem;
-            --feedback-font-size: 1.1rem;
-            --results-mascot-width: 120px;
-            --slots-flex-direction: column;
-            --slot-width: 95%;
+            .slot {
+                height: 110px;
+                width: 95%;
+            }
+            
+            .slot-item {
+                height: 110px;
+            }
+            
+            .results-container {
+                padding: 20px;
+            }
+            
+            .results-title {
+                font-size: 1.5rem;
+            }
+            
+            .start-button {
+                font-size: 1.2rem;
+                padding: 12px 30px;
+            }
+            
+            .mascot {
+                width: 150px;
+            }
+            
+            .word-slot {
+                min-width: 60px;
+                font-size: 0.9rem;
+            }
         }
         
         /* Animações */
@@ -565,36 +607,59 @@
     <audio id="negative-sound" src="NEGATIVO.mp3"></audio>
 
     <script>
-        // Detectar se é dispositivo móvel
-        function isMobileDevice() {
-            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        // Função para detectar o tipo de dispositivo com base na largura da tela
+        function detectDevice() {
+            const width = window.innerWidth;
+            if (width <= 480) {
+                return 'mobile';
+            } else if (width <= 768) {
+                return 'tablet';
+            } else {
+                return 'pc';
+            }
         }
 
-        if (isMobileDevice()) {
-            // Ajustes para celular
-            document.documentElement.style.setProperty('--slot-height', '110px');
-            document.documentElement.style.setProperty('--img-max-size', '75%');
-            document.documentElement.style.setProperty('--mascot-width', '150px');
-            document.documentElement.style.setProperty('--logo-width', '50px');
-            document.documentElement.style.setProperty('--button-font-size', '1.2rem');
-            document.documentElement.style.setProperty('--option-font-size', '0.75rem');
-            document.documentElement.style.setProperty('--feedback-font-size', '1.1rem');
-            document.documentElement.style.setProperty('--results-mascot-width', '120px');
-            document.documentElement.style.setProperty('--slots-flex-direction', 'column');
-            document.documentElement.style.setProperty('--slot-width', '95%');
-        } else {
-            // Manter padrão para PC
-            document.documentElement.style.setProperty('--slot-height', '150px');
-            document.documentElement.style.setProperty('--img-max-size', '85%');
-            document.documentElement.style.setProperty('--mascot-width', '200px');
-            document.documentElement.style.setProperty('--logo-width', '80px');
-            document.documentElement.style.setProperty('--button-font-size', '1.5rem');
-            document.documentElement.style.setProperty('--option-font-size', '0.9rem');
-            document.documentElement.style.setProperty('--feedback-font-size', '1.3rem');
-            document.documentElement.style.setProperty('--results-mascot-width', '150px');
-            document.documentElement.style.setProperty('--slots-flex-direction', 'row');
-            document.documentElement.style.setProperty('--slot-width', '45%');
+        // Função para ajustar o site com base no dispositivo
+        function adjustForDevice() {
+            const device = detectDevice();
+            if (device === 'pc') {
+                // Manter o formato original para PC
+                // Não altera nada, usa os estilos base
+            } else {
+                // Ajustes para tablet/mobile
+                const slotsContainer = document.querySelector('.slots-container');
+                slotsContainer.style.flexDirection = 'column';
+                slotsContainer.style.alignItems = 'center';
+                
+                const slots = document.querySelectorAll('.slot');
+                slots.forEach(slot => {
+                    slot.style.width = '90%';
+                    slot.style.height = (device === 'tablet' ? '130px' : '110px');
+                });
+                
+                const slotItems = document.querySelectorAll('.slot-item');
+                slotItems.forEach(item => {
+                    item.style.height = (device === 'tablet' ? '130px' : '110px');
+                });
+                
+                const slotImages = document.querySelectorAll('.slot-item img');
+                slotImages.forEach(img => {
+                    img.style.maxWidth = (device === 'tablet' ? '80%' : '75%');
+                    img.style.maxHeight = (device === 'tablet' ? '80%' : '75%');
+                });
+                
+                // Ajuste da animação do caça-níquel para melhor performance em mobile/tablet
+                const slotInners = document.querySelectorAll('.slot-inner');
+                slotInners.forEach(inner => {
+                    inner.style.transition = 'top 2s cubic-bezier(0.17, 0.67, 0.83, 0.67)'; // Reduz tempo para 2s
+                });
+            }
         }
+
+        // Chamar o ajuste inicial e adicionar listeners para resize/orientationchange
+        adjustForDevice();
+        window.addEventListener('resize', adjustForDevice);
+        window.addEventListener('orientationchange', adjustForDevice);
 
         // Dados do jogo
         const clothes = [
@@ -773,22 +838,25 @@
             
             checkButton.addEventListener('click', function() {
                 if (isCheckingPhase) {
+                    // Se estiver na fase de verificação, transformar em "Girar Roleta Novamente"
                     playSound(buttonSound);
                     resetSelection();
                     spinButton.disabled = false;
                     checkButton.textContent = "Verificar";
                     isCheckingPhase = false;
                     
+                    // Avançar para a próxima questão
                     currentQuestion++;
                     updateQuestionCounter();
                     updateProgressBar();
                     
                     if (currentQuestion < totalQuestions) {
-                        spinSlots();
+                        spinSlots(); // Girar a roleta para a próxima questão
                     } else {
                         showResults();
                     }
                 } else {
+                    // Se estiver na fase normal, verificar a resposta
                     playSound(buttonSound);
                     checkAnswer();
                 }
@@ -1303,5 +1371,6 @@
         // Carregar progresso salvo
         loadProgress();
     </script>
+    <script src="device-detection.js"></script>
 </body>
 </html>
