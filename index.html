@@ -639,20 +639,20 @@
         ];
 
         const colors = [
-            { name: "beige", variations: ["beige", "beiges"] },
-            { name: "blanc", variations: ["blanc", "blanche", "blancs", "blanches"] },
-            { name: "bleu clair", variations: ["bleu clair", "bleue claire", "bleus clairs", "bleues claires"] },
-            { name: "bleu marine", variations: ["bleu marine", "bleue marine", "bleus marines", "bleues marines"] },
-            { name: "bleu", variations: ["bleu", "bleue", "bleus", "bleues"] },
-            { name: "gris", variations: ["gris", "grise", "gris", "grises"] },
-            { name: "jaune", variations: ["jaune", "jaune", "jaunes", "jaunes"] },
-            { name: "marron", variations: ["marron", "marrons"] },
-            { name: "noir", variations: ["noir", "noire", "noirs", "noires"] },
-            { name: "orange", variations: ["orange", "oranges"] },
-            { name: "rose", variations: ["rose", "rose", "roses", "roses"] },
-            { name: "rouge", variations: ["rouge", "rouge", "rouges", "rouges"] },
-            { name: "vert", variations: ["vert", "verte", "verts", "vertes"] },
-            { name: "violet", variations: ["violet", "violette", "violets", "violettes"] }
+            { name: "beige", variations: ["beige", "beiges"], image: "beige.png" },
+            { name: "blanc", variations: ["blanc", "blanche", "blancs", "blanches"], image: "blanc.png" },
+            { name: "bleu clair", variations: ["bleu clair", "bleue claire", "bleus clairs", "bleues claires"], image: "bleu clair.png" },
+            { name: "bleu marine", variations: ["bleu marine", "bleue marine", "bleus marines", "bleues marines"], image: "bleu marine.png" },
+            { name: "bleu", variations: ["bleu", "bleue", "bleus", "bleues"], image: "bleu.png" },
+            { name: "gris", variations: ["gris", "grise", "gris", "grises"], image: "gris.png" },
+            { name: "jaune", variations: ["jaune", "jaune", "jaunes", "jaunes"], image: "jaune.png" },
+            { name: "marron", variations: ["marron", "marrons"], image: "marron.png" },
+            { name: "noir", variations: ["noir", "noire", "noirs", "noires"], image: "noir.png" },
+            { name: "orange", variations: ["orange", "oranges"], image: "orange.png" },
+            { name: "rose", variations: ["rose", "rose", "roses", "roses"], image: "rose.png" },
+            { name: "rouge", variations: ["rouge", "rouge", "rouges", "rouges"], image: "rouge.png" },
+            { name: "vert", variations: ["vert", "verte", "verts", "vertes"], image: "vert.png" },
+            { name: "violet", variations: ["violet", "violette", "violets", "violettes"], image: "violet.png" }
         ];
 
         // Traduções para português
@@ -876,13 +876,8 @@
             clothes.forEach((item, index) => {
                 const slotItem = document.createElement('div');
                 slotItem.className = 'slot-item';
+                slotItem.innerHTML = `<img src="${item.image}" alt="${item.name}">`;
                 slotItem.dataset.index = index;
-                
-                const img = document.createElement('img');
-                img.src = item.image;
-                img.alt = item.name;
-                
-                slotItem.appendChild(img);
                 clothesSlotInner.appendChild(slotItem);
             });
             
@@ -890,308 +885,380 @@
             colors.forEach((color, index) => {
                 const slotItem = document.createElement('div');
                 slotItem.className = 'slot-item';
+                slotItem.innerHTML = `<img src="${color.image}" alt="${color.name}">`;
                 slotItem.dataset.index = index;
-                slotItem.textContent = color.name;
                 colorsSlotInner.appendChild(slotItem);
             });
         }
 
-        function spinSlots() {
-            if (isSpinning) return;
+        function resetGame() {
+            currentQuestion = 0;
+            correctAnswers = 0;
+            usedClothesIndices = [];
+            updateQuestionCounter();
+            updateProgressBar();
+            resetSelection();
             
-            isSpinning = true;
-            spinButton.disabled = true;
+            // Mostrar o botão de girar roleta apenas na primeira questão
+            if (currentQuestion === 0) {
+                spinButton.classList.remove('hidden');
+            }
+        }
+
+        function resetSelection() {
+            selectedArticle = "";
+            selectedClothes = "";
+            selectedColor = "";
+            selectedOptions = {
+                article: null,
+                clothes: null,
+                color: null
+            };
             
-            // Limpar feedback anterior
+            articleSlot.textContent = "";
+            clothesSlotWord.textContent = "";
+            colorsSlotWord.textContent = "";
+            
+            articleSlot.classList.add('empty');
+            clothesSlotWord.classList.add('empty');
+            colorsSlotWord.classList.add('empty');
+            
+            articleSlot.classList.remove('filled');
+            clothesSlotWord.classList.remove('filled');
+            colorsSlotWord.classList.remove('filled');
+            
             feedback.textContent = "";
-            feedback.className = "feedback";
             correctAnswer.textContent = "";
             translation.textContent = "";
             
-            // Gerar índices aleatórios para roupas e cores
+            // Restaurar todas as opções visíveis
+            const options = optionsContainer.querySelectorAll('.option');
+            options.forEach(option => {
+                option.classList.remove('selected');
+                option.style.visibility = 'visible';
+            });
+        }
+
+        function spinSlots() {
+            isSpinning = true;
+            spinButton.disabled = true;
+            spinButton.classList.add('disabled');
+            
+            // Limpar seleção anterior
+            resetSelection();
+            
+            // Gerar índices aleatórios (não repetir roupas já usadas)
             let randomClothesIndex;
             do {
                 randomClothesIndex = Math.floor(Math.random() * clothes.length);
-            } while (usedClothesIndices.includes(randomClothesIndex));
+            } while (usedClothesIndices.includes(randomClothesIndex) && usedClothesIndices.length < clothes.length);
+            
+            // Se já usamos todas as roupas, resetar
+            if (usedClothesIndices.length >= clothes.length) {
+                usedClothesIndices = [];
+            }
             
             usedClothesIndices.push(randomClothesIndex);
-            currentClothesIndex = randomClothesIndex;
+            const randomColorsIndex = Math.floor(Math.random() * colors.length);
             
-            currentColorsIndex = Math.floor(Math.random() * colors.length);
+            // Calcular posições para os slots
+            const slotHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--slot-height').replace('px', ''));
+            const clothesPosition = -randomClothesIndex * slotHeight;
+            const colorsPosition = -randomColorsIndex * slotHeight;
             
-            // Calcular posições finais
-            const clothesFinalPosition = -(currentClothesIndex * parseInt(getComputedStyle(document.documentElement).getPropertyValue('--slot-height').replace('px', '')));
-            const colorsFinalPosition = -(currentColorsIndex * parseInt(getComputedStyle(document.documentElement).getPropertyValue('--slot-height').replace('px', '')));
+            // Aplicar animação aos slots
+            clothesSlotInner.style.transition = 'top 4s cubic-bezier(0.17, 0.67, 0.83, 0.67)';
+            colorsSlotInner.style.transition = 'top 4s cubic-bezier(0.17, 0.67, 0.83, 0.67)';
             
-            // Aplicar animação
-            clothesSlotInner.style.transition = 'top 3s cubic-bezier(0.17, 0.67, 0.83, 0.67)';
-            colorsSlotInner.style.transition = 'top 3s cubic-bezier(0.17, 0.67, 0.83, 0.67)';
+            clothesSlotInner.style.top = clothesPosition + 'px';
+            colorsSlotInner.style.top = colorsPosition + 'px';
             
-            clothesSlotInner.style.top = clothesFinalPosition + 'px';
-            colorsSlotInner.style.top = colorsFinalPosition + 'px';
-            
-            // Gerar opções após a roleta parar
+            // Atualizar variáveis após a rotação
             setTimeout(function() {
+                currentClothesIndex = randomClothesIndex;
+                currentColorsIndex = randomColorsIndex;
                 isSpinning = false;
                 spinButton.disabled = false;
+                spinButton.classList.remove('disabled');
+                
+                // Esconder o botão de girar roleta após a primeira questão
+                if (currentQuestion > 0) {
+                    spinButton.classList.add('hidden');
+                }
+                
                 generateOptions();
-            }, 3000);
+            }, 4000);
+        }
+
+        function generateQuestion() {
+            // Limpar seleções anteriores
+            resetSelection();
+            
+            // Esconder o botão de girar roleta após a primeira questão
+            if (currentQuestion > 0) {
+                spinButton.classList.add('hidden');
+            }
+            
+            // Gerar slots aleatórios se não estiverem girando
+            if (!isSpinning) {
+                // Não repetir roupas já usadas
+                let randomClothesIndex;
+                do {
+                    randomClothesIndex = Math.floor(Math.random() * clothes.length);
+                } while (usedClothesIndices.includes(randomClothesIndex) && usedClothesIndices.length < clothes.length);
+                
+                // Se já usamos todas as roupas, resetar
+                if (usedClothesIndices.length >= clothes.length) {
+                    usedClothesIndices = [];
+                }
+                
+                usedClothesIndices.push(randomClothesIndex);
+                const randomColorsIndex = Math.floor(Math.random() * colors.length);
+                
+                clothesSlotInner.style.transition = 'none';
+                colorsSlotInner.style.transition = 'none';
+                
+                const slotHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--slot-height').replace('px', ''));
+                clothesSlotInner.style.top = (-randomClothesIndex * slotHeight) + 'px';
+                colorsSlotInner.style.top = (-randomColorsIndex * slotHeight) + 'px';
+                
+                currentClothesIndex = randomClothesIndex;
+                currentColorsIndex = randomColorsIndex;
+                
+                generateOptions();
+            }
         }
 
         function generateOptions() {
-            // Limpar opções anteriores
             optionsContainer.innerHTML = "";
             
             const currentClothes = clothes[currentClothesIndex];
             const currentColor = colors[currentColorsIndex];
             
-            // Gerar opções para artigos
-            const articleOptions = [currentClothes.article];
-            
-            // Adicionar opções incorretas
-            if (currentClothes.gender === 'f') {
-                articleOptions.push('un');
+            // Determinar a forma correta da cor baseada no gênero e número da roupa
+            let correctColorForm = "";
+            if (currentColor.name === "beige" || currentColor.name === "marron" || currentColor.name === "orange") {
+                // Cores invariáveis
+                correctColorForm = currentColor.variations[0];
+                if (currentClothes.number === "p") {
+                    correctColorForm = currentColor.variations[1] || currentColor.variations[0];
+                }
             } else {
-                articleOptions.push('une');
+                // Cores que variam em gênero e número
+                const variationIndex = (currentClothes.gender === "m" ? 0 : 1) + (currentClothes.number === "s" ? 0 : 2);
+                correctColorForm = currentColor.variations[variationIndex];
             }
             
-            if (currentClothes.number === 's') {
-                articleOptions.push('des');
+            // Criar opções para artigo (3 opções)
+            const articleOptions = [currentClothes.article];
+            
+            // Adicionar artigos incorretos para dificultar
+            if (currentClothes.article === "un") {
+                articleOptions.push("une", "des");
+            } else if (currentClothes.article === "une") {
+                articleOptions.push("un", "des");
             } else {
-                articleOptions.push(currentClothes.gender === 'f' ? 'une' : 'un');
+                articleOptions.push("un", "une");
             }
             
             // Embaralhar opções
             shuffleArray(articleOptions);
             
-            // Adicionar opções de artigos ao container
-            articleOptions.forEach(option => {
+            // Adicionar opções de artigo ao container
+            articleOptions.forEach(article => {
                 const optionElement = document.createElement('div');
                 optionElement.className = 'option';
-                optionElement.textContent = option;
+                optionElement.textContent = article;
                 optionElement.dataset.type = 'article';
                 optionElement.addEventListener('click', function() {
-                    selectOption(this, 'article');
+                    selectOption(this, 'article', article);
                 });
                 optionsContainer.appendChild(optionElement);
             });
             
-            // Gerar opções para roupas
+            // Criar opções para roupa (2 opções)
             const clothesOptions = [currentClothes.name];
             
-            // Adicionar opções incorretas
-            let otherClothes;
-            do {
-                otherClothes = clothes[Math.floor(Math.random() * clothes.length)];
-            } while (otherClothes.name === currentClothes.name);
-            
-            clothesOptions.push(otherClothes.name);
-            
-            // Adicionar mais uma opção incorreta
-            do {
-                otherClothes = clothes[Math.floor(Math.random() * clothes.length)];
-            } while (otherClothes.name === currentClothes.name || clothesOptions.includes(otherClothes.name));
-            
-            clothesOptions.push(otherClothes.name);
+            // Adicionar outras roupas para dificultar
+            const otherClothes = clothes.filter(item => item.name !== currentClothes.name);
+            shuffleArray(otherClothes);
+            clothesOptions.push(otherClothes[0].name);
             
             // Embaralhar opções
             shuffleArray(clothesOptions);
             
-            // Adicionar opções de roupas ao container
-            clothesOptions.forEach(option => {
+            // Adicionar opções de roupa ao container
+            clothesOptions.forEach(cloth => {
                 const optionElement = document.createElement('div');
                 optionElement.className = 'option';
-                optionElement.textContent = option;
+                optionElement.textContent = cloth;
                 optionElement.dataset.type = 'clothes';
                 optionElement.addEventListener('click', function() {
-                    selectOption(this, 'clothes');
+                    selectOption(this, 'clothes', cloth);
                 });
                 optionsContainer.appendChild(optionElement);
             });
             
-            // Gerar opções para cores
-            const colorOptions = [currentColor.name];
+            // Criar opções para cor (2 opções)
+            const colorOptions = [correctColorForm];
             
-            // Adicionar opções incorretas
-            let otherColor;
-            do {
-                otherColor = colors[Math.floor(Math.random() * colors.length)];
-            } while (otherColor.name === currentColor.name);
+            // Adicionar outras formas da mesma cor ou cores diferentes
+            const otherColors = [...currentColor.variations.filter(v => v !== correctColorForm)];
             
-            colorOptions.push(otherColor.name);
-            
-            // Adicionar mais uma opção incorreta
-            do {
-                otherColor = colors[Math.floor(Math.random() * colors.length)];
-            } while (otherColor.name === currentColor.name || colorOptions.includes(otherColor.name));
-            
-            colorOptions.push(otherColor.name);
+            // Se não houver variações suficientes, adicionar cores de outras cores
+            if (otherColors.length < 1) {
+                const otherColorNames = colors.filter(color => color.name !== currentColor.name);
+                shuffleArray(otherColorNames);
+                
+                // Adicionar uma forma apropriada da outra cor
+                const otherColor = otherColorNames[0];
+                let otherColorForm = "";
+                if (otherColor.name === "beige" || otherColor.name === "marron" || otherColor.name === "orange") {
+                    otherColorForm = otherColor.variations[0];
+                } else {
+                    const variationIndex = (currentClothes.gender === "m" ? 0 : 1) + (currentClothes.number === "s" ? 0 : 2);
+                    otherColorForm = otherColor.variations[variationIndex];
+                }
+                colorOptions.push(otherColorForm);
+            } else {
+                colorOptions.push(otherColors[0]);
+            }
             
             // Embaralhar opções
             shuffleArray(colorOptions);
             
-            // Adicionar opções de cores ao container
-            colorOptions.forEach(option => {
+            // Adicionar opções de cor ao container
+            colorOptions.forEach(color => {
                 const optionElement = document.createElement('div');
                 optionElement.className = 'option';
-                optionElement.textContent = option;
+                optionElement.textContent = color;
                 optionElement.dataset.type = 'color';
                 optionElement.addEventListener('click', function() {
-                    selectOption(this, 'color');
+                    selectOption(this, 'color', color);
                 });
                 optionsContainer.appendChild(optionElement);
             });
         }
 
-        function selectOption(optionElement, type) {
-            if (isCheckingPhase) return;
-            
+        function selectOption(element, type, value) {
             playSound(buttonSound);
             
-            // Desselecionar opção anterior do mesmo tipo, se houver
-            if (selectedOptions[type]) {
-                selectedOptions[type].classList.remove('selected');
+            // Verificar se já existe uma seleção deste tipo
+            if (type === 'article' && selectedOptions.article) {
+                returnOptionToSelection(selectedArticle, 'article');
+                selectedArticle = "";
+                articleSlot.textContent = "";
+                articleSlot.classList.add('empty');
+                articleSlot.classList.remove('filled');
+                selectedOptions.article = null;
+            } else if (type === 'clothes' && selectedOptions.clothes) {
+                returnOptionToSelection(selectedClothes, 'clothes');
+                selectedClothes = "";
+                clothesSlotWord.textContent = "";
+                clothesSlotWord.classList.add('empty');
+                clothesSlotWord.classList.remove('filled');
+                selectedOptions.clothes = null;
+            } else if (type === 'color' && selectedOptions.color) {
+                returnOptionToSelection(selectedColor, 'color');
+                selectedColor = "";
+                colorsSlotWord.textContent = "";
+                colorsSlotWord.classList.add('empty');
+                colorsSlotWord.classList.remove('filled');
+                selectedOptions.color = null;
             }
             
-            // Selecionar nova opção
-            optionElement.classList.add('selected');
-            selectedOptions[type] = optionElement;
+            // Adicionar seleção atual
+            element.classList.add('selected');
+            element.style.visibility = 'hidden';
             
             // Atualizar slot correspondente
-            const slot = document.getElementById(`${type}-slot-word`);
-            slot.textContent = optionElement.textContent;
-            slot.classList.remove('empty');
-            slot.classList.add('filled');
-            
-            // Atualizar variáveis selecionadas
             if (type === 'article') {
-                selectedArticle = optionElement.textContent;
+                articleSlot.textContent = value;
+                articleSlot.classList.remove('empty');
+                articleSlot.classList.add('filled');
+                selectedArticle = value;
+                selectedOptions.article = element;
             } else if (type === 'clothes') {
-                selectedClothes = optionElement.textContent;
+                clothesSlotWord.textContent = value;
+                clothesSlotWord.classList.remove('empty');
+                clothesSlotWord.classList.add('filled');
+                selectedClothes = value;
+                selectedOptions.clothes = element;
             } else if (type === 'color') {
-                selectedColor = optionElement.textContent;
-            }
-            
-            // Verificar se todos os slots estão preenchidos
-            if (selectedArticle && selectedClothes && selectedColor) {
-                checkButton.disabled = false;
+                colorsSlotWord.textContent = value;
+                colorsSlotWord.classList.remove('empty');
+                colorsSlotWord.classList.add('filled');
+                selectedColor = value;
+                selectedOptions.color = element;
             }
         }
 
-        function returnOptionToSelection(optionText, type) {
-            const options = optionsContainer.querySelectorAll(`.option[data-type="${type}"]`);
+        function returnOptionToSelection(value, type) {
+            const options = optionsContainer.querySelectorAll('.option');
             for (let option of options) {
-                if (option.textContent === optionText && option.classList.contains('selected')) {
+                if (option.textContent === value && option.dataset.type === type) {
                     option.classList.remove('selected');
+                    option.style.visibility = 'visible';
                     break;
                 }
             }
         }
 
         function checkAnswer() {
-            if (!selectedArticle || !selectedClothes || !selectedColor) {
-                feedback.textContent = "Por favor, preencha todos os campos!";
-                feedback.className = "feedback incorrect";
-                playSound(errorSound);
-                return;
-            }
-            
             const currentClothes = clothes[currentClothesIndex];
             const currentColor = colors[currentColorsIndex];
             
-            // Verificar se o artigo está correto
-            const isArticleCorrect = selectedArticle === currentClothes.article;
-            
-            // Verificar se a roupa está correta
-            const isClothesCorrect = selectedClothes === currentClothes.name;
-            
-            // Verificar se a cor está correta
-            const isColorCorrect = selectedColor === currentColor.name;
-            
-            // Verificar se toda a frase está correta
-            const isCompletelyCorrect = isArticleCorrect && isClothesCorrect && isColorCorrect;
-            
-            // Atualizar contador de respostas corretas
-            if (isCompletelyCorrect) {
-                correctAnswers++;
-                playSound(positiveSound);
+            // Determinar a forma correta da cor
+            let correctColorForm = "";
+            if (currentColor.name === "beige" || currentColor.name === "marron" || currentColor.name === "orange") {
+                // Cores invariáveis
+                correctColorForm = currentColor.variations[0];
+                if (currentClothes.number === "p") {
+                    correctColorForm = currentColor.variations[1] || currentColor.variations[0];
+                }
             } else {
-                playSound(negativeSound);
+                // Cores que variam em gênero e número
+                const variationIndex = (currentClothes.gender === "m" ? 0 : 1) + (currentClothes.number === "s" ? 0 : 2);
+                correctColorForm = currentColor.variations[variationIndex];
             }
+            
+            // Verificar resposta
+            const isArticleCorrect = selectedArticle === currentClothes.article;
+            const isClothesCorrect = selectedClothes === currentClothes.name;
+            const isColorCorrect = selectedColor === correctColorForm;
+            const isCorrect = isArticleCorrect && isClothesCorrect && isColorCorrect;
             
             // Exibir feedback
-            if (isCompletelyCorrect) {
-                feedback.textContent = "Parfait! Correct!";
+            if (isCorrect) {
+                feedback.textContent = "CORRETO";
                 feedback.className = "feedback correct";
+                playSound(winSound);
+                correctAnswers++;
             } else {
-                feedback.textContent = "Ce n'est pas correct!";
+                feedback.textContent = "INCORRETO";
                 feedback.className = "feedback incorrect";
+                playSound(errorSound);
                 
                 // Mostrar resposta correta
-                const correctArticle = currentClothes.article;
-                const correctClothes = currentClothes.name;
-                const correctColor = currentColor.name;
-                
-                correctAnswer.textContent = `La bonne réponse est: ${correctArticle} ${correctClothes} ${correctColor}`;
+                const correctAnswerText = `${currentClothes.article} ${currentClothes.name} ${correctColorForm}`;
+                correctAnswer.textContent = `Resposta correta: ${correctAnswerText}`;
                 
                 // Mostrar tradução
-                const translatedArticle = translations[correctArticle] || correctArticle;
-                const translatedClothes = translations[correctClothes] || correctClothes;
-                const translatedColor = translations[correctColor] || correctColor;
-                
-                translation.textContent = `Traduction: ${translatedArticle} ${translatedClothes} ${translatedColor}`;
+                const colorTranslation = translations[currentColor.name] || currentColor.name;
+                const clothesTranslation = translations[currentClothes.name] || currentClothes.name;
+                translation.textContent = `Tradução: ${translations[currentClothes.article] || ""} ${clothesTranslation} ${colorTranslation}`;
             }
             
-            // Mudar para a fase de verificação
+            // Transformar o botão em "Girar Roleta Novamente"
+            checkButton.textContent = "Girar Roleta Novamente";
             isCheckingPhase = true;
-            spinButton.disabled = true;
-            checkButton.textContent = "Question Suivante";
-        }
-
-        function resetSelection() {
-            // Limpar slots de palavras
-            articleSlot.textContent = "";
-            articleSlot.classList.add('empty');
-            articleSlot.classList.remove('filled');
             
-            clothesSlotWord.textContent = "";
-            clothesSlotWord.classList.add('empty');
-            clothesSlotWord.classList.remove('filled');
-            
-            colorsSlotWord.textContent = "";
-            colorsSlotWord.classList.add('empty');
-            colorsSlotWord.classList.remove('filled');
-            
-            // Desselecionar opções
-            const selectedOptions = optionsContainer.querySelectorAll('.option.selected');
-            selectedOptions.forEach(option => {
-                option.classList.remove('selected');
-            });
-            
-            // Limpar variáveis selecionadas
-            selectedArticle = "";
-            selectedClothes = "";
-            selectedColor = "";
-            selectedOptions.article = null;
-            selectedOptions.clothes = null;
-            selectedOptions.color = null;
-            
-            // Limpar feedback
-            feedback.textContent = "";
-            feedback.className = "feedback";
-            correctAnswer.textContent = "";
-            translation.textContent = "";
-        }
-
-        function generateQuestion() {
-            resetSelection();
-            updateQuestionCounter();
-            updateProgressBar();
-            spinSlots();
+            // Salvar progresso
+            saveProgress();
         }
 
         function updateQuestionCounter() {
-            questionCounter.textContent = `Question ${currentQuestion + 1} de ${totalQuestions}`;
+            questionCounter.textContent = `Questão ${currentQuestion + 1} de ${totalQuestions}`;
         }
 
         function updateProgressBar() {
@@ -1203,45 +1270,57 @@
             gamePage.style.display = 'none';
             resultsPage.style.display = 'flex';
             
-            // Calcular pontuação
-            const score = (correctAnswers / totalQuestions) * 100;
+            const percentage = (correctAnswers / totalQuestions) * 100;
             
-            // Configurar resultados com base na pontuação
-            if (score >= 80) {
-                resultsTitle.textContent = "Félicitations!";
-                resultsText.textContent = `Vous avez obtenu ${correctAnswers} bonnes réponses sur ${totalQuestions}. Excellent travail! Continuez comme ça!`;
+            if (percentage >= 95) {
+                resultsTitle.textContent = "EXCELENTE";
+                resultsText.innerHTML = `Parabéns pelo seu desempenho excepcional! Você alcançou um resultado EXCELENTE, acertando ${correctAnswers} das ${totalQuestions} palavras no teste de francês! Isso demonstra um domínio impressionante das expressões e da ortografia francesa. Continue assim, pois seu esforço e dedicação são inspiradores! Este resultado reflete não apenas sua habilidade linguística, mas também sua atenção aos detalhes e compromisso em aprender. Que tal continuar explorando o idioma com o mesmo entusiasmo? A prática constante vai te levar ainda mais longe.`;
                 resultsMascot.src = "MASCOTEFELIZ.png";
-                resultsAudio.src = "VITORIA.mp3";
-            } else if (score >= 50) {
-                resultsTitle.textContent = "Pas mal!";
-                resultsText.textContent = `Vous avez obtenu ${correctAnswers} bonnes réponses sur ${totalQuestions}. Vous pouvez faire mieux! Continuez à pratiquer!`;
-                resultsMascot.src = "MASCOTENEUTRO.png";
-                resultsAudio.src = "MEDIO.mp3";
+                playSound(positiveSound);
+            } else if (percentage >= 75) {
+                resultsTitle.textContent = "PARABÉNS";
+                resultsText.innerHTML = `Parabéns pelo seu desempenho! Você obteve um BOM resultado, acertando ${correctAnswers} das ${totalQuestions} palavras no teste de francês! Isso mostra que você está no caminho certo, com uma sólida compreensão do idioma. Sua dedicação está valendo a pena, et chaque palavra certa é um passo rumo à fluência. Continue assim, brilhando no aprendizado do francês!`;
+                resultsMascot.src = "MASCOTEALEGRE.png";
+                playSound(positiveSound);
+            } else if (percentage >= 60) {
+                resultsTitle.textContent = "QUASE LÁ";
+                resultsText.innerHTML = `Você alcançou o nível SUFICIENTE, acertando ${correctAnswers} das ${totalQuestions} palavras no teste de francês! Isso indica um progresso notável, com uma boa base no idioma. Sua dedicação está clara, e você está muito próximo de resultados ainda melhores. Cada palavra escrita é um avanço no aprendizado do francês. Continue se empenhando, e logo verá seu desempenho crescer! Siga firme na jornada para dominar o idioma!`;
+                resultsMascot.src = "MASCOTEDUVIDA.png";
+                playSound(negativeSound);
             } else {
-                resultsTitle.textContent = "Essayez encore!";
-                resultsText.textContent = `Vous avez obtenu ${correctAnswers} bonnes réponses sur ${totalQuestions}. Ne vous découragez pas! Pratiquez un peu plus et vous vous améliorerez!`;
-                resultsMascot.src = "MASCOTETRISTE.png";
-                resultsAudio.src = "DERROTA.mp3";
+                resultsTitle.textContent = "NÃO FOI DESSA VEZ";
+                resultsText.innerHTML = `Você obteve o nível INSUFICIENTE, acertando ${correctAnswers} das ${totalQuestions} palavras no teste de francês. Não desanime! Cada tentativa é uma oportunidade de aprendizado, e você já deu o primeiro passo ao participar. O francês pode ser desafiador, mas com prática, você vai melhorar. Reforce as palavras e continue se dedicando. Sua persistência vai te levar mais longe na jornada do idioma!`;
+                resultsMascot.src = "MASCOTEDUVIDA.png";
+                playSound(negativeSound);
             }
-            
-            playSound(resultsAudio);
         }
 
-        function resetGame() {
-            currentQuestion = 0;
-            correctAnswers = 0;
-            usedClothesIndices = [];
-            isCheckingPhase = false;
-            resetSelection();
-            updateQuestionCounter();
-            updateProgressBar();
+        function saveProgress() {
+            const progress = {
+                currentQuestion: currentQuestion,
+                correctAnswers: correctAnswers,
+                totalQuestions: totalQuestions,
+                usedClothesIndices: usedClothesIndices
+            };
+            localStorage.setItem('quizProgress', JSON.stringify(progress));
+        }
+
+        function loadProgress() {
+            const savedProgress = localStorage.getItem('quizProgress');
+            if (savedProgress) {
+                const progress = JSON.parse(savedProgress);
+                currentQuestion = progress.currentQuestion || 0;
+                correctAnswers = progress.correctAnswers || 0;
+                totalQuestions = progress.totalQuestions || 20;
+                usedClothesIndices = progress.usedClothesIndices || [];
+                updateQuestionCounter();
+                updateProgressBar();
+            }
         }
 
         function playSound(soundElement) {
             soundElement.currentTime = 0;
-            soundElement.play().catch(e => {
-                console.log("Impossible de jouer le son:", e);
-            });
+            soundElement.play();
         }
 
         function shuffleArray(array) {
@@ -1251,6 +1330,9 @@
             }
             return array;
         }
+
+        // Carregar progresso salvo
+        loadProgress();
     </script>
 </body>
 </html>
