@@ -27,34 +27,6 @@
             --marrom-dourado: #6C4500;
             --magenta: #A7007B;
             --turquesa: #10C894;
-            
-            /* Variáveis para diferentes dispositivos */
-            --slot-height: 150px;
-            --slot-width: 45%;
-            --mascot-small-size: 80px;
-            --mascot-small-position: -30px;
-            --font-size-enunciado: 1rem;
-            --option-font-size: 0.9rem;
-        }
-        
-        /* Estilos para mobile */
-        .mobile-device {
-            --slot-height: 110px;
-            --slot-width: 95%;
-            --mascot-small-size: 60px;
-            --mascot-small-position: -20px;
-            --font-size-enunciado: 0.9rem;
-            --option-font-size: 0.8rem;
-        }
-        
-        /* Estilos para tablet */
-        .tablet-device {
-            --slot-height: 130px;
-            --slot-width: 90%;
-            --mascot-small-size: 70px;
-            --mascot-small-position: -25px;
-            --font-size-enunciado: 0.95rem;
-            --option-font-size: 0.85rem;
         }
         
         body {
@@ -160,9 +132,9 @@
         
         .mascot-small {
             position: absolute;
-            bottom: var(--mascot-small-position);
-            left: var(--mascot-small-position);
-            width: var(--mascot-small-size);
+            bottom: -30px;
+            left: -30px;
+            width: 80px;
             height: auto;
         }
         
@@ -181,7 +153,7 @@
         .enunciado p {
             font-family: 'Rockwell', serif;
             color: white;
-            font-size: var(--font-size-enunciado);
+            font-size: 1rem;
         }
         
         .slots-container {
@@ -192,8 +164,8 @@
         }
         
         .slot {
-            width: var(--slot-width);
-            height: var(--slot-height);
+            width: 45%;
+            height: 150px;
             background: white;
             border-radius: 10px;
             overflow: hidden;
@@ -209,7 +181,7 @@
         }
         
         .slot-item {
-            height: var(--slot-height);
+            height: 150px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -255,7 +227,7 @@
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.2s;
-            font-size: var(--option-font-size);
+            font-size: 0.9rem;
         }
         
         .option:hover {
@@ -442,56 +414,84 @@
             transform: scale(1.05);
         }
         
-        /* Responsividade adicional para mobile */
-        .mobile-device .slots-container {
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
+        /* Responsividade */
+        @media (max-width: 768px) {
+            #intro-video {
+                width: 90%;
+            }
+            
+            .slots-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .slot {
+                width: 90%;
+                height: 130px;
+            }
+            
+            .slot-item {
+                height: 130px;
+            }
+            
+            .enunciado p {
+                font-size: 0.9rem;
+            }
+            
+            .option {
+                font-size: 0.8rem;
+                padding: 6px 10px;
+            }
+            
+            .game-container {
+                padding: 15px;
+            }
+            
+            .mascot-small {
+                width: 60px;
+                bottom: -20px;
+                left: -20px;
+            }
+            
+            .logo {
+                width: 60px;
+                top: 15px;
+                left: 15px;
+            }
         }
         
-        .mobile-device .logo {
-            width: 60px;
-            top: 15px;
-            left: 15px;
-        }
-        
-        .mobile-device .game-container {
-            padding: 15px;
-        }
-        
-        .mobile-device .word-slot {
-            min-width: 60px;
-            font-size: 0.9rem;
-        }
-        
-        .mobile-device .results-container {
-            padding: 20px;
-        }
-        
-        .mobile-device .results-title {
-            font-size: 1.5rem;
-        }
-        
-        .mobile-device .start-button {
-            font-size: 1.2rem;
-            padding: 12px 30px;
-        }
-        
-        .mobile-device .mascot {
-            width: 150px;
-        }
-        
-        /* Responsividade adicional para tablet */
-        .tablet-device .slots-container {
-            flex-direction: row;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .tablet-device .logo {
-            width: 70px;
-            top: 17px;
-            left: 17px;
+        @media (max-width: 480px) {
+            .slot {
+                height: 110px;
+                width: 95%;
+            }
+            
+            .slot-item {
+                height: 110px;
+            }
+            
+            .results-container {
+                padding: 20px;
+            }
+            
+            .results-title {
+                font-size: 1.5rem;
+            }
+            
+            .start-button {
+                font-size: 1.2rem;
+                padding: 12px 30px;
+            }
+            
+            .mascot {
+                width: 150px;
+            }
+            
+            .word-slot {
+                min-width: 60px;
+                font-size: 0.9rem;
+            }
         }
         
         /* Animações */
@@ -524,7 +524,7 @@
         }
     </style>
 </head>
-<body class="${deviceType}">
+<body>
     <!-- Página de Introdução -->
     <div id="intro-page">
         <video id="intro-video" autoplay muted>
@@ -655,52 +655,52 @@
             { name: "violet", variations: ["violet", "violette", "violets", "violettes"], image: "violet.png" }
         ];
 
-        // Traduções para português
+        // Traduções para português com gênero correto
         const translations = {
-            "écharpe": "cachecol",
-            "bangue": "pulseira",
-            "botte": "bota",
-            "casquette": "boné",
-            "ceinture": "cinto",
-            "chaussure": "sapato",
-            "cravate": "gravata",
-            "jupe": "saia",
-            "montre": "relógio",
-            "robe": "vestido",
-            "sandale": "sandália",
-            "blouson": "jaqueta",
-            "bracelet": "pulseira",
-            "chapeau": "chapéu",
-            "collier": "colar",
-            "haut": "blusa",
-            "manteau": "casaco",
-            "pantalon": "calça",
-            "parapluie": "guarda-chuva",
-            "sac": "bolsa",
-            "short": "short",
-            "t-shirt": "camiseta",
-            "tong": "chinelo",
-            "boucles d'oreille": "brincos",
-            "chaussettes": "meias",
-            "gants": "luvas",
-            "lunettes": "óculos",
-            "beige": "bege",
-            "blanc": "branco",
-            "bleu clair": "azul claro",
-            "bleu marine": "azul marinho",
-            "bleu": "azul",
-            "gris": "cinza",
-            "jaune": "amarelo",
-            "marron": "marrom",
-            "noir": "preto",
-            "orange": "laranja",
-            "rose": "rosa",
-            "rouge": "vermelho",
-            "vert": "verde",
-            "violet": "violeta",
-            "une": "uma",
-            "un": "um",
-            "des": "uns/umas"
+            "écharpe": { word: "cachecol", gender: "f" },
+            "bangue": { word: "pulseira", gender: "f" },
+            "botte": { word: "bota", gender: "f" },
+            "casquette": { word: "boné", gender: "m" },
+            "ceinture": { word: "cinto", gender: "m" },
+            "chaussure": { word: "sapato", gender: "m" },
+            "cravate": { word: "gravata", gender: "f" },
+            "jupe": { word: "saia", gender: "f" },
+            "montre": { word: "relógio", gender: "m" },
+            "robe": { word: "vestido", gender: "m" },
+            "sandale": { word: "sandália", gender: "f" },
+            "blouson": { word: "jaqueta", gender: "f" },
+            "bracelet": { word: "pulseira", gender: "f" },
+            "chapeau": { word: "chapéu", gender: "m" },
+            "collier": { word: "colar", gender: "m" },
+            "haut": { word: "blusa", gender: "f" },
+            "manteau": { word: "casaco", gender: "m" },
+            "pantalon": { word: "calça", gender: "f" },
+            "parapluie": { word: "guarda-chuva", gender: "m" },
+            "sac": { word: "bolsa", gender: "f" },
+            "short": { word: "short", gender: "m" },
+            "t-shirt": { word: "camiseta", gender: "f" },
+            "tong": { word: "chinelo", gender: "m" },
+            "boucles d'oreille": { word: "brincos", gender: "m", plural: true },
+            "chaussettes": { word: "meias", gender: "f", plural: true },
+            "gants": { word: "luvas", gender: "f", plural: true },
+            "lunettes": { word: "óculos", gender: "m", plural: true },
+            "beige": { word: "bege", gender: "m" },
+            "blanc": { word: "branco", gender: "m" },
+            "bleu clair": { word: "azul claro", gender: "m" },
+            "bleu marine": { word: "azul marinho", gender: "m" },
+            "bleu": { word: "azul", gender: "m" },
+            "gris": { word: "cinza", gender: "m" },
+            "jaune": { word: "amarelo", gender: "m" },
+            "marron": { word: "marrom", gender: "m" },
+            "noir": { word: "preto", gender: "m" },
+            "orange": { word: "laranja", gender: "m" },
+            "rose": { word: "rosa", gender: "m" },
+            "rouge": { word: "vermelho", gender: "m" },
+            "vert": { word: "verde", gender: "m" },
+            "violet": { word: "violeta", gender: "m" },
+            "une": { word: "uma", gender: "f" },
+            "un": { word: "um", gender: "m" },
+            "des": { word: "uns/umas", gender: "m/f" }
         };
 
         // Variáveis do jogo
@@ -754,9 +754,6 @@
 
         // Inicialização
         document.addEventListener('DOMContentLoaded', function() {
-            // Ajustar variáveis CSS baseadas no tipo de dispositivo
-            adjustForDevice();
-            
             // Preencher os slots com imagens
             fillSlots();
             
@@ -854,22 +851,6 @@
             });
         });
 
-        // Função para ajustar o layout baseado no dispositivo
-        function adjustForDevice() {
-            const deviceType = document.body.className;
-            
-            if (deviceType === 'mobile') {
-                // Ajustes específicos para mobile
-                document.querySelector('.slots-container').style.flexDirection = 'column';
-                document.querySelector('.logo').style.width = '60px';
-                document.querySelector('.game-container').style.padding = '15px';
-            } else if (deviceType === 'tablet') {
-                // Ajustes específicos para tablet
-                document.querySelector('.logo').style.width = '70px';
-            }
-            // Para desktop, manter o layout original
-        }
-
         // Funções do jogo
         function fillSlots() {
             // Preencher slot de roupas
@@ -962,9 +943,8 @@
             const randomColorsIndex = Math.floor(Math.random() * colors.length);
             
             // Calcular posições para os slots
-            const slotHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--slot-height').replace('px', ''));
-            const clothesPosition = -randomClothesIndex * slotHeight;
-            const colorsPosition = -randomColorsIndex * slotHeight;
+            const clothesPosition = -randomClothesIndex * 150;
+            const colorsPosition = -randomColorsIndex * 150;
             
             // Aplicar animação aos slots
             clothesSlotInner.style.transition = 'top 4s cubic-bezier(0.17, 0.67, 0.83, 0.67)';
@@ -1018,9 +998,8 @@
                 clothesSlotInner.style.transition = 'none';
                 colorsSlotInner.style.transition = 'none';
                 
-                const slotHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--slot-height').replace('px', ''));
-                clothesSlotInner.style.top = (-randomClothesIndex * slotHeight) + 'px';
-                colorsSlotInner.style.top = (-randomColorsIndex * slotHeight) + 'px';
+                clothesSlotInner.style.top = (-randomClothesIndex * 150) + 'px';
+                colorsSlotInner.style.top = (-randomColorsIndex * 150) + 'px';
                 
                 currentClothesIndex = randomClothesIndex;
                 currentColorsIndex = randomColorsIndex;
@@ -1143,7 +1122,7 @@
         function selectOption(element, type, value) {
             playSound(buttonSound);
             
-            // Verificar se já existe uma seleção deste tipo
+            // Verificar if já existe uma seleção deste tipo
             if (type === 'article' && selectedOptions.article) {
                 returnOptionToSelection(selectedArticle, 'article');
                 selectedArticle = "";
@@ -1243,10 +1222,9 @@
                 const correctAnswerText = `${currentClothes.article} ${currentClothes.name} ${correctColorForm}`;
                 correctAnswer.textContent = `Resposta correta: ${correctAnswerText}`;
                 
-                // Mostrar tradução
-                const colorTranslation = translations[currentColor.name] || currentColor.name;
-                const clothesTranslation = translations[currentClothes.name] || currentClothes.name;
-                translation.textContent = `Tradução: ${translations[currentClothes.article] || ""} ${clothesTranslation} ${colorTranslation}`;
+                // Mostrar tradução correta com gênero apropriado
+                const translatedText = getCorrectTranslation(currentClothes, currentColor, correctColorForm);
+                translation.textContent = `Tradução: ${translatedText}`;
             }
             
             // Transformar o botão em "Girar Roleta Novamente"
@@ -1255,6 +1233,53 @@
             
             // Salvar progresso
             saveProgress();
+        }
+
+        // Função para obter a tradução correta com gênero apropriado
+        function getCorrectTranslation(clothesItem, colorItem, colorForm) {
+            const clothesTranslation = translations[clothesItem.name];
+            const colorTranslation = translations[colorItem.name];
+            
+            // Determinar o artigo correto em português
+            let articlePT = "";
+            if (clothesItem.article === "un") {
+                articlePT = clothesTranslation.gender === "f" ? "uma" : "um";
+            } else if (clothesItem.article === "une") {
+                articlePT = clothesTranslation.gender === "f" ? "uma" : "um";
+            } else {
+                articlePT = clothesTranslation.gender === "f" ? "umas" : "uns";
+            }
+            
+            // Ajustar a cor para o gênero correto em português se necessário
+            let colorPT = colorTranslation.word;
+            
+            // Casos especiais onde a cor precisa concordar com o gênero da roupa
+            if (colorItem.name === "blanc" && clothesTranslation.gender === "f") {
+                colorPT = "branca";
+            } else if (colorItem.name === "noir" && clothesTranslation.gender === "f") {
+                colorPT = "preta";
+            } else if (colorItem.name === "vert" && clothesTranslation.gender === "f") {
+                colorPT = "verde";
+            } else if (colorItem.name === "violet" && clothesTranslation.gender === "f") {
+                colorPT = "violeta";
+            } else if (colorItem.name === "bleu" && clothesTranslation.gender === "f") {
+                colorPT = "azul";
+            }
+            
+            // Se for plural, ajustar a cor se necessário
+            if (clothesItem.number === "p") {
+                if (colorItem.name === "blanc") {
+                    colorPT = clothesTranslation.gender === "f" ? "brancas" : "brancos";
+                } else if (colorItem.name === "noir") {
+                    colorPT = clothesTranslation.gender === "f" ? "pretas" : "pretos";
+                } else if (colorItem.name === "vert") {
+                    colorPT = clothesTranslation.gender === "f" ? "verdes" : "verdes";
+                } else if (colorItem.name === "violet") {
+                    colorPT = clothesTranslation.gender === "f" ? "violetas" : "violetas";
+                }
+            }
+            
+            return `${articlePT} ${clothesTranslation.word} ${colorPT}`;
         }
 
         function updateQuestionCounter() {
@@ -1279,7 +1304,7 @@
                 playSound(positiveSound);
             } else if (percentage >= 75) {
                 resultsTitle.textContent = "PARABÉNS";
-                resultsText.innerHTML = `Parabéns pelo seu desempenho! Você obteve um BOM resultado, acertando ${correctAnswers} das ${totalQuestions} palavras no teste de francês! Isso mostra que você está no caminho certo, com uma sólida compreensão do idioma. Sua dedicação está valendo a pena, et chaque palavra certa é um passo rumo à fluência. Continue assim, brilhando no aprendizado do francês!`;
+                resultsText.innerHTML = `Parabéns pelo seu desempenho! Você obteve um BOM resultado, acertando ${correctAnswers} das ${totalQuestions} palavras no teste de francês! Isso mostra que você está no caminho certo, com uma sólida compreensão do idioma. Sua dedicação está valendo a pena, e cada palavra certa é um passo rumo à fluência. Continue assim, brilhando no aprendizado do francês!`;
                 resultsMascot.src = "MASCOTEALEGRE.png";
                 playSound(positiveSound);
             } else if (percentage >= 60) {
@@ -1289,7 +1314,7 @@
                 playSound(negativeSound);
             } else {
                 resultsTitle.textContent = "NÃO FOI DESSA VEZ";
-                resultsText.innerHTML = `Você obteve o nível INSUFICIENTE, acertando ${correctAnswers} das ${totalQuestions} palavras no teste de francês. Não desanime! Cada tentativa é uma oportunidade de aprendizado, e você já deu o primeiro passo ao participar. O francês pode ser desafiador, mas com prática, você vai melhorar. Reforce as palavras e continue se dedicando. Sua persistência vai te levar mais longe na jornada do idioma!`;
+                resultsText.innerHTML = `Você obteve o nível INSUFICIENTE, acertando ${correctAnswers} das ${totalQuestions} palavras no teste de francês. Não desanime! Cada tentativa é uma oportunidade de aprendizado, e você já deu o primeiro passo ao participar. O francês pode be desafiador, mas com prática, você vai melhorar. Reforce as palavras e continue se dedicando. Sua persistência vai te levar mais longe na jornada do idioma!`;
                 resultsMascot.src = "MASCOTEDUVIDA.png";
                 playSound(negativeSound);
             }
